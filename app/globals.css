@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+body {
+  background: #ffffff;
+  color: #111111;
+  font-family: var(--font-body), sans-serif;
+}
+
+::selection { background: #111111; color: #ffffff; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f7f7f5; }
+::-webkit-scrollbar-thumb { background: #d0d0cc; border-radius: 3px; }
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Hide scrollbar on testimonial track */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Ticker pause on hover */
+.ticker-wrap:hover .ticker-inner { animation-play-state: paused; }
