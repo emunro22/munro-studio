@@ -9,53 +9,48 @@ export function Pricing() {
         <p className="reveal text-xs font-medium text-white/40 tracking-widest uppercase mb-4">
           Pricing
         </p>
-        <h2 className="reveal font-display text-4xl md:text-6xl font-black text-white leading-tight mb-16">
-          Simple, honest
+        <h2 className="reveal font-display text-4xl md:text-6xl font-black text-white leading-tight mb-6">
+          £55 a month.
           <br />
-          <em className="italic text-white/50">pricing.</em>
+          <em className="italic text-white/50">That's it.</em>
         </h2>
+        <p className="reveal text-base text-white/50 font-light leading-relaxed mb-16 max-w-xl">
+          No setup fee. No hidden costs. No annual contract. Just one simple monthly payment that covers everything — design, build, hosting, and ongoing support.
+        </p>
 
-        <div className="reveal grid md:grid-cols-2 gap-6 max-w-3xl">
-          <div className="border border-white/10 rounded-2xl p-8 md:p-10 bg-white/5">
-            <p className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-6">One-off Setup</p>
-            <div className="flex items-baseline gap-1 mb-3">
-              <span className="font-display text-6xl font-black text-white leading-none">£500</span>
+        <div className="reveal max-w-3xl">
+          <div className="border border-highlight/30 rounded-2xl p-8 md:p-12 bg-highlight/5">
+            <p className="text-xs font-semibold uppercase tracking-widest text-highlight/60 mb-6">Everything Included</p>
+            <div className="flex items-baseline gap-2 mb-2">
+              <span className="font-display text-7xl font-black text-white leading-none">£55</span>
+              <span className="text-white/40 text-lg">/month</span>
             </div>
-            <p className="text-sm text-white/50 mb-8 font-light leading-relaxed">
-              Paid once. Your site is designed, built and live. Everything included — no hidden costs, no nasty surprises.
-            </p>
-            <ul className="space-y-3">
-              {["Custom design for your trade","Mobile-first & fast loading","SEO setup from day one","Contact & quote request form","Google Maps integration","1 round of revisions"].map((f) => (
-                <li key={f} className="flex items-center gap-3 text-sm text-white/70">
-                  <span className="text-green-400 flex-shrink-0">✓</span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-          </div>
+            <p className="text-sm text-white/40 mb-10 font-light">Cancel any time. No tie-ins.</p>
 
-          <div className="border border-highlight/30 rounded-2xl p-8 md:p-10 bg-highlight/5">
-            <p className="text-xs font-semibold uppercase tracking-widest text-highlight/60 mb-6">Annual Retainer</p>
-            <div className="flex items-baseline gap-1 mb-3">
-              <span className="font-display text-6xl font-black text-white leading-none">£150</span>
-              <span className="text-white/40 text-sm">/year</span>
-            </div>
-            <p className="text-sm text-white/50 mb-8 font-light leading-relaxed">
-              After your first year, keep everything running smoothly. We handle all the maintenance so you can focus on the job.
-            </p>
-            <ul className="space-y-3">
-              {["Hosting & domain renewal","Security & software updates","Up to 2hrs content changes/year","Priority email support","Performance monitoring","Cancel any time"].map((f) => (
-                <li key={f} className="flex items-center gap-3 text-sm text-white/70">
+            <div className="grid sm:grid-cols-2 gap-x-10 gap-y-3">
+              {[
+                "Custom design for your trade",
+                "Mobile-first & fast loading",
+                "Local SEO optimised from day one",
+                "Contact & quote request form",
+                "Google Maps integration",
+                "Hosting & domain included",
+                "Security & software updates",
+                "Ongoing content changes",
+                "Priority email support",
+                "Performance monitoring",
+              ].map((f) => (
+                <div key={f} className="flex items-center gap-3 text-sm text-white/70">
                   <span className="text-highlight flex-shrink-0">✓</span>
                   {f}
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
 
         <p className="reveal mt-8 text-xs text-white/30 font-light">
-          That's it. No monthly fees during year one. No upsells. No surprises.
+          No setup fee. No annual contract. No upsells. Just £55/month — cancel whenever you like.
         </p>
       </div>
     </section>
@@ -152,10 +147,11 @@ export function Referral() {
 const faqs = [
   { q: "How long does it take to build my website?", a: "Most tradesman sites are live within 2–3 weeks from the day we kick off. I'll keep you updated throughout." },
   { q: "What do I need to provide?", a: "Just your logo (if you have one), a few photos of your work, and your contact details. I handle everything else." },
-  { q: "What does the £150/year retainer cover?", a: "Hosting, domain renewal, security updates, and up to 2 hours of content changes per year — like updating prices, adding new photos, or changing contact info." },
+  { q: "What does the £55/month include?", a: "Everything — custom design, build, hosting, domain, security updates, ongoing content changes, and priority support. There's no setup fee and no hidden extras. Just £55 a month, cancel any time." },
   { q: "Will my site show up on Google?", a: "Yes. Every site I build is optimised for local SEO from day one — that means your business will appear in local searches relevant to your trade and location." },
   { q: "Do I need any technical knowledge?", a: "None at all. I take care of everything from design to going live. You just review and approve." },
   { q: "Can I see examples of your work?", a: "Absolutely. You can view the full portfolio at munro-studio.vercel.app — 20+ real client sites across the UK." },
+  { q: "Is there a contract or minimum term?", a: "No tie-ins, no minimum term. You can cancel any time — though most clients stay because the leads keep coming in." },
 ];
 
 function FAQItem({ q, a }) {
