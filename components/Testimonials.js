@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 const testimonials = [
 {
-    name: "David Munro",
+    name: "William Cassidy",
     role: "Founder, SRL Recovery",
     quote: "Working with Euan was effortless from start to finish. He quickly understood our goals and delivered a fast, scalable solution that exceeded our expectations.",
     initials: "DM",
