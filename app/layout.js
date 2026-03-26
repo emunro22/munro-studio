@@ -18,6 +18,9 @@ const body = DM_Sans({
 export const metadata = {
   title: "MunroStudio — Web Design & Development",
   description: "Premium web design & development. 20+ clients. Started at 20.",
+  icons: {
+    icon: "/favicon.ico",
+  }
 };
 
 export default function RootLayout({ children }) {
