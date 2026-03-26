@@ -1,94 +1,40 @@
-"use client";
-import { useEffect, useRef } from "react";
-
-const services = [
-  {
-    no: "01",
-    title: "Web Design",
-    desc: "Pixel-perfect, purpose-built interfaces. Every layout, colour, and interaction considered for your users.",
-    tags: ["Figma", "UI Design", "Prototyping", "Wireframing"],
-  },
-  {
-    no: "02",
-    title: "Development",
-    desc: "Clean, performant code in modern frameworks. Fast-loading, accessible, and built to scale.",
-    tags: ["Next.js", "React", "Tailwind CSS", "CMS"],
-  },
-  {
-    no: "03",
-    title: "Brand Identity",
-    desc: "Logo, colour system, typography — a cohesive visual identity that makes you instantly recognisable.",
-    tags: ["Logo Design", "Colour Systems", "Typography", "Guidelines"],
-  },
-  {
-    no: "04",
-    title: "Conversion Optimisation",
-    desc: "Design backed by strategy. Pages engineered to turn visitors into customers.",
-    tags: ["CRO", "Landing Pages", "A/B Testing", "Analytics"],
-  },
-];
-
 export default function Services() {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const els = ref.current?.querySelectorAll(".reveal");
-    const obs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")),
-      { threshold: 0.1 }
-    );
-    els?.forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
-  }, []);
-
   return (
-    <section id="services" ref={ref} className="py-24 md:py-36 px-6 md:px-10">
+    <section className="py-24 md:py-36 px-6 md:px-10 bg-surface">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="reveal flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-16">
-          <div>
-            <p className="text-xs font-medium text-ink-faint tracking-widest uppercase mb-3">
-              What I offer
+        <p className="reveal text-xs font-medium text-ink-faint tracking-widest uppercase mb-12">
+          The problem
+        </p>
+        <div className="reveal grid md:grid-cols-2 gap-12 md:gap-24 mb-16">
+          <h2 className="font-display text-4xl md:text-6xl font-black text-ink leading-tight">
+            Your competitors
+            <br />
+            <em className="italic">are already online.</em>
+          </h2>
+          <div className="flex flex-col justify-center gap-4 text-ink-soft text-base leading-relaxed font-light">
+            <p>
+              When a homeowner needs a plumber or electrician, their first move is
+              Google. If you're not there,{" "}
+              <span className="text-ink font-medium">you don't exist to them.</span>
             </p>
-            <h2 className="font-display text-4xl md:text-6xl font-black text-ink leading-tight">
-              Services
-            </h2>
+            <p>
+              A professional website builds instant trust, shows off your work, and
+              lets customers contact you directly — 24/7, even while you're on a job.
+            </p>
+            <p>Most tradespeople don't have a proper website. That's your advantage.</p>
           </div>
-          <p className="text-sm text-ink-soft max-w-xs leading-relaxed">
-            Everything you need to establish a world-class web presence — under one roof.
-          </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
-          {services.map((s, i) => (
-            <div
-              key={s.no}
-              className="reveal bg-white p-8 group hover:bg-surface transition-colors duration-300"
-              style={{ transitionDelay: `${i * 60}ms` }}
-            >
-              <div className="flex items-start justify-between mb-8">
-                <span className="font-display text-4xl font-black text-border group-hover:text-surface-2 transition-colors duration-300">
-                  {s.no}
-                </span>
-                <span className="text-lg text-ink-faint group-hover:text-highlight group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 inline-block">
-                  ↗
-                </span>
-              </div>
-
-              <h3 className="font-display text-xl font-bold text-ink mb-3">{s.title}</h3>
-              <p className="text-sm text-ink-soft leading-relaxed mb-6">{s.desc}</p>
-
-              <div className="flex flex-wrap gap-1.5">
-                {s.tags.map((t) => (
-                  <span
-                    key={t}
-                    className="text-[11px] font-medium bg-surface text-ink-faint px-2.5 py-1 rounded-full"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
+        <div className="reveal grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden mt-10">
+          {[
+            { before: "Relying on word of mouth only", after: "Get found by new customers on Google" },
+            { before: "Losing jobs to competitors with websites", after: "Stand out as the professional choice" },
+            { before: "No way to show off your work", after: "Gallery of past jobs builds instant trust" },
+            { before: "Customers can't reach you easily", after: "Quote requests in your inbox 24/7" },
+          ].map(({ before, after }, i) => (
+            <div key={i} className="bg-white p-8 group hover:bg-surface transition-colors duration-200">
+              <p className="text-xs text-ink-faint line-through mb-3 font-light">{before}</p>
+              <p className="text-sm font-medium text-ink leading-snug">{after}</p>
             </div>
           ))}
         </div>

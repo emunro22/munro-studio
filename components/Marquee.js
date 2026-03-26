@@ -1,25 +1,32 @@
-const items = [
-  "Web Design",
-  "Development",
-  "Branding",
-  "UI & UX",
-  "Landing Pages",
-  "E-Commerce",
-  "SEO-Ready Builds",
+const trades = [
+  "Plumbers", "Electricians", "Builders", "Decorators",
+  "Roofers", "Landscapers", "Plasterers", "Carpenters",
+  "Gas Engineers", "HVAC Engineers", "Tilers", "Joiners",
 ];
 
 export default function Marquee() {
-  const doubled = [...items, ...items];
   return (
-    <div className="border-y border-border bg-surface overflow-hidden py-4 ticker-wrap">
-      <div className="flex whitespace-nowrap ticker-inner animate-ticker">
-        {doubled.map((item, i) => (
-          <span key={i} className="inline-flex items-center gap-6 mx-8 text-sm font-medium text-ink-soft">
-            <span className="w-1 h-1 rounded-full bg-ink-faint flex-shrink-0" />
-            {item}
+    <div className="bg-ink py-4 overflow-hidden">
+      <div
+        className="flex gap-12 whitespace-nowrap"
+        style={{ animation: "marquee 18s linear infinite", width: "max-content" }}
+      >
+        {[...trades, ...trades].map((t, i) => (
+          <span
+            key={i}
+            className="text-xs font-semibold uppercase tracking-widest text-white/50 flex items-center gap-3"
+          >
+            <span className="text-highlight text-[8px]">◆</span>
+            {t}
           </span>
         ))}
       </div>
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
     </div>
   );
 }
