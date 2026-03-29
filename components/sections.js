@@ -150,7 +150,7 @@ const faqs = [
   { q: "What does the £55/month include?", a: "Everything — custom design, build, hosting, domain, security updates, ongoing content changes, and priority support. There's no setup fee and no hidden extras. Just £55 a month, cancel any time." },
   { q: "Will my site show up on Google?", a: "Yes. Every site I build is optimised for local SEO from day one — that means your business will appear in local searches relevant to your trade and location." },
   { q: "Do I need any technical knowledge?", a: "None at all. I take care of everything from design to going live. You just review and approve." },
-  { q: "Can I see examples of your work?", a: "Absolutely. You can view the full portfolio at munro-studio.vercel.app — 20+ real client sites across the UK." },
+  { q: "Can I see examples of your work?", a: "Absolutely. You can view the full portfolio at munrostudio.co.uk — 20+ real client sites across the UK." },
   { q: "Is there a contract or minimum term?", a: "No tie-ins, no minimum term. You can cancel any time — though most clients stay because the leads keep coming in." },
 ];
 
