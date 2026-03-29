@@ -22,7 +22,11 @@ export default function Contact() {
         body: JSON.stringify(data),
       });
       const json = await res.json();
-      setFormState(json.success ? "success" : "error");
+      if (json.success) {
+        window.location.href = "/thank-you";
+      } else {
+        setFormState("error");
+      }
     } catch {
       setFormState("error");
     }
