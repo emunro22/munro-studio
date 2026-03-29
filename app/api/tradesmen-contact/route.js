@@ -57,7 +57,7 @@ export async function POST(req) {
     </td></tr></table>
     <hr style="border:none;border-top:1px solid #e5e7eb;margin:36px 0;" />
     <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-      <td><p style="margin:0;font-family:Arial,sans-serif;font-size:11px;color:#9ca3af;line-height:1.6;">© 2025 MunroStudio · Professional websites for UK tradespeople<br/>£55/month · No setup fee · Cancel any time</p></td>
+      <td><p style="margin:0;font-family:Arial,sans-serif;font-size:11px;color:#9ca3af;line-height:1.6;">© 2026 MunroStudio · Professional websites for UK tradespeople<br/>£55/month · No setup fee · Cancel any time</p></td>
       <td align="right" valign="top"><span style="font-family:Georgia,serif;font-size:14px;font-weight:700;color:#d1d5db;">Munro<em style="color:#93c5fd;font-style:italic;">Studio</em></span></td>
     </tr></table>
   </td></tr>

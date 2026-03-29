@@ -437,7 +437,7 @@ export default function ThankYou() {
 
         <footer className={`footer ${visible ? "visible" : ""}`}>
           <p className="footer-text">
-            © 2025 MunroStudio · Professional websites for UK tradespeople<br />
+            © 2026 MunroStudio · Professional websites for UK tradespeople<br />
             £55/month · No setup fee · Cancel any time
           </p>
           <span className="footer-logo">Munro<em>Studio</em></span>
