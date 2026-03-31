@@ -18,6 +18,14 @@ const testimonials = [
     color: "#F59E0B",
     logo: "/cg-groundcare-logo.png",
   },
+    {
+    name: "Shawaiz Khan",
+    role: "Co Founder, GTown Kettles",
+    quote: "Professional, knowledgeable, and easy to work with, Euan handled everything from start to finish and delivered a website that exceeded expectations.",
+    initials: "SK",
+    color: "#F59E0B",
+    logo: "/gtownkettles-logo.png",
+  },
   {
     name: "Samantha Hamilton",
     role: "Founder, Root & Fuel",
@@ -41,6 +49,14 @@ const testimonials = [
     initials: "DXC",
     color: "#0057FF",
     logo: "/dxc-logo.png",
+  },
+    {
+    name: "Michael McCourt",
+    role: "Training Advantage Group",
+    quote: "If you’re looking for someone who knows both design and development inside out, Euan is the one. The quality of his work speaks for itself.",
+    initials: "MMcC",
+    color: "#0057FF",
+    logo: "/trainingadvantagegroup-logo.png",
   },
     {
     name: "Colin Neil",
