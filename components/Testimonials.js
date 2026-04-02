@@ -66,6 +66,15 @@ const testimonials = [
     color: "#0057FF",
     logo: "/clyde-valley-group-logo.png",
   },
+      {
+    name: "Chris Presavage",
+    role: "Founder, Clyde Media Walls",
+    quote: "From day one, Euan was responsive and reliable. His technical skills and problem-solving ability made the whole process smooth and stress-free.",
+    initials: "CP",
+    color: "#0057FF",
+    logo: "/clyde-media-walls-logo.png",
+  },
+
 
 ];
 
