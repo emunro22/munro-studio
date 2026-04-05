@@ -3,79 +3,86 @@ import { useEffect, useRef, useState } from "react";
 
 const testimonials = [
 {
-    name: "William Cassidy",
-    role: "Founder, SRL Recovery",
-    quote: "Working with Euan was effortless from start to finish. He quickly understood our goals and delivered a fast, scalable solution that exceeded our expectations.",
-    initials: "DM",
-    color: "#111111",
-    logo: "/srl-recovery-logo.png",
-  },
-  {
-    name: "Cameron",
-    role: "Founder, CG Groundcare",
-    quote: "Euan transformed our outdated site into a modern, accessible platform. Our team and customers love the new interface and ease of use.",
-    initials: "C",
-    color: "#F59E0B",
-    logo: "/cg-groundcare-logo.png",
-  },
-    {
-    name: "Shawaiz Khan",
-    role: "Co Founder, GTown Kettles",
-    quote: "Professional, knowledgeable, and easy to work with, Euan handled everything from start to finish and delivered a website that exceeded expectations.",
-    initials: "SK",
-    color: "#F59E0B",
-    logo: "/gtownkettles-logo.png",
-  },
-  {
-    name: "Samantha Hamilton",
-    role: "Founder, Root & Fuel",
-    quote: "Euan captured our brand's essence perfectly. The new site isn't just beautiful; it's a powerful tool that has streamlined our customer bookings and fueled our growth.",
-    initials: "SH",
-    color: "#0057FF",
-    logo: "/root-fuel-logo.png",
-  },
-  {
-    name: "Rhys Duncan",
-    role: "Owner, Renovate Design",
-    quote: "As a design-led business, we have incredibly high standards. Euan delivered a sleek, high-performance site that perfectly reflects our own attention to detail.",
-    initials: "RD",
-    color: "#0057FF",
-    logo: "/renovate-design-logo.png",
-  },
-  {
-    name: "DXC Technology",
-    role: "Technology Company",
-    quote: "Euan provided exceptional technical expertise. He handled complex integrations with ease, resulting in a robust, enterprise-ready platform that performs flawlessly.",
-    initials: "DXC",
-    color: "#0057FF",
-    logo: "/dxc-logo.png",
-  },
-    {
-    name: "Michael McCourt",
-    role: "Training Advantage Group",
-    quote: "If you’re looking for someone who knows both design and development inside out, Euan is the one. The quality of his work speaks for itself.",
-    initials: "MMcC",
-    color: "#0057FF",
-    logo: "/trainingadvantagegroup-logo.png",
-  },
-    {
-    name: "Colin Neil",
-    role: "Founder, Clyde Valley Group",
-    quote: "Euan’s technical knowledge is second to none. He built a fast, secure platform that not only works flawlessly but is also easy to maintain and expand.",
-    initials: "CN",
-    color: "#0057FF",
-    logo: "/clyde-valley-group-logo.png",
-  },
-      {
-    name: "Chris Presavage",
-    role: "Founder, Clyde Media Walls",
-    quote: "From day one, Euan was responsive and reliable. His technical skills and problem-solving ability made the whole process smooth and stress-free.",
-    initials: "CP",
-    color: "#0057FF",
-    logo: "/clyde-media-walls-logo.png",
-  },
-
-
+  name: "William Cassidy",
+  role: "Founder, SRL Recovery",
+  quote: "Working with Euan was effortless from start to finish. He quickly understood our goals and delivered a fast, scalable solution that exceeded our expectations.",
+  initials: "DM",
+  color: "#111111",
+  logo: "/srl-recovery-logo.png",
+  website: "https://srlrecovery.com",
+},
+{
+  name: "Cameron",
+  role: "Founder, CG Groundcare",
+  quote: "Euan transformed our outdated site into a modern, accessible platform. Our team and customers love the new interface and ease of use.",
+  initials: "C",
+  color: "#F59E0B",
+  logo: "/cg-groundcare-logo.png",
+  website: "https://cg-groundcare.co.uk",
+},
+{
+  name: "Shawaiz Khan",
+  role: "Co Founder, GTown Kettles",
+  quote: "Professional, knowledgeable, and easy to work with, Euan handled everything from start to finish and delivered a website that exceeded expectations.",
+  initials: "SK",
+  color: "#F59E0B",
+  logo: "/gtownkettles-logo.png",
+  website: "https://gtownkettles.com",
+},
+{
+  name: "Samantha Hamilton",
+  role: "Founder, Root & Fuel",
+  quote: "Euan captured our brand's essence perfectly. The new site isn't just beautiful; it's a powerful tool that has streamlined our customer bookings and fueled our growth.",
+  initials: "SH",
+  color: "#0057FF",
+  logo: "/root-fuel-logo.png",
+  website: "https://rootandfuelltd.com",
+},
+{
+  name: "Rhys Duncan",
+  role: "Owner, Renovate Design",
+  quote: "As a design-led business, we have incredibly high standards. Euan delivered a sleek, high-performance site that perfectly reflects our own attention to detail.",
+  initials: "RD",
+  color: "#0057FF",
+  logo: "/renovate-design-logo.png",
+  website: "https://renovatedesign.co.uk",
+},
+{
+  name: "DXC Technology",
+  role: "Technology Company",
+  quote: "Euan provided exceptional technical expertise. He handled complex integrations with ease, resulting in a robust, enterprise-ready platform that performs flawlessly.",
+  initials: "DXC",
+  color: "#0057FF",
+  logo: "/dxc-logo.png",
+  website: "https://example.com",
+},
+{
+  name: "Michael McCourt",
+  role: "Training Advantage Group",
+  quote: "If you’re looking for someone who knows both design and development inside out, Euan is the one. The quality of his work speaks for itself.",
+  initials: "MMcC",
+  color: "#0057FF",
+  logo: "/trainingadvantagegroup-logo.png",
+  website: "https://dxc.com",
+},
+{
+  name: "Colin Neil",
+  role: "Founder, Clyde Valley Group",
+  quote: "Euan’s technical knowledge is second to none. He built a fast, secure platform that not only works flawlessly but is also easy to maintain and expand.",
+  initials: "CN",
+  color: "#0057FF",
+  logo: "/clyde-valley-group-logo.png",
+  website: "https://clydevalleygroup.com",
+},
+{
+  name: "Chris Presavage",
+  role: "Founder, Clyde Media Walls",
+  quote: "From day one, Euan was responsive and reliable. His technical skills and problem-solving ability made the whole process smooth and stress-free.",
+  initials: "CP",
+  color: "#0057FF",
+  logo: "/clyde-media-walls-logo.png",
+  website: "https://www.clydemediawalls.co.uk",
+},
 ];
 
 function Stars() {
@@ -111,7 +118,7 @@ export default function Testimonials() {
     return () => clearInterval(timerRef.current);
   }, [active]);
 
-  const { name, role, quote, initials, color, logo } = testimonials[active];
+  const { name, role, quote, initials, color, logo, website } = testimonials[active];
 
   return (
     <section id="testimonials" className="py-24 md:py-36 px-6 md:px-10">
@@ -119,20 +126,21 @@ export default function Testimonials() {
         <p className="reveal text-xs font-medium text-ink-faint tracking-widest uppercase mb-4">
           Social proof
         </p>
+
         <h2 className="reveal font-display text-4xl md:text-6xl font-black text-ink leading-tight mb-16">
           What clients say
         </h2>
 
         <div className="reveal max-w-2xl">
-              <div
-                className="border border-border rounded-2xl p-8 md:p-10 bg-white"
-                style={{
-                  minHeight: "280px",   // ← add this
-                  opacity: animating ? 0 : 1,
-                  transform: animating ? "translateX(12px)" : "translateX(0)",
-                  transition: "opacity 0.3s ease, transform 0.3s ease",
-                }}
->
+          <div
+            className="border border-border rounded-2xl p-8 md:p-10 bg-white group"
+            style={{
+              minHeight: "300px",
+              opacity: animating ? 0 : 1,
+              transform: animating ? "translateX(12px)" : "translateX(0)",
+              transition: "opacity 0.3s ease, transform 0.3s ease",
+            }}
+          >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 rounded-lg flex-shrink-0 overflow-hidden border border-border">
                 {logo ? (
@@ -146,15 +154,35 @@ export default function Testimonials() {
                   </div>
                 )}
               </div>
+
               <div>
                 <div className="text-sm font-semibold text-ink leading-tight">{name}</div>
                 <div className="text-xs text-ink-faint mt-0.5">{role}</div>
               </div>
             </div>
+
             <Stars />
+
             <blockquote className="text-base text-ink-soft leading-relaxed font-light">
               "{quote}"
             </blockquote>
+
+            {/* Premium CTA */}
+            {website && (
+              <div className="mt-6">
+                <a
+                  href={website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-ink border border-border px-4 py-2 rounded-full transition-all duration-300 hover:bg-black hover:text-white hover:border-black"
+                >
+                  Visit Website
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
+                </a>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-3 mt-8">
@@ -170,12 +198,15 @@ export default function Testimonials() {
                 }}
               />
             ))}
+
             <button
               onClick={next}
               className="ml-auto flex items-center gap-2 text-xs font-medium text-ink-faint hover:text-ink transition-colors duration-200"
             >
               Next
-              <span className="w-6 h-6 rounded-full border border-border flex items-center justify-center text-[10px]">→</span>
+              <span className="w-6 h-6 rounded-full border border-border flex items-center justify-center text-[10px]">
+                →
+              </span>
             </button>
           </div>
         </div>
