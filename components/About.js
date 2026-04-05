@@ -27,7 +27,7 @@ const includes = [
   {
     icon: "◫",
     title: "Ongoing Support",
-    desc: "£150/year retainer covers updates, changes, and any issues — we handle it all.",
+    desc: "£55 p/m covers updates, changes, and any issues — we handle it all.",
   },
 ];
 
