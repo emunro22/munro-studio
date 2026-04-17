@@ -7,7 +7,7 @@ const includes = [
   {
     icon: "◎",
     title: "SEO-Ready Build",
-    desc: "Built to rank in Google searches like plumber near me so customers find you first.",
+    desc: "Built to rank in Google searches like 'plumber near me' so customers find you first.",
   },
   {
     icon: "◇",
@@ -27,7 +27,7 @@ const includes = [
   {
     icon: "◫",
     title: "Ongoing Support",
-    desc: "£55 p/m covers updates, changes, and any issues — we handle it all.",
+    desc: "£55/month covers updates, changes, and any issues. Or choose the £499 one-off and own it outright.",
   },
 ];
 

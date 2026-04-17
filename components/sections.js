@@ -10,38 +10,89 @@ export function Pricing() {
           Pricing
         </p>
         <h2 className="reveal font-display text-4xl md:text-6xl font-black text-white leading-tight mb-6">
-          £55 a month.
+          Two simple options.
           <br />
-          <em className="italic text-white/50">That's it.</em>
+          <em className="italic text-white/50">No hidden costs.</em>
         </h2>
         <p className="reveal text-base text-white/50 font-light leading-relaxed mb-16 max-w-xl">
-          No setup fee. No hidden costs. No annual contract. Just one simple monthly payment that covers everything — design, build, hosting, and ongoing support.
+          Choose the plan that suits you. Either way, you get the same custom design, full build, hosting, and ongoing support.
         </p>
 
-        <div className="reveal max-w-3xl">
-          <div className="border border-highlight/30 rounded-2xl p-8 md:p-12 bg-highlight/5">
-            <p className="text-xs font-semibold uppercase tracking-widest text-highlight/60 mb-6">Everything Included</p>
+        <div className="reveal grid md:grid-cols-2 gap-6 max-w-3xl">
+          {/* Monthly */}
+          <div className="border border-highlight/30 rounded-2xl p-8 md:p-10 bg-highlight/5 flex flex-col">
+            <p className="text-xs font-semibold uppercase tracking-widest text-highlight/60 mb-6">Monthly Subscription</p>
             <div className="flex items-baseline gap-2 mb-2">
-              <span className="font-display text-7xl font-black text-white leading-none">£55</span>
+              <span className="font-display text-6xl font-black text-white leading-none">£55</span>
               <span className="text-white/40 text-lg">/month</span>
             </div>
-            <p className="text-sm text-white/40 mb-10 font-light">Cancel any time. No tie-ins.</p>
+            <p className="text-sm text-white/40 mb-8 font-light">Cancel any time. No tie-ins.</p>
+            <ul className="space-y-2.5 flex-1">
+              {[
+                "Everything hosted & managed",
+                "Unlimited content updates",
+                "Priority support included",
+                "Performance monitoring",
+                "Security & software updates",
+              ].map((f) => (
+                <li key={f} className="flex items-center gap-3 text-sm text-white/70">
+                  <span className="text-highlight flex-shrink-0">✓</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="#contact"
+              className="mt-8 block w-full bg-highlight text-white text-center font-semibold py-3.5 rounded-full text-sm hover:opacity-90 transition-opacity duration-200"
+            >
+              Get started
+            </a>
+          </div>
 
-            <div className="grid sm:grid-cols-2 gap-x-10 gap-y-3">
+          {/* One-off */}
+          <div className="border border-white/10 rounded-2xl p-8 md:p-10 bg-white/5 flex flex-col">
+            <p className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-6">One-Off Payment</p>
+            <div className="flex items-baseline gap-2 mb-2">
+              <span className="font-display text-6xl font-black text-white leading-none">£499</span>
+            </div>
+            <p className="text-sm text-white/40 mb-8 font-light">Yours to keep. One payment, forever.</p>
+            <ul className="space-y-2.5 flex-1">
+              {[
+                "Full custom design & build",
+                "Handed over to you",
+                "Host it wherever you like",
+                "Local SEO optimised",
+                "3 months free support",
+              ].map((f) => (
+                <li key={f} className="flex items-center gap-3 text-sm text-white/70">
+                  <span className="text-white/40 flex-shrink-0">✓</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="#contact"
+              className="mt-8 block w-full border border-white/20 text-white text-center font-semibold py-3.5 rounded-full text-sm hover:border-white/40 transition-colors duration-200"
+            >
+              Get started
+            </a>
+          </div>
+        </div>
+
+        <div className="reveal mt-6 max-w-3xl">
+          <div className="border border-white/10 rounded-2xl p-6 md:p-8 bg-white/5">
+            <p className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-5">Both options include</p>
+            <div className="grid sm:grid-cols-2 gap-x-10 gap-y-2.5">
               {[
                 "Custom design for your trade",
                 "Mobile-first & fast loading",
                 "Local SEO optimised from day one",
                 "Contact & quote request form",
                 "Google Maps integration",
-                "Hosting & domain included",
-                "Security & software updates",
-                "Ongoing content changes",
-                "Priority email support",
-                "Performance monitoring",
+                "Hosting & domain (monthly plan)",
               ].map((f) => (
-                <div key={f} className="flex items-center gap-3 text-sm text-white/70">
-                  <span className="text-highlight flex-shrink-0">✓</span>
+                <div key={f} className="flex items-center gap-3 text-sm text-white/60">
+                  <span className="text-white/30 flex-shrink-0">◆</span>
                   {f}
                 </div>
               ))}
@@ -49,8 +100,8 @@ export function Pricing() {
           </div>
         </div>
 
-        <p className="reveal mt-8 text-xs text-white/30 font-light">
-          No setup fee. No annual contract. No upsells. Just £55/month — cancel whenever you like.
+        <p className="reveal mt-6 text-xs text-white/30 font-light">
+          Not sure which is right for you? Drop me a message and I'll help you decide.
         </p>
       </div>
     </section>
@@ -147,11 +198,11 @@ export function Referral() {
 const faqs = [
   { q: "How long does it take to build my website?", a: "Most tradesman sites are live within 2–3 weeks from the day we kick off. I'll keep you updated throughout." },
   { q: "What do I need to provide?", a: "Just your logo (if you have one), a few photos of your work, and your contact details. I handle everything else." },
-  { q: "What does the £55/month include?", a: "Everything — custom design, build, hosting, domain, security updates, ongoing content changes, and priority support. There's no setup fee and no hidden extras. Just £55 a month, cancel any time." },
+  { q: "What's the difference between monthly and one-off?", a: "The monthly plan (£55/month) covers everything — design, build, hosting, domain, updates, and support, with no upfront cost. The one-off (£499) gives you a fully built site handed over to you to host wherever you like, plus 3 months of free support." },
   { q: "Will my site show up on Google?", a: "Yes. Every site I build is optimised for local SEO from day one — that means your business will appear in local searches relevant to your trade and location." },
   { q: "Do I need any technical knowledge?", a: "None at all. I take care of everything from design to going live. You just review and approve." },
-  { q: "Can I see examples of your work?", a: "Absolutely. You can view the full portfolio at munrostudio.co.uk — 20+ real client sites across the UK." },
-  { q: "Is there a contract or minimum term?", a: "No tie-ins, no minimum term. You can cancel any time — though most clients stay because the leads keep coming in." },
+  { q: "Can I see examples of your work?", a: "Absolutely — scroll up to see recent client sites, or visit munrostudio.co.uk for the full portfolio." },
+  { q: "Is there a contract or minimum term?", a: "No tie-ins, no minimum term on the monthly plan. You can cancel any time — though most clients stay because the leads keep coming in." },
 ];
 
 function FAQItem({ q, a }) {

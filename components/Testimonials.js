@@ -1,95 +1,58 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
-const testimonials = [
-{
-  name: "William Cassidy",
-  role: "Founder, SRL Recovery",
-  quote: "Working with Euan was effortless from start to finish. He quickly understood our goals and delivered a fast, scalable solution that exceeded our expectations.",
-  initials: "DM",
-  color: "#111111",
-  logo: "/srl-recovery-logo.png",
-  website: "https://srlrecovery.com",
-},
-{
-  name: "Cameron",
-  role: "Founder, CG Groundcare",
-  quote: "Euan transformed our outdated site into a modern, accessible platform. Our team and customers love the new interface and ease of use.",
-  initials: "C",
-  color: "#F59E0B",
-  logo: "/cg-groundcare-logo.png",
-  website: "https://cg-groundcare.co.uk",
-},
-{
-  name: "Shawaiz Khan",
-  role: "Co Founder, GTown Kettles",
-  quote: "Professional, knowledgeable, and easy to work with, Euan handled everything from start to finish and delivered a website that exceeded expectations.",
-  initials: "SK",
-  color: "#F59E0B",
-  logo: "/gtownkettles-logo.png",
-  website: "https://gtownkettles.com",
-},
-{
-  name: "Samantha Hamilton",
-  role: "Founder, Root & Fuel",
-  quote: "Euan captured our brand's essence perfectly. The new site isn't just beautiful; it's a powerful tool that has streamlined our customer bookings and fueled our growth.",
-  initials: "SH",
-  color: "#0057FF",
-  logo: "/root-fuel-logo.png",
-  website: "https://rootandfuelltd.com",
-},
-{
-  name: "Rhys Duncan",
-  role: "Owner, Renovate Design",
-  quote: "As a design-led business, we have incredibly high standards. Euan delivered a sleek, high-performance site that perfectly reflects our own attention to detail.",
-  initials: "RD",
-  color: "#0057FF",
-  logo: "/renovate-design-logo.png",
-  website: "https://renovatedesign.co.uk",
-},
-{
-  name: "DXC Technology",
-  role: "Technology Company",
-  quote: "Euan provided exceptional technical expertise. He handled complex integrations with ease, resulting in a robust, enterprise-ready platform that performs flawlessly.",
-  initials: "DXC",
-  color: "#0057FF",
-  logo: "/dxc-logo.png",
-  website: "https://example.com",
-},
-{
-  name: "Michael McCourt",
-  role: "Training Advantage Group",
-  quote: "If you’re looking for someone who knows both design and development inside out, Euan is the one. The quality of his work speaks for itself.",
-  initials: "MMcC",
-  color: "#0057FF",
-  logo: "/trainingadvantagegroup-logo.png",
-  website: "https://dxc.com",
-},
-{
-  name: "Colin Neil",
-  role: "Founder, Clyde Valley Group",
-  quote: "Euan’s technical knowledge is second to none. He built a fast, secure platform that not only works flawlessly but is also easy to maintain and expand.",
-  initials: "CN",
-  color: "#0057FF",
-  logo: "/clyde-valley-group-logo.png",
-  website: "https://clydevalleygroup.com",
-},
-{
-  name: "Chris Presavage",
-  role: "Founder, Clyde Media Walls",
-  quote: "From day one, Euan was responsive and reliable. His technical skills and problem-solving ability made the whole process smooth and stress-free.",
-  initials: "CP",
-  color: "#0057FF",
-  logo: "/clyde-media-walls-logo.png",
-  website: "https://www.clydemediawalls.co.uk",
-},
+const projects = [
+  {
+    name: "CG Groundcare",
+    category: "Garden & Landscaping",
+    quote: "Euan transformed our online presence completely. We started getting enquiries within the first week of going live.",
+    person: "Cameron",
+    role: "Founder",
+    desktop: "/cg-groundcare-desktop.png",
+    phone: "/cg-groundcare-iphone-removebg-preview.png",
+    website: "https://cg-groundcare.co.uk",
+    color: "#15803d",
+  },
+  {
+    name: "Envirocycle Glasgow",
+    category: "Waste Management",
+    quote: "Professional, fast, and exactly what we needed. The site looks incredible on mobile and we rank well locally now.",
+    person: "Envirocycle Team",
+    role: "Client",
+    desktop: "/enviro-cycle-desktop.png",
+    phone: "/enviro-cycle-iphone-removebg-preview.png",
+    website: "#",
+    color: "#854d0e",
+  },
+  {
+    name: "Root + Fuel",
+    category: "Food & Catering",
+    quote: "Euan captured our brand's essence perfectly. The new site isn't just beautiful — it's driven real growth in our customer bookings.",
+    person: "Samantha Hamilton",
+    role: "Founder",
+    desktop: "/root-fuel-desktop.png",
+    phone: "/root-fuel-iphone-removebg-preview.png",
+    website: "https://rootandfuelltd.com",
+    color: "#166534",
+  },
+  {
+    name: "SRL Recovery",
+    category: "Vehicle Recovery",
+    quote: "Working with Euan was effortless from start to finish. He delivered a fast, scalable solution that exceeded our expectations.",
+    person: "William Cassidy",
+    role: "Founder",
+    desktop: "/srl-recovery-desktop.png",
+    phone: "/srl-recovery-iphone-removebg-preview.png",
+    website: "https://srlrecovery.com",
+    color: "#6d28d9",
+  },
 ];
 
 function Stars() {
   return (
-    <div className="flex gap-0.5 mb-4">
+    <div className="flex gap-0.5 mb-3">
       {[...Array(5)].map((_, i) => (
-        <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill="#111111">
+        <svg key={i} width="11" height="11" viewBox="0 0 24 24" fill="#111111">
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
         </svg>
       ))}
@@ -103,112 +66,146 @@ export default function Testimonials() {
   const timerRef = useRef(null);
 
   const goTo = (index) => {
-    if (animating) return;
+    if (animating || index === active) return;
     setAnimating(true);
     setTimeout(() => {
       setActive(index);
       setAnimating(false);
-    }, 300);
+    }, 250);
   };
 
-  const next = () => goTo((active + 1) % testimonials.length);
+  const next = () => goTo((active + 1) % projects.length);
 
   useEffect(() => {
-    timerRef.current = setInterval(next, 4000);
+    timerRef.current = setInterval(next, 5000);
     return () => clearInterval(timerRef.current);
   }, [active]);
 
-  const { name, role, quote, initials, color, logo, website } = testimonials[active];
+  const p = projects[active];
 
   return (
-    <section id="testimonials" className="py-24 md:py-36 px-6 md:px-10">
+    <section id="testimonials" className="py-24 md:py-36 px-6 md:px-10 bg-surface overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <p className="reveal text-xs font-medium text-ink-faint tracking-widest uppercase mb-4">
-          Social proof
+          Recent work
         </p>
-
         <h2 className="reveal font-display text-4xl md:text-6xl font-black text-ink leading-tight mb-16">
-          What clients say
+          Work that
+          <br />
+          <em className="italic">speaks for itself.</em>
         </h2>
 
-        <div className="reveal max-w-2xl">
-          <div
-            className="border border-border rounded-2xl p-8 md:p-10 bg-white group"
-            style={{
-              minHeight: "300px",
-              opacity: animating ? 0 : 1,
-              transform: animating ? "translateX(12px)" : "translateX(0)",
-              transition: "opacity 0.3s ease, transform 0.3s ease",
-            }}
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-lg flex-shrink-0 overflow-hidden border border-border">
-                {logo ? (
-                  <img src={logo} alt={name} className="w-full h-full object-contain p-1" />
-                ) : (
-                  <div
-                    className="w-full h-full flex items-center justify-center text-white text-xs font-bold font-display"
-                    style={{ backgroundColor: color }}
-                  >
-                    {initials}
-                  </div>
-                )}
-              </div>
-
-              <div>
-                <div className="text-sm font-semibold text-ink leading-tight">{name}</div>
-                <div className="text-xs text-ink-faint mt-0.5">{role}</div>
-              </div>
+        <div
+          className="reveal grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+          style={{
+            opacity: animating ? 0 : 1,
+            transform: animating ? "translateY(8px)" : "translateY(0)",
+            transition: "opacity 0.25s ease, transform 0.25s ease",
+          }}
+        >
+          {/* Left — mockup display */}
+          <div className="relative">
+            {/* Desktop mockup */}
+            <div className="rounded-xl overflow-hidden">
+              <img
+                src={p.desktop}
+                alt={`${p.name} website desktop view`}
+                className="w-full h-auto object-cover"
+              />
             </div>
+
+            {/* Phone mockup — overlaid bottom right */}
+            <div
+              className="absolute -bottom-6 -right-4 md:-right-8 w-[28%] md:w-[26%] drop-shadow-xl"
+              style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.2))" }}
+            >
+              <img
+                src={p.phone}
+                alt={`${p.name} website mobile view`}
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+
+          {/* Right — testimonial & info */}
+          <div className="pt-8 lg:pt-0">
+            <div className="mb-5 flex items-center gap-2">
+              <span
+                className="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full"
+                style={{
+                  backgroundColor: `${p.color}18`,
+                  color: p.color,
+                }}
+              >
+                {p.category}
+              </span>
+            </div>
+
+            <h3 className="font-display text-3xl md:text-4xl font-black text-ink mb-2">
+              {p.name}
+            </h3>
 
             <Stars />
 
-            <blockquote className="text-base text-ink-soft leading-relaxed font-light">
-              "{quote}"
+            <blockquote className="text-base md:text-lg text-ink-soft leading-relaxed font-light mb-6 mt-3 border-l-2 border-border pl-4">
+              "{p.quote}"
             </blockquote>
 
-            {/* Premium CTA */}
-            {website && (
-              <div className="mt-6">
-                <a
-                  href={website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-ink border border-border px-4 py-2 rounded-full transition-all duration-300 hover:bg-black hover:text-white hover:border-black"
-                >
-                  Visit Website
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </a>
+            <div className="flex items-center gap-3 mb-8">
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white"
+                style={{ backgroundColor: p.color }}
+              >
+                {p.person.split(" ").map((n) => n[0]).join("").slice(0, 2)}
               </div>
+              <div>
+                <p className="text-sm font-semibold text-ink leading-tight">{p.person}</p>
+                <p className="text-xs text-ink-faint">{p.role}, {p.name}</p>
+              </div>
+            </div>
+
+            {p.website !== "#" && (
+              <a
+                href={p.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-ink border border-border px-5 py-2.5 rounded-full hover:bg-ink hover:text-white hover:border-ink transition-all duration-200"
+              >
+                Visit site →
+              </a>
             )}
           </div>
+        </div>
 
-          <div className="flex items-center gap-3 mt-8">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                className="rounded-full transition-all duration-300"
-                style={{
-                  width: i === active ? "28px" : "8px",
-                  height: "8px",
-                  backgroundColor: i === active ? "#111111" : "#d1d5db",
-                }}
-              />
-            ))}
-
+        {/* Pagination */}
+        <div className="reveal flex items-center gap-3 mt-16">
+          {projects.map((proj, i) => (
             <button
-              onClick={next}
-              className="ml-auto flex items-center gap-2 text-xs font-medium text-ink-faint hover:text-ink transition-colors duration-200"
+              key={i}
+              onClick={() => goTo(i)}
+              className="text-left flex-1 max-w-[160px] group"
+              aria-label={`View ${proj.name}`}
             >
-              Next
-              <span className="w-6 h-6 rounded-full border border-border flex items-center justify-center text-[10px]">
-                →
+              <div
+                className="h-0.5 rounded-full mb-2 transition-all duration-300"
+                style={{ backgroundColor: i === active ? "#111111" : "#d1d5db" }}
+              />
+              <span
+                className="text-xs font-medium transition-colors duration-200"
+                style={{ color: i === active ? "#111111" : "#9ca3af" }}
+              >
+                {proj.name}
               </span>
             </button>
-          </div>
+          ))}
+
+          <button
+            onClick={next}
+            className="ml-auto flex items-center gap-2 text-xs font-medium text-ink-faint hover:text-ink transition-colors duration-200 flex-shrink-0"
+          >
+            Next
+            <span className="w-6 h-6 rounded-full border border-border flex items-center justify-center text-[10px]">→</span>
+          </button>
         </div>
       </div>
     </section>

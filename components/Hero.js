@@ -25,9 +25,9 @@ export default function Hero() {
       <div data-reveal className="mb-10 flex items-center gap-3">
         <span className="inline-flex items-center gap-2 text-xs font-medium text-ink-soft border border-border rounded-full px-4 py-1.5">
           <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-          £55/month · No Setup Fee · Cancel Any Time
+          From £55/month or £499 one-off · No Setup Fee · Cancel Any Time
         </span>
-        <span className="hidden sm:block text-xs text-ink-faint">— Trusted by 20+ UK tradespeople</span>
+        <span className="hidden sm:block text-xs text-ink-faint">— Trusted by 20+ UK businesses</span>
       </div>
 
       <h1
@@ -42,7 +42,7 @@ export default function Hero() {
       <div data-reveal className="mt-6 md:mt-8">
         <p className="text-lg md:text-xl font-medium text-ink max-w-2xl leading-snug">
           Professional websites for UK tradespeople —{" "}
-          <span className="text-highlight">£55 a month. That's it.</span>
+          <span className="text-highlight">£55/month or £499 one-off.</span>
         </p>
         <p className="mt-3 text-base text-ink-soft leading-relaxed max-w-lg font-light">
           Built for plumbers, electricians, builders, and local trades. Fully custom, mobile-first, and optimised for local Google search — so customers in your area can find you fast.
@@ -60,14 +60,14 @@ export default function Hero() {
           href="#pricing"
           className="border border-border text-ink font-medium px-7 py-3.5 rounded-full text-sm hover:border-ink transition-colors duration-250 text-center"
         >
-          See what's included
+          See pricing
         </a>
       </div>
 
       <div data-reveal className="mt-20 md:mt-28 grid grid-cols-3 gap-4 sm:gap-8 border-t border-border pt-10 max-w-xl">
         {[
           { n: "£55", l: "Per month, all in" },
-          { n: "£0", l: "Setup fee" },
+          { n: "£499", l: "One-off option" },
           { n: "2–3wk", l: "Turnaround" },
         ].map(({ n, l }) => (
           <div key={l}>
