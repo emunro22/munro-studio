@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 const projects = [
   {
@@ -14,7 +13,39 @@ const projects = [
     website: "https://cg-groundcare.co.uk",
     color: "#15803d",
   },
-  // ... rest of your projects array
+  {
+    name: "Envirocycle Glasgow",
+    category: "Waste Management",
+    quote: "Professional, fast, and exactly what we needed. The site looks incredible on mobile and we rank well locally now.",
+    person: "Envirocycle Team",
+    role: "Client",
+    desktop: "/enviro-cycle-desktop.png",
+    phone: "/enviro-cycle-iphone-removebg-preview.png",
+    website: "#",
+    color: "#854d0e",
+  },
+  {
+    name: "Root + Fuel",
+    category: "Food & Catering",
+    quote: "Euan captured our brand's essence perfectly. The new site isn't just beautiful — it's driven real growth in our customer bookings.",
+    person: "Samantha Hamilton",
+    role: "Founder",
+    desktop: "/root-fuel-desktop.png",
+    phone: "/root-fuel-iphone-removebg-preview.png",
+    website: "https://rootandfuelltd.com",
+    color: "#166534",
+  },
+  {
+    name: "SRL Recovery",
+    category: "Vehicle Recovery",
+    quote: "Working with Euan was effortless from start to finish. He delivered a fast, scalable solution that exceeded our expectations.",
+    person: "William Cassidy",
+    role: "Founder",
+    desktop: "/srl-recovery-desktop.png",
+    phone: "/srl-recovery-iphone-removebg-preview.png",
+    website: "https://srlrecovery.com",
+    color: "#6d28d9",
+  },
 ];
 
 function Stars() {
@@ -31,138 +62,150 @@ function Stars() {
 
 export default function Testimonials() {
   const [active, setActive] = useState(0);
-  const [direction, setDirection] = useState(0); // 1 for next, -1 for prev
+  const [animating, setAnimating] = useState(false);
   const timerRef = useRef(null);
 
   const goTo = (index) => {
-    if (index === active) return;
-    setDirection(index > active ? 1 : -1);
-    setActive(index);
+    if (animating || index === active) return;
+    setAnimating(true);
+    setTimeout(() => {
+      setActive(index);
+      setAnimating(false);
+    }, 250);
   };
 
-  const next = () => {
-    setDirection(1);
-    setActive((prev) => (prev + 1) % projects.length);
-  };
+  const next = () => goTo((active + 1) % projects.length);
 
   useEffect(() => {
-    timerRef.current = setInterval(next, 6000);
+    timerRef.current = setInterval(next, 5000);
     return () => clearInterval(timerRef.current);
   }, [active]);
 
   const p = projects[active];
 
   return (
-    <section id="testimonials" className="py-24 md:py-36 px-6 md:px-10 bg-white overflow-hidden">
+    <section id="testimonials" className="py-24 md:py-36 px-6 md:px-10 bg-surface overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <header className="mb-12 md:mb-20">
-          <p className="text-xs font-semibold text-gray-400 tracking-[0.2em] uppercase mb-4">
-            Recent work
-          </p>
-          <h2 className="font-display text-5xl md:text-7xl font-black text-black leading-[1.1] tracking-tight">
-            Work that <br />
-            <span className="italic font-serif font-light text-gray-800">speaks for itself.</span>
-          </h2>
-        </header>
+        <p className="reveal text-xs font-medium text-ink-faint tracking-widest uppercase mb-4">
+          Recent work
+        </p>
+        <h2 className="reveal font-display text-4xl md:text-6xl font-black text-ink leading-tight mb-16">
+          Work that
+          <br />
+          <em className="italic">speaks for itself.</em>
+        </h2>
 
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          {/* Left — Animated Mockup Display */}
-          <div className="relative aspect-[4/3] lg:aspect-auto">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={active}
-                custom={direction}
-                initial={{ opacity: 0, x: direction * 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: direction * -50 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="relative w-full h-full"
-              >
-                {/* Desktop Mockup with "Glass" Frame */}
-                <div className="relative rounded-2xl overflow-hidden border-[6px] border-gray-900 shadow-2xl">
-                   <div className="absolute top-0 w-full h-6 bg-gray-900 flex items-center px-3 gap-1">
-                      <div className="w-1.5 h-1.5 rounded-full bg-red-500/50" />
-                      <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/50" />
-                      <div className="w-1.5 h-1.5 rounded-full bg-green-500/50" />
-                   </div>
-                  <img
-                    src={p.desktop}
-                    alt={p.name}
-                    className="w-full h-auto pt-6 object-cover"
-                  />
-                </div>
+        <div
+          className="reveal grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+          style={{
+            opacity: animating ? 0 : 1,
+            transform: animating ? "translateY(8px)" : "translateY(0)",
+            transition: "opacity 0.25s ease, transform 0.25s ease",
+          }}
+        >
+          {/* Left — mockup display */}
+          <div className="relative">
+            {/* Desktop mockup */}
+            <div className="rounded-xl overflow-hidden">
+              <img
+                src={p.desktop}
+                alt={`${p.name} website desktop view`}
+                className="w-full h-auto object-cover"
+              />
+            </div>
 
-                {/* Phone Mockup — Floating & Shadowed */}
-                <motion.div
-                  initial={{ y: 40, opacity: 0, scale: 0.9 }}
-                  animate={{ y: 0, opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-                  className="absolute -bottom-8 -right-4 md:-right-12 w-[35%] md:w-[32%] z-10"
-                >
-                  <div className="relative rounded-[2.5rem] p-1.5 bg-gray-900 shadow-[0_20px_50px_rgba(0,0,0,0.3)] border-[1px] border-white/10">
-                    <img
-                      src={p.phone}
-                      alt="mobile view"
-                      className="w-full h-auto rounded-[2rem]"
-                    />
-                  </div>
-                </motion.div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Right — Testimonial Content */}
-          <div className="flex flex-col justify-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={active}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-              >
-                <span
-                  className="inline-block text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6"
-                  style={{ backgroundColor: `${p.color}15`, color: p.color }}
-                >
-                  {p.category}
-                </span>
-
-                <h3 className="text-4xl font-black text-black mb-4">{p.name}</h3>
-                <Stars />
-
-                <blockquote className="text-xl md:text-2xl text-gray-600 leading-snug font-medium italic mb-8 border-l-4 border-gray-100 pl-6">
-                  "{p.quote}"
-                </blockquote>
-
-                <div className="flex items-center gap-4 mb-10">
-                  <div 
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-lg"
-                    style={{ backgroundColor: p.color }}
-                  >
-                    {p.person.split(" ").map(n => n[0]).join("")}
-                  </div>
-                  <div>
-                    <p className="font-bold text-black">{p.person}</p>
-                    <p className="text-sm text-gray-400">{p.role}, {p.name}</p>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Pagination UI */}
-            <div className="flex items-center gap-2">
-              {projects.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => goTo(i)}
-                  className="group relative h-8 flex items-center"
-                >
-                  <div className={`h-1 rounded-full transition-all duration-500 ${i === active ? 'w-12 bg-black' : 'w-4 bg-gray-200 group-hover:bg-gray-300'}`} />
-                </button>
-              ))}
+            {/* Phone mockup — overlaid bottom right */}
+            <div
+              className="absolute -bottom-6 -right-4 md:-right-8 w-[28%] md:w-[26%] drop-shadow-xl"
+              style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.2))" }}
+            >
+              <img
+                src={p.phone}
+                alt={`${p.name} website mobile view`}
+                className="w-full h-auto"
+              />
             </div>
           </div>
+
+          {/* Right — testimonial & info */}
+          <div className="pt-8 lg:pt-0">
+            <div className="mb-5 flex items-center gap-2">
+              <span
+                className="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full"
+                style={{
+                  backgroundColor: `${p.color}18`,
+                  color: p.color,
+                }}
+              >
+                {p.category}
+              </span>
+            </div>
+
+            <h3 className="font-display text-3xl md:text-4xl font-black text-ink mb-2">
+              {p.name}
+            </h3>
+
+            <Stars />
+
+            <blockquote className="text-base md:text-lg text-ink-soft leading-relaxed font-light mb-6 mt-3 border-l-2 border-border pl-4">
+              "{p.quote}"
+            </blockquote>
+
+            <div className="flex items-center gap-3 mb-8">
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white"
+                style={{ backgroundColor: p.color }}
+              >
+                {p.person.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-ink leading-tight">{p.person}</p>
+                <p className="text-xs text-ink-faint">{p.role}, {p.name}</p>
+              </div>
+            </div>
+
+            {p.website !== "#" && (
+              <a
+                href={p.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-ink border border-border px-5 py-2.5 rounded-full hover:bg-ink hover:text-white hover:border-ink transition-all duration-200"
+              >
+                Visit site →
+              </a>
+            )}
+          </div>
+        </div>
+
+        {/* Pagination */}
+        <div className="reveal flex items-center gap-3 mt-16">
+          {projects.map((proj, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              className="text-left flex-1 max-w-[160px] group"
+              aria-label={`View ${proj.name}`}
+            >
+              <div
+                className="h-0.5 rounded-full mb-2 transition-all duration-300"
+                style={{ backgroundColor: i === active ? "#111111" : "#d1d5db" }}
+              />
+              <span
+                className="text-xs font-medium transition-colors duration-200"
+                style={{ color: i === active ? "#111111" : "#9ca3af" }}
+              >
+                {proj.name}
+              </span>
+            </button>
+          ))}
+
+          <button
+            onClick={next}
+            className="ml-auto flex items-center gap-2 text-xs font-medium text-ink-faint hover:text-ink transition-colors duration-200 flex-shrink-0"
+          >
+            Next
+            <span className="w-6 h-6 rounded-full border border-border flex items-center justify-center text-[10px]">→</span>
+          </button>
         </div>
       </div>
     </section>
