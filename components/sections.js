@@ -109,9 +109,11 @@ export function Pricing() {
 }
 
 // ── How It Works ──────────────────────────────────────────────────────────────
+// bg-white instead of bg-surface so it doesn't visually merge with the
+// bg-surface Testimonials section and create an invisible seam/gap.
 export function HowItWorks() {
   return (
-    <section className="py-24 md:py-36 px-6 md:px-10 bg-surface">
+    <section className="py-24 md:py-36 px-6 md:px-10 bg-white">
       <div className="max-w-7xl mx-auto">
         <p className="reveal text-xs font-medium text-ink-faint tracking-widest uppercase mb-4">
           The process
@@ -142,9 +144,10 @@ export function HowItWorks() {
 }
 
 // ── Referral ──────────────────────────────────────────────────────────────────
+// bg-white keeps it visually separate from bg-surface Testimonials below it.
 export function Referral() {
   return (
-    <section className="py-24 md:py-36 px-6 md:px-10 bg-surface">
+    <section className="py-24 md:py-36 px-6 md:px-10 bg-white">
       <div className="max-w-7xl mx-auto">
         <p className="reveal text-xs font-medium text-ink-faint tracking-widest uppercase mb-4">
           Refer a friend
