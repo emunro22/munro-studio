@@ -22,7 +22,7 @@ export default function Hero() {
       ref={ref}
       className="min-h-screen flex flex-col justify-center px-6 md:px-10 pt-28 pb-16 max-w-7xl mx-auto"
     >
-      <div data-reveal className="mb-10 flex items-center gap-3">
+      <div data-reveal className="mb-10 flex items-center gap-3 flex-wrap">
         <span className="inline-flex items-center gap-2 text-xs font-medium text-ink-soft border border-border rounded-full px-4 py-1.5">
           <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
           From £55/month or £499 one-off · No Setup Fee · Cancel Any Time
@@ -47,6 +47,18 @@ export default function Hero() {
         <p className="mt-3 text-base text-ink-soft leading-relaxed max-w-lg font-light">
           Built for plumbers, electricians, builders, and local trades. Fully custom, mobile-first, and optimised for local Google search — so customers in your area can find you fast.
         </p>
+      </div>
+
+      {/* Checkatrade comparison hook */}
+      <div data-reveal className="mt-8 max-w-lg">
+        <div className="border-l-2 border-highlight pl-4 py-1">
+          <p className="text-sm text-ink font-medium leading-snug">
+            Paying <span className="font-bold">£100+/month</span> to Checkatrade or MyBuilder?
+          </p>
+          <p className="text-sm text-ink-soft leading-snug mt-1 font-light">
+            Your own website pays for itself in under 5 months — and the leads are <em className="italic">yours</em>, not shared with 3 other trades.
+          </p>
+        </div>
       </div>
 
       <div data-reveal className="mt-10 flex flex-col sm:flex-row gap-3">
