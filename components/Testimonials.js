@@ -46,6 +46,30 @@ const projects = [
     website: "https://srlrecovery.com",
     color: "#6d28d9",
   },
+  {
+    name: "Clyde Media Walls",
+    category: "Media Walls",
+    quote: "Euan helped setup our Logo, Website and Brand Identity! Second to none!",
+    person: "Chris Presavage",
+    role: "Founder, Clyde Media Walls",
+    desktop: "/clyde-media-walls-desktop.png",
+    phone: "/clyde-media-walls-phone.png",
+    website: "https://clydemediawalls.co.uk",
+    color: "#82C8E5",
+  },
+  {
+    name: "The Garage Clydebank",
+    category: "Garages / MOT Centres",
+    quote: "Working with Euan was straight forward, we gave him my logo and a few photos and he designed everything.",
+    person: "The Garage Clydebank",
+    role: "Founder, The Garage Clydebank",
+    desktop: "/the-garage-clydebank-desktop.png",
+    phone: "/the-garage-clydebank-phone.png",
+    website: "https://thegarageclydebank.co.uk",
+    color: "#8B0000",
+  },
+
+
 ];
 
 export default function Testimonials() {
