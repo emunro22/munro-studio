@@ -21,7 +21,7 @@ const projects = [
     role: "Client",
     desktop: "/enviro-cycle-desktop.png",
     phone: "/enviro-cycle-iphone-removebg-preview.png",
-    website: "#",
+    website: "https://www.envirocycleglasgow.com/",
     color: "#854d0e",
   },
   {
