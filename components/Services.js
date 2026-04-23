@@ -17,9 +17,12 @@ export default function Services() {
               <span className="text-ink font-medium">£100+ every month</span> — and the moment you stop paying, you vanish. Every lead is shared with 3–5 other trades, so you're racing to the bottom on price.
             </p>
             <p>
+              Same story for salons, cafes, cleaners and local Glasgow businesses — relying on Facebook groups, Google Maps listings you don't control, or word of mouth alone.
+            </p>
+            <p>
               Your own website is different. It works <span className="text-ink font-medium">24/7</span>, the leads are exclusively yours, and you own it forever. A professional site builds instant trust and shows off your work — even while you're on a job.
             </p>
-            <p>Most tradespeople still don't have a proper website. That's your advantage.</p>
+            <p>Most Glasgow small businesses still don't have a proper website. That's your advantage.</p>
           </div>
         </div>
 

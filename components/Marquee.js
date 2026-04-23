@@ -1,7 +1,9 @@
 const trades = [
   "Plumbers", "Electricians", "Builders", "Decorators",
   "Roofers", "Landscapers", "Plasterers", "Carpenters",
-  "Gas Engineers", "HVAC Engineers", "Tilers", "Joiners",
+  "Gas Engineers", "Tilers", "Joiners", "Mechanics",
+  "Salons", "Barbers", "Cafes", "Cleaners",
+  "Personal Trainers", "Beauticians", "Caterers", "Dog Groomers",
 ];
 
 export default function Marquee() {
@@ -9,7 +11,7 @@ export default function Marquee() {
     <div className="bg-ink py-4 overflow-hidden">
       <div
         className="flex gap-12 whitespace-nowrap"
-        style={{ animation: "marquee 18s linear infinite", width: "max-content" }}
+        style={{ animation: "marquee 28s linear infinite", width: "max-content" }}
       >
         {[...trades, ...trades].map((t, i) => (
           <span

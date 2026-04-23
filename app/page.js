@@ -6,6 +6,7 @@ import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import Services from "@/components/Services";
 import About from "@/components/About";
+import AdDesign from "@/components/AdDesign";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import { Pricing, HowItWorks, Referral, FAQ } from "@/components/sections";
@@ -35,6 +36,7 @@ export default function HomePage() {
       <Pricing />
       <HowItWorks />
       <Testimonials />
+      <AdDesign />
       <Referral />
       <FAQ />
       <Contact />

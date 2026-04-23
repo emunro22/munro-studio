@@ -16,24 +16,28 @@ const body = DM_Sans({
 });
 
 export const metadata = {
-  title: "MunroStudio — Websites for UK Tradespeople | From £55/month",
+  title: "MunroStudio — Glasgow Web Design | First Month Free | Websites From £55/mo",
   description:
-    "Professional websites for plumbers, electricians, builders & tradespeople across the UK. Custom design, local SEO, mobile-first. From £55/month or £499 one-off. No setup fee.",
+    "Glasgow-based web design for tradespeople and small businesses. Custom websites, local SEO, first month free, then £55/month or £499 one-off. Call 07485 218 091.",
   keywords: [
-    "web design for tradespeople",
-    "plumber website UK",
-    "electrician website",
-    "builder website design",
-    "tradesman website",
-    "local SEO web design",
-    "small business website UK",
+    "Glasgow web design",
+    "web design Glasgow",
+    "tradesmen websites Glasgow",
+    "plumber website Glasgow",
+    "electrician website Glasgow",
+    "builder website Glasgow",
+    "small business website Glasgow",
+    "affordable web design Glasgow",
+    "Glasgow website designer",
+    "ad design Glasgow",
+    "local SEO Glasgow",
     "MunroStudio",
   ],
   authors: [{ name: "MunroStudio", url: "https://munrostudio.co.uk" }],
   openGraph: {
-    title: "MunroStudio — Websites for UK Tradespeople | From £55/month",
+    title: "MunroStudio — Glasgow Web Design | First Month Free",
     description:
-      "Custom websites for UK tradespeople. Local SEO-ready, mobile-first, fully managed. From £55/month or £499 one-off.",
+      "Custom websites for Glasgow tradespeople and small businesses. First month on me, then £55/month or £499 one-off. Call 07485 218 091.",
     url: "https://munrostudio.co.uk",
     siteName: "MunroStudio",
     locale: "en_GB",
@@ -41,8 +45,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "MunroStudio — Websites for UK Tradespeople",
-    description: "From £55/month or £499 one-off. Custom, SEO-ready websites for UK tradespeople.",
+    title: "MunroStudio — Glasgow Web Design | First Month Free",
+    description:
+      "Custom websites for Glasgow businesses. First month free, then £55/month or £499 one-off.",
   },
   icons: {
     icon: "/favicon.ico",
@@ -73,14 +78,25 @@ export default function RootLayout({ children }) {
           {`
             {
               "@context": "https://schema.org",
-              "@type": "ProfessionalService",
+              "@type": "LocalBusiness",
+              "@id": "https://munrostudio.co.uk/#business",
               "name": "MunroStudio",
-              "description": "Professional web design and development for UK tradespeople. Custom websites from £55/month or £499 one-off.",
+              "description": "Glasgow-based web design and ad design for tradespeople and small businesses. First month free, then £55/month or £499 one-off.",
               "url": "https://munrostudio.co.uk",
               "telephone": "+447485218091",
               "email": "euanmunroo@gmail.com",
-              "areaServed": "GB",
-              "priceRange": "£55–£499"
+              "priceRange": "££",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Glasgow",
+                "addressRegion": "Scotland",
+                "addressCountry": "GB"
+              },
+              "areaServed": [
+                { "@type": "City", "name": "Glasgow" },
+                { "@type": "Country", "name": "United Kingdom" }
+              ],
+              "founder": { "@type": "Person", "name": "Euan Munro" }
             }
           `}
         </Script>

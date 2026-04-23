@@ -25,9 +25,9 @@ export default function Hero() {
       <div data-reveal className="mb-10 flex items-center gap-3 flex-wrap">
         <span className="inline-flex items-center gap-2 text-xs font-medium text-ink-soft border border-border rounded-full px-4 py-1.5">
           <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-          From £55/month or £499 one-off · No Setup Fee · Cancel Any Time
+          First month <span className="font-bold text-ink">FREE</span> · then £55/mo or £499 one-off · Cancel any time
         </span>
-        <span className="hidden sm:block text-xs text-ink-faint">— Trusted by 20+ UK businesses</span>
+        <span className="hidden sm:block text-xs text-ink-faint">— Glasgow-based · Trusted by 20+ UK businesses</span>
       </div>
 
       <h1
@@ -41,22 +41,37 @@ export default function Hero() {
 
       <div data-reveal className="mt-6 md:mt-8">
         <p className="text-lg md:text-xl font-medium text-ink max-w-2xl leading-snug">
-          Professional websites for UK tradespeople —{" "}
-          <span className="text-highlight">£55/month or £499 one-off.</span>
+          Custom websites for Glasgow tradespeople & local businesses — built free, live in 2 weeks.{" "}
+          <span className="text-highlight">First month on us.</span>
         </p>
         <p className="mt-3 text-base text-ink-soft leading-relaxed max-w-lg font-light">
-          Built for plumbers, electricians, builders, and local trades. Fully custom, mobile-first, and optimised for local Google search — so customers in your area can find you fast.
+          Plumbers, electricians, builders, salons, cafes, cleaners — if you're a Glasgow business that needs to be found locally on Google, I build you a fully custom, mobile-first site that actually converts. No templates. No tie-ins.
         </p>
       </div>
 
+      {/* First month free — risk-reversal block */}
+      <div data-reveal className="mt-8 max-w-xl">
+        <div className="border border-highlight/30 bg-highlight/5 rounded-xl p-5">
+          <p className="text-xs font-bold uppercase tracking-widest text-highlight mb-2">
+            ★ New: First month free
+          </p>
+          <p className="text-sm text-ink font-medium leading-snug mb-1">
+            I'll build and launch your site for <span className="font-bold">£0</span>. Use it for a full month free.
+          </p>
+          <p className="text-sm text-ink-soft leading-snug font-light">
+            If it's not getting you found, cancel — no questions, no fee. Otherwise £55/month (or pay £499 once and own it outright).
+          </p>
+        </div>
+      </div>
+
       {/* Checkatrade comparison hook */}
-      <div data-reveal className="mt-8 max-w-lg">
-        <div className="border-l-2 border-highlight pl-4 py-1">
+      <div data-reveal className="mt-6 max-w-lg">
+        <div className="border-l-2 border-ink pl-4 py-1">
           <p className="text-sm text-ink font-medium leading-snug">
             Paying <span className="font-bold">£100+/month</span> to Checkatrade or MyBuilder?
           </p>
           <p className="text-sm text-ink-soft leading-snug mt-1 font-light">
-            Your own website pays for itself in under 5 months — and the leads are <em className="italic">yours</em>, not shared with 3 other trades.
+            Your own site pays for itself in under 5 months — and the leads are <em className="italic">yours</em>, not shared with 3 other trades.
           </p>
         </div>
       </div>
@@ -66,7 +81,7 @@ export default function Hero() {
           href="#contact"
           className="bg-ink text-white font-medium px-7 py-3.5 rounded-full text-sm hover:bg-highlight transition-colors duration-250 text-center"
         >
-          Get a Free Quote
+          Claim your free month
         </a>
         <a
           href="#pricing"
@@ -78,9 +93,9 @@ export default function Hero() {
 
       <div data-reveal className="mt-20 md:mt-28 grid grid-cols-3 gap-4 sm:gap-8 border-t border-border pt-10 max-w-xl">
         {[
-          { n: "£55", l: "Per month, all in" },
-          { n: "£499", l: "One-off option" },
-          { n: "2–3wk", l: "Turnaround" },
+          { n: "£0", l: "First month" },
+          { n: "£55", l: "Per month after" },
+          { n: "£499", l: "Or one-off, yours" },
         ].map(({ n, l }) => (
           <div key={l}>
             <div className="font-display text-3xl sm:text-4xl font-black text-ink">{n}</div>
