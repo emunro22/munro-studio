@@ -2,8 +2,10 @@
 import { useState } from "react";
 import Link from "next/link";
 
+const inputClass = "bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-white/30 transition-colors duration-200 w-full font-light";
+
 export default function Contact() {
-  const [formState, setFormState] = useState("idle"); // "idle" | "loading" | "success" | "error"
+  const [formState, setFormState] = useState("idle");
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -33,26 +35,50 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 md:py-36 px-6 md:px-10 bg-ink">
+    <section id="contact" className="py-16 md:py-28 px-5 md:px-10 bg-ink">
       <div className="max-w-7xl mx-auto">
-        <div className="reveal grid md:grid-cols-2 gap-16 md:gap-24 items-start">
+        <div className="reveal grid md:grid-cols-2 gap-10 md:gap-24 items-start">
 
           {/* Left — info */}
           <div>
-            <p className="text-xs font-medium text-white/40 tracking-widest uppercase mb-6">
+            <p className="text-xs font-medium text-white/40 tracking-widest uppercase mb-5">
               Get in touch
             </p>
-            <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-6">
+            <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-4">
               Ready to get
               <br />
               <em className="italic text-white/50">found online?</em>
             </h2>
-            <p className="text-white/50 text-base leading-relaxed mb-10 font-light max-w-sm">
-              Fill in the form and I'll get back to you within 24 hours. No
-              obligation, no hard sell — just a free chat about what you need.
+            <p className="text-white/50 text-sm md:text-base leading-relaxed mb-8 font-light max-w-sm">
+              Fill in the form and I&apos;ll get back to you within 24 hours — no obligation, no hard sell.
             </p>
 
-            <div className="space-y-5">
+            {/* Quick-contact buttons on mobile */}
+            <div className="flex gap-3 mb-8 md:hidden">
+              <a
+                href="tel:07485218091"
+                className="flex-1 flex items-center justify-center gap-2 border border-white/15 text-white/70 text-sm font-semibold py-3 rounded-full hover:border-white/30 active:scale-95 transition-all duration-200"
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+                </svg>
+                Call
+              </a>
+              <a
+                href="https://wa.me/447485218091?text=Hi%20Euan%2C%20I%27m%20interested%20in%20a%20website"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] text-white text-sm font-semibold py-3 rounded-full hover:bg-[#1ebe5d] active:scale-95 transition-all duration-200"
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                WhatsApp
+              </a>
+            </div>
+
+            {/* Desktop contact list */}
+            <div className="hidden md:flex flex-col gap-5">
               <a href="tel:07485218091" className="flex items-center gap-4 group">
                 <div className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-white/40 group-hover:border-white/30 group-hover:text-white/60 transition-all duration-200 flex-shrink-0">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -60,17 +86,12 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs text-white/30 mb-0.5">Call us</p>
+                  <p className="text-xs text-white/30 mb-0.5">Call</p>
                   <p className="text-sm font-medium text-white/70 group-hover:text-white transition-colors duration-200">07485 218 091</p>
                 </div>
               </a>
 
-              <a
-                href="https://wa.me/447485218091?text=Hi%20Euan%2C%20I%27m%20interested%20in%20a%20website%20for%20my%20trade%20business"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 group"
-              >
+              <a href="https://wa.me/447485218091?text=Hi%20Euan%2C%20I%27m%20interested%20in%20a%20website" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
                 <div className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-white/40 group-hover:border-green-500/50 group-hover:text-green-400 transition-all duration-200 flex-shrink-0">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -100,65 +121,37 @@ export default function Contact() {
           {/* Right — form */}
           <div>
             {formState === "success" ? (
-              <div className="border border-white/10 rounded-2xl p-10 text-center">
-                <div className="text-5xl mb-5">✅</div>
+              <div className="border border-white/10 rounded-2xl p-8 text-center">
+                <div className="text-5xl mb-4">✅</div>
                 <h3 className="font-display text-2xl font-black text-white mb-3">Message sent!</h3>
                 <p className="text-sm text-white/50 font-light leading-relaxed">
-                  Thanks — I'll be in touch within 24 hours.
-                  <br />
-                  Or call/WhatsApp on{" "}
-                  <a href="tel:07485218091" className="text-white/70 hover:text-white transition-colors">
-                    07485 218 091
-                  </a>
+                  Thanks — I&apos;ll be in touch within 24 hours.
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <input
-                    name="name"
-                    type="text"
-                    placeholder="Your name"
-                    required
-                    className="bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-white/30 transition-colors duration-200 w-full font-light"
-                  />
-                  <input
-                    name="phone"
-                    type="tel"
-                    placeholder="Phone number"
-                    className="bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-white/30 transition-colors duration-200 w-full font-light"
-                  />
+              <form onSubmit={handleSubmit} className="space-y-3.5">
+                <div className="grid grid-cols-2 gap-3.5">
+                  <input name="name" type="text" placeholder="Your name" required className={inputClass} />
+                  <input name="phone" type="tel" placeholder="Phone number" className={inputClass} />
                 </div>
-                <input
-                  name="trade"
-                  type="text"
-                  placeholder="Your trade (e.g. Plumber, Electrician)"
-                  required
-                  className="bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-white/30 transition-colors duration-200 w-full font-light"
-                />
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="Email address"
-                  required
-                  className="bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-white/30 transition-colors duration-200 w-full font-light"
-                />
+                <input name="trade" type="text" placeholder="Your business / trade" required className={inputClass} />
+                <input name="email" type="email" placeholder="Email address" required className={inputClass} />
                 <textarea
                   name="message"
                   rows={4}
-                  placeholder="Tell me a bit about your business and what you're looking for..."
-                  className="bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-white/30 transition-colors duration-200 w-full font-light resize-none"
+                  placeholder="Tell me what you need..."
+                  className={inputClass + " resize-none"}
                 />
                 <button
                   type="submit"
                   disabled={formState === "loading"}
-                  className="w-full bg-white text-ink font-semibold py-4 rounded-full text-sm hover:bg-surface transition-colors duration-200 tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-white text-ink font-semibold py-4 rounded-full text-sm hover:bg-surface active:scale-95 transition-all duration-200 tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {formState === "loading" ? "Sending..." : "Send Message — It's Free"}
                 </button>
                 {formState === "error" && (
                   <p className="text-xs text-red-400 text-center pt-1">
-                    Something went wrong. Please WhatsApp or email me directly.
+                    Something went wrong. WhatsApp or email me directly.
                   </p>
                 )}
               </form>
@@ -166,12 +159,13 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Footer bar */}
-        <div className="reveal mt-24 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-white/30">
+        {/* Footer */}
+        <div className="reveal mt-16 md:mt-24 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs text-white/30">
           <span>© {new Date().getFullYear()} MunroStudio. All rights reserved.</span>
-          <Link href="/" className="hover:text-white/50 transition-colors duration-200">
-            ← Back to main site
-          </Link>
+          <div className="flex items-center gap-4">
+            <a href="https://www.instagram.com/mnrostudio/" target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition-colors duration-200">Instagram</a>
+            <Link href="/" className="hover:text-white/50 transition-colors duration-200">← Home</Link>
+          </div>
         </div>
       </div>
     </section>

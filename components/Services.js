@@ -1,41 +1,43 @@
 export default function Services() {
   return (
-    <section className="py-24 md:py-36 px-6 md:px-10 bg-surface">
+    <section className="py-16 md:py-28 px-5 md:px-10 bg-surface">
       <div className="max-w-7xl mx-auto">
-        <p className="reveal text-xs font-medium text-ink-faint tracking-widest uppercase mb-12">
-          The problem
+        <p className="reveal text-xs font-medium text-ink-faint tracking-widest uppercase mb-10 md:mb-12">
+          Why MunroStudio
         </p>
-        <div className="reveal grid md:grid-cols-2 gap-12 md:gap-24 mb-16">
-          <h2 className="font-display text-4xl md:text-6xl font-black text-ink leading-tight">
-            Stop renting
+        <div className="reveal grid md:grid-cols-2 gap-8 md:gap-24 mb-12 md:mb-16">
+          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-black text-ink leading-tight">
+            More than just
             <br />
-            <em className="italic">your leads.</em>
+            <em className="italic">a website.</em>
           </h2>
-          <div className="flex flex-col justify-center gap-4 text-ink-soft text-base leading-relaxed font-light">
+          <div className="flex flex-col justify-center gap-3 md:gap-4 text-ink-soft text-sm md:text-base leading-relaxed font-light">
             <p>
-              Checkatrade, MyBuilder and Rated People charge{" "}
-              <span className="text-ink font-medium">£100+ every month</span> — and the moment you stop paying, you vanish. Every lead is shared with 3–5 other trades, so you're racing to the bottom on price.
+              Most web designers hand you a site and disappear. I build{" "}
+              <span className="text-ink font-medium">the full picture</span> — your site, your SEO, your booking system, your Google reviews, your admin access, and your online ordering if you need it.
             </p>
             <p>
-              Same story for salons, cafes, cleaners and local Glasgow businesses — relying on Facebook groups, Google Maps listings you don't control, or word of mouth alone.
+              Every site gets a sitemap submitted to Google, a Google Business Profile set up, and booking systems like{" "}
+              <span className="text-ink font-medium">Google Calendar or Calendly</span> integrated so customers can book directly from your page.
             </p>
             <p>
-              Your own website is different. It works <span className="text-ink font-medium">24/7</span>, the leads are exclusively yours, and you own it forever. A professional site builds instant trust and shows off your work — even while you're on a job.
+              Need to update your own photos or services without calling me?{" "}
+              <span className="text-ink font-medium">Admin portal included.</span> Need customers to order or book online?{" "}
+              <span className="text-ink font-medium">That&apos;s included too.</span>
             </p>
-            <p>Most Glasgow small businesses still don't have a proper website. That's your advantage.</p>
           </div>
         </div>
 
-        <div className="reveal grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden mt-10">
+        <div className="reveal grid grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden">
           {[
-            { before: "Paying £100+/mo to Checkatrade, forever", after: "Own your site for £499 — yours for life" },
-            { before: "Leads shared with 3–5 competitors", after: "Exclusive leads, direct to your phone" },
-            { before: "Relying on word of mouth only", after: "Get found by new customers on Google" },
-            { before: "No way to show off your work", after: "Gallery of past jobs builds instant trust" },
+            { before: "Generic template, looks like everyone else", after: "Fully custom design built around your brand" },
+            { before: "No Google visibility when you launch", after: "Sitemap submitted, SEO-ready from day one" },
+            { before: "Customers have to call to book", after: "Booking system live on your site from day one" },
+            { before: "Can't update your own site", after: "Admin portal — you're in control" },
           ].map(({ before, after }, i) => (
-            <div key={i} className="bg-white p-8 group hover:bg-surface transition-colors duration-200">
-              <p className="text-xs text-ink-faint line-through mb-3 font-light">{before}</p>
-              <p className="text-sm font-medium text-ink leading-snug">{after}</p>
+            <div key={i} className="bg-white p-5 md:p-8 group hover:bg-surface transition-colors duration-200">
+              <p className="text-xs text-ink-faint line-through mb-2 md:mb-3 font-light leading-snug">{before}</p>
+              <p className="text-xs md:text-sm font-medium text-ink leading-snug">{after}</p>
             </div>
           ))}
         </div>
