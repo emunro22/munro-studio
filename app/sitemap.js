@@ -5,34 +5,17 @@ export default function sitemap() {
 
   const staticRoutes = [
     { url: `${baseUrl}/`, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
-    { url: `${baseUrl}/onboarding`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${baseUrl}/thank-you`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/onboarding`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/thank-you`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
   ];
 
-  const serviceRoutes = [
-    "web-design-glasgow",
-    "seo-services-glasgow",
-    "google-reviews-integration",
-    "admin-portals-glasgow",
-    "ecommerce-websites-glasgow",
-    "website-design-for-tradesmen",
-    "website-design-for-small-businesses",
-    "google-business-profile-setup",
-    "local-seo-glasgow",
-    "website-maintenance-glasgow",
-  ].map((slug) => ({
-    url: `${baseUrl}/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.9,
-  }));
-
+  // Every slug in seoPages has a real rendered page via app/[slug]/page.js
   const seoRoutes = seoPageSlugs.map((slug) => ({
     url: `${baseUrl}/${slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly",
-    priority: 0.9,
+    priority: slug.startsWith("web-design-") || slug === "glasgow-web-design" ? 0.95 : 0.85,
   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...seoRoutes];
+  return [...staticRoutes, ...seoRoutes];
 }
