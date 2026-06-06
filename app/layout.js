@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Playfair_Display, DM_Sans } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 
 const display = Playfair_Display({
   subsets: ["latin"],
@@ -100,6 +101,7 @@ export default function RootLayout({ children }) {
             }
           `}
         </Script>
+        <Analytics />
       </body>
     </html>
   );
