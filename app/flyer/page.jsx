@@ -163,7 +163,7 @@ export default function FlyerLandingPage() {
             <p className="text-xs font-bold uppercase tracking-widest text-white/40 mb-3">Or one-off</p>
             <p className="font-display text-5xl font-black leading-none mb-2">£499</p>
             <p className="text-sm text-white/60 font-light">
-              Pay once, yours forever.
+              Pay once, hosted by us.
             </p>
           </div>
         </div>

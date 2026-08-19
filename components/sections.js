@@ -69,18 +69,18 @@ export function Pricing() {
             <div className="flex items-baseline gap-2 mb-1">
               <span className="font-display text-5xl sm:text-6xl font-black text-white leading-none">£499</span>
             </div>
-            <p className="text-sm text-white/50 mb-1 font-light">Pay once, own it outright.</p>
-            <p className="text-xs text-white/30 mb-6 font-light">You manage hosting & updates after handover.</p>
+            <p className="text-sm text-white/50 mb-1 font-light">Pay once, hosted by us.</p>
+            <p className="text-xs text-white/30 mb-6 font-light">No SEO or sitemap submission included.</p>
 
             <p className="text-xs font-bold uppercase tracking-widest text-white/40 mb-3">What's included:</p>
             <ul className="space-y-2 flex-1 mb-7">
               {[
                 "Full custom design & build",
-                "Local SEO optimised",
-                "Sitemap XML submitted",
+                "Hosted by us",
+                "No SEO optimisation",
+                "No sitemap submitted",
+                "Up to 25 area pages on your site",
                 "Google reviews integrated",
-                "Handed over to you completely",
-                "Host wherever you like",
                 "3 months support included",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2.5 text-sm text-white/70">

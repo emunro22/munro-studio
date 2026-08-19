@@ -1,9 +1,12 @@
 // Single source of truth for all SEO landing pages.
 //
-// THREE URL STRUCTURES supported:
+// URL STRUCTURES supported:
 // 1. /glasgow-web-design, /tradesmen-websites-glasgow (main hub pages — hand-written)
-// 2. /web-design-{area} (Glasgow area pages — auto-generated, SEO-optimised)
-// 3. /{area} (short redirect URLs that resolve to same page — for ad copy brevity)
+// 2. /web-design-{area} (Glasgow area pages — auto-generated, SEO-optimised, canonical)
+// 3. /{area} (short URL for ad copy, e.g. "munrostudio.co.uk/lenzie") — 301s to
+//    /web-design-{area} via next.config.js redirects(), NOT a separate rendered page.
+//    (Previously both were separately rendered with identical content, which Search
+//    Console flagged as duplicates and left the short URLs unindexed.)
 
 // ─── Glasgow areas covered ──────────────────────────────────────────────────
 // Add a new area here and a full SEO page appears automatically.
@@ -30,6 +33,21 @@ export const glasgowAreas = [
   { slug: "johnstone", name: "Johnstone", blurb: "Renfrewshire town with steady demand for home-improvement trades.", nearby: ["Paisley", "Linwood", "Elderslie"] },
   { slug: "west-end", name: "Glasgow West End", blurb: "Glasgow's cultural quarter — tenement flats, conversions, high-value trade work.", nearby: ["Partick", "Hillhead", "Kelvinbridge"] },
   { slug: "southside", name: "Glasgow Southside", blurb: "Shawlands, Pollokshields, Strathbungo — diverse neighbourhoods, steady trade demand.", nearby: ["Shawlands", "Pollokshields", "Battlefield"] },
+  { slug: "dumbarton", name: "Dumbarton", blurb: "West Dunbartonshire town on the Clyde — steady demand for home and trade services.", nearby: ["Clydebank", "Alexandria", "Helensburgh"] },
+  { slug: "helensburgh", name: "Helensburgh", blurb: "Affluent Argyll & Bute town on the Clyde coast — premium jobs, quality work in demand.", nearby: ["Dumbarton", "Rhu", "Cardross"] },
+  { slug: "barrhead", name: "Barrhead", blurb: "East Renfrewshire town with a strong base of local tradespeople and small businesses.", nearby: ["Neilston", "Paisley", "Newton Mearns"] },
+  { slug: "newton-mearns", name: "Newton Mearns", blurb: "Affluent East Renfrewshire suburb — high-spec homes, premium trade and service jobs.", nearby: ["Giffnock", "Clarkston", "Barrhead"] },
+  { slug: "giffnock", name: "Giffnock", blurb: "East Renfrewshire suburb with an affluent homeowner base and steady trade demand.", nearby: ["Newton Mearns", "Clarkston", "Glasgow Southside"] },
+  { slug: "clarkston", name: "Clarkston", blurb: "East Renfrewshire village popular with families — consistent home-improvement demand.", nearby: ["Giffnock", "Newton Mearns", "Busby"] },
+  { slug: "uddingston", name: "Uddingston", blurb: "South Lanarkshire town bordering Glasgow's east end — busy domestic trade market.", nearby: ["Bothwell", "Hamilton", "Coatbridge"] },
+  { slug: "blantyre", name: "Blantyre", blurb: "South Lanarkshire town with a strong working population and active trade scene.", nearby: ["Hamilton", "East Kilbride", "Uddingston"] },
+  { slug: "larkhall", name: "Larkhall", blurb: "South Lanarkshire town with steady demand for home-improvement and trade work.", nearby: ["Hamilton", "Stonehouse", "Motherwell"] },
+  { slug: "kilsyth", name: "Kilsyth", blurb: "North Lanarkshire town at the foot of the Campsies — growing commuter population.", nearby: ["Cumbernauld", "Kirkintilloch", "Banton"] },
+  { slug: "stepps", name: "Stepps", blurb: "North Lanarkshire commuter village on Glasgow's doorstep — affluent homeowner base.", nearby: ["Millerston", "Muirhead", "Bishopbriggs"] },
+  { slug: "maryhill", name: "Maryhill", blurb: "Glasgow neighbourhood along the canal — mix of tenements and new-build, steady trade work.", nearby: ["Maryhill Park", "Anniesland", "Milngavie"] },
+  { slug: "partick", name: "Partick", blurb: "Busy Glasgow West End neighbourhood — tenement flats, conversions and a young population.", nearby: ["West End", "Hillhead", "Scotstoun"] },
+  { slug: "drumchapel", name: "Drumchapel", blurb: "Glasgow suburb on the city's northwest edge — consistent demand for domestic trades.", nearby: ["Clydebank", "Knightswood", "Bearsden"] },
+  { slug: "bridge-of-weir", name: "Bridge of Weir", blurb: "Affluent Renfrewshire village — high-spec homes and premium trade work in demand.", nearby: ["Kilmacolm", "Houston", "Johnstone"] },
 ];
 
 // ─── Main SEO pages ─────────────────────────────────────────────────────────
@@ -43,7 +61,7 @@ export const seoPages = {
     intro: "Custom-built websites for Glasgow businesses — designed, developed and optimised for local Google search. No templates, no tie-ins, and your first month is free.",
     keyword: "Glasgow web design",
     audienceLabel: "Glasgow businesses",
-    heroStats: [{ n: "£0", l: "First month" }, { n: "£55", l: "Per month after" }, { n: "£499", l: "Or one-off, yours forever" }],
+    heroStats: [{ n: "£0", l: "First month" }, { n: "£55", l: "Per month after" }, { n: "£499", l: "Or one-off, hosted by us" }],
     benefits: [
       { title: "Built locally in Glasgow", desc: "I'm based in Glasgow, so we can meet face-to-face if you'd prefer, and I understand the local market — from the West End to East Kilbride." },
       { title: "Custom design, no templates", desc: "Every site is custom-built in Next.js — the same tech used by top tech companies. You won't look like every other Glasgow small business." },
@@ -58,7 +76,7 @@ export const seoPages = {
       { them: "No phone number, only contact forms", us: "Direct number: 07485 218 091" },
     ],
     faqs: [
-      { q: "How much does web design cost in Glasgow?", a: "Glasgow web design prices range widely — small agencies typically charge £700–£2,400 for a basic site, while larger agencies start at £2,000+. MunroStudio keeps it simple: £0 for your first month, then £55/month (cancel any time), or a one-off £499 to own the site outright." },
+      { q: "How much does web design cost in Glasgow?", a: "Glasgow web design prices range widely — small agencies typically charge £700–£2,400 for a basic site, while larger agencies start at £2,000+. MunroStudio keeps it simple: £0 for your first month, then £55/month (cancel any time), or a one-off £499, hosted by us (SEO and sitemap submission aren't included on the one-off plan)." },
       { q: "Do you work with Glasgow businesses only?", a: "I'm based in Glasgow and work with businesses all across the city, from the West End and Southside to Paisley, Clydebank, East Kilbride and the wider Greater Glasgow area. I also take clients elsewhere in Scotland and the UK — but Glasgow is home." },
       { q: "Will my site rank on Google for Glasgow searches?", a: "Every site I build is optimised for local SEO from day one, with location-based keywords, a Google Business Profile setup, and clean technical foundations. Ranking takes time (usually 2–6 months for local terms), but you'll be set up correctly from launch." },
       { q: "Can we meet in person?", a: "Absolutely — being Glasgow-based is a big part of what I offer. Most clients prefer a quick call or WhatsApp chat, but I'm happy to meet in person in Glasgow if you'd rather discuss the project face-to-face." },
@@ -76,7 +94,7 @@ export const seoPages = {
     audienceLabel: "Glasgow tradespeople",
     heroStats: [{ n: "£0", l: "First month" }, { n: "20+", l: "Trade clients served" }, { n: "2–3wk", l: "From signup to live" }],
     benefits: [
-      { title: "Beats Checkatrade on every metric", desc: "Checkatrade costs £1,200+ a year forever, and your leads are shared with 3+ other trades. A MunroStudio site is £499 once — yours for life — and every lead comes direct to your phone." },
+      { title: "Beats Checkatrade on every metric", desc: "Checkatrade costs £1,200+ a year forever, and your leads are shared with 3+ other trades. A MunroStudio site is £499 once, hosted by us — and every lead comes direct to your phone." },
       { title: "Built for 'plumber near me' searches", desc: "I build every site to rank for local trade terms — 'electrician Glasgow', 'roofer Paisley', 'builder East Kilbride'. That's where the real jobs come from." },
       { title: "Mobile-first — where your customers are", desc: "70% of 'tradesman near me' searches happen on a phone. Every site is built mobile-first with click-to-call buttons, so enquiries come through while you're on the job." },
       { title: "Done by someone who gets it", desc: "I've built sites for recovery operators, MOT centres, groundcare, waste clearance — I know trade businesses and what converts for them." },
@@ -85,7 +103,7 @@ export const seoPages = {
     comparisonRows: [
       { them: "Checkatrade: £100+/month, forever", us: "MunroStudio: £499 once, or £55/mo (first free)" },
       { them: "Leads shared with 3–5 competitors", us: "Exclusive leads — yours only" },
-      { them: "You vanish when you stop paying", us: "You own the site forever on the one-off plan" },
+      { them: "You vanish when you stop paying", us: "One-off plan stays live, hosted by us, no monthly fee" },
       { them: "Generic profile page, looks like every other trade", us: "Custom design that showcases your work" },
     ],
     faqs: [
@@ -116,7 +134,7 @@ export const seoPages = {
     comparisonRows: [
       { them: "Checkatrade: £100+/month shared with 5 plumbers", us: "Your site: every call is yours, exclusively" },
       { them: "No control over your profile's design", us: "Fully branded site that looks trustworthy" },
-      { them: "Stop paying, you disappear", us: "Own the one-off build forever" },
+      { them: "Stop paying, you disappear", us: "One-off build stays live, hosted by us" },
       { them: "No way to rank in Google Maps", us: "Google Business Profile optimised day one" },
     ],
     faqs: [
@@ -140,7 +158,7 @@ export const seoPages = {
       { title: "NICEIC / SELECT / NAPIT badges front and centre", desc: "Qualifications are the #1 trust signal for electrical work. I make sure your accreditations are impossible to miss — on the header, near every CTA, and on a dedicated credentials page." },
       { title: "Ranks for local electrical searches", desc: "'EICR Glasgow', 'electrician Southside', 'rewire quote Paisley' — these are the searches that turn into actual jobs. Every page is built to target them." },
       { title: "Service pages that convert", desc: "Separate optimised pages for EICRs, rewires, consumer unit upgrades, EV charger installation, commercial work — each targeting the right keyword." },
-      { title: "Free month to see results", desc: "Launch for £0, use it for a month, see the enquiries come in. Then stay on £55/month, or buy it outright for £499. No card up front." },
+      { title: "Free month to see results", desc: "Launch for £0, use it for a month, see the enquiries come in. Then stay on £55/month, or go one-off for £499, hosted by us. No card up front." },
     ],
     comparisonTitle: "Trade directories vs your own electrician website",
     comparisonRows: [
@@ -210,7 +228,7 @@ export const seoPages = {
       { them: "No ongoing support after handover", us: "Hosting, updates, and support all included" },
     ],
     faqs: [
-      { q: "What does web design cost in Glasgow?", a: "Glasgow agencies typically charge £700–£10,000+ for a custom site. MunroStudio charges £0 for your first month, then £55/month all-in (cancel any time), or a one-off £499 to own the site outright." },
+      { q: "What does web design cost in Glasgow?", a: "Glasgow agencies typically charge £700–£10,000+ for a custom site. MunroStudio charges £0 for your first month, then £55/month all-in (cancel any time), or a one-off £499, hosted by us (SEO and sitemap submission aren't included on the one-off plan)." },
       { q: "What's included at £55/month?", a: "Everything — custom design, hosting, SEO, sitemap submitted to Google, Google Business Profile setup, Google reviews on your site, booking system integration, admin portal, and unlimited content changes." },
       { q: "How long does the process take?", a: "Most sites are live within 2–3 weeks from kickoff. You review the design before launch and request any changes — nothing goes live without your sign-off." },
     ],
@@ -465,7 +483,7 @@ export const seoPages = {
     intro: "Cafes, salons, shops, gyms, cleaners, personal trainers — if you're a Glasgow small business relying on Instagram or word of mouth, a proper website is the single biggest upgrade you can make. First month free.",
     keyword: "small business websites Glasgow",
     audienceLabel: "Glasgow small businesses",
-    heroStats: [{ n: "£0", l: "First month" }, { n: "£55", l: "Monthly after" }, { n: "£499", l: "Or own it outright" }],
+    heroStats: [{ n: "£0", l: "First month" }, { n: "£55", l: "Monthly after" }, { n: "£499", l: "Or one-off, hosted by us" }],
     benefits: [
       { title: "More than a link in bio", desc: "Your Instagram is great for awareness, but it doesn't rank on Google, customers can't book through it properly, and you don't own it. Your own website does all three." },
       { title: "Local SEO for neighbourhood searches", desc: "'Cafes Shawlands', 'nail salon Finnieston', 'gym Merchant City' — I optimise every site for your specific Glasgow area so your customers find you first." },
@@ -486,12 +504,139 @@ export const seoPages = {
       { q: "What about photos? I don't have a photographer.", a: "If you've got decent phone photos I can work with those. If you want a proper photoshoot, I can recommend affordable Glasgow photographers, but it's not essential — modern phone cameras genuinely work for most small business sites." },
     ],
   },
+
+  "web-design-near-me": {
+    slug: "web-design-near-me",
+    title: "Web Design Near Me | Glasgow-Based Web Designer | MunroStudio",
+    metaDescription: "Searching 'web design near me'? MunroStudio is a Glasgow-based web designer covering the whole Greater Glasgow area. First month free, then £55/mo. Call 07485 218 091.",
+    h1: "Web design near me",
+    h1Accent: "a real Glasgow-based designer.",
+    intro: "Searching 'web design near me' usually turns up faceless agencies or freelancers three time zones away. I'm actually based in Glasgow, work across the whole Greater Glasgow area, and I'm happy to meet face-to-face if you'd rather not do everything over email.",
+    keyword: "web design near me",
+    audienceLabel: "local businesses",
+    heroStats: [{ n: "£0", l: "First month" }, { n: "£55", l: "Per month after" }, { n: "2–3wk", l: "From signup to live" }],
+    benefits: [
+      { title: "Genuinely local, not just a landing page", desc: "I'm based in Glasgow and work with businesses across the city and surrounding towns — Paisley, Clydebank, East Kilbride, Hamilton and beyond. 'Near me' means near me, not a call centre." },
+      { title: "Meet in person if you want to", desc: "Prefer a face-to-face chat over a video call? I'm happy to meet in Glasgow or come to you. Most clients end up preferring WhatsApp once we get going, but the option's there." },
+      { title: "Built to rank for local searches", desc: "Every site I build is optimised for the exact kind of local, near-me searches your own customers use to find you — not just generic keywords." },
+      { title: "First month completely free", desc: "No card needed to start. Use the live site for a month risk-free, then decide between £55/month or a £499 one-off, hosted by us." },
+    ],
+    comparisonTitle: "Anonymous agency vs an actual local web designer",
+    comparisonRows: [
+      { them: "Directory listings: no idea who's actually building your site", us: "You know exactly who I am and where I'm based" },
+      { them: "Offshore freelancers: language and time-zone friction", us: "Same time zone, same city, WhatsApp throughout" },
+      { them: "Generic template dropped on a subdomain", us: "Custom-built site designed around your business" },
+      { them: "No way to meet in person", us: "Happy to meet face-to-face in Glasgow" },
+    ],
+    faqs: [
+      { q: "Are you actually based in Glasgow?", a: "Yes — I'm a Glasgow-based web designer and work with businesses across the whole Greater Glasgow area, plus clients further afield across Scotland and the UK." },
+      { q: "Do you only work with businesses right next to you?", a: "No — 'near me' searches usually mean the whole city and surrounding towns, not just one postcode. I cover Glasgow, Paisley, Clydebank, East Kilbride, Hamilton, and the wider Central Belt, all remotely or in person." },
+      { q: "Can I meet you before deciding?", a: "Of course. A quick call or WhatsApp chat is usually enough to scope the project, but if you'd rather meet in person in Glasgow first, I'm happy to arrange that." },
+      { q: "How is this different from a big web design directory?", a: "Directories connect you with whoever bids lowest — you often don't know who's actually building your site. With MunroStudio you're dealing directly with me, start to finish." },
+    ],
+  },
+
+  "generative-engine-optimization-glasgow": {
+    slug: "generative-engine-optimization-glasgow",
+    title: "Generative Engine Optimization (GEO) Glasgow | AI Search Ready Sites | MunroStudio",
+    metaDescription: "GEO for Glasgow businesses — get your website structured so ChatGPT, Perplexity and Google AI Overviews can find and cite it. Built into every MunroStudio site.",
+    h1: "Generative Engine Optimization",
+    h1Accent: "get found by AI, not just Google.",
+    intro: "More customers are asking ChatGPT, Perplexity and Google's AI Overviews for recommendations instead of typing a search and scrolling. GEO — Generative Engine Optimization — is about structuring your site so those tools can actually read, understand and recommend your business. I build it into every site as standard.",
+    keyword: "generative engine optimization Glasgow",
+    audienceLabel: "Glasgow businesses",
+    heroStats: [{ n: "AI", l: "Search is growing fast" }, { n: "£55", l: "GEO included, per month" }, { n: "3", l: "Engines targeted: ChatGPT, Perplexity, Google AI" }],
+    benefits: [
+      { title: "Structured, quotable content", desc: "AI engines pull clear, direct answers — not vague marketing copy. I write your service and FAQ content in a structured, quotable format that's easy for an AI model to lift and cite." },
+      { title: "FAQ schema on every page", desc: "Every site ships with FAQPage structured data — the same markup AI answer engines and Google's AI Overviews use to pull direct Q&A content straight from your site." },
+      { title: "Clean, crawlable technical foundations", desc: "AI crawlers need fast, simple, well-structured HTML to read your site properly. No bloated page builders or JavaScript-heavy templates blocking access to your content." },
+      { title: "Consistent facts across the web", desc: "AI engines cross-reference your website against Google Business Profile, directories and reviews. I keep your name, address, phone number and service details consistent everywhere, which builds the trust these tools look for." },
+    ],
+    comparisonTitle: "Traditional SEO-only agencies vs GEO built in",
+    comparisonRows: [
+      { them: "Most agencies: SEO for Google only, AI search ignored", us: "MunroStudio: structured for Google and AI answer engines" },
+      { them: "Vague marketing copy AI can't quote", us: "Clear, direct, quotable answers throughout" },
+      { them: "No FAQ or structured data markup", us: "FAQPage + LocalBusiness schema on every page" },
+      { them: "Paying an SEO agency extra for 'AI SEO'", us: "GEO included in your £55/mo, no extra charge" },
+    ],
+    faqs: [
+      { q: "What is Generative Engine Optimization (GEO)?", a: "GEO is the practice of structuring a website so AI answer engines — ChatGPT, Perplexity, Google's AI Overviews, Copilot — can read, understand and cite it when answering a user's question. It sits alongside traditional SEO rather than replacing it." },
+      { q: "How is GEO different from normal SEO?", a: "Traditional SEO targets ranking positions in a list of blue links. GEO targets being the source an AI model quotes or recommends directly in its answer — which means clear, structured, factual content matters more than keyword density." },
+      { q: "Can you guarantee my business gets mentioned by ChatGPT?", a: "No one can guarantee a specific AI mention — the engines are black boxes and constantly changing. What I can do is build your site with the structure, schema and clarity that make it far more likely to be read, understood and cited than a typical local competitor's site." },
+      { q: "Is GEO included in the £55/month plan?", a: "Yes — structured content, FAQ schema, and clean technical foundations are built into every site I make, at no extra cost on top of the standard £55/month plan." },
+    ],
+  },
+
+  "ai-search-optimization-glasgow": {
+    slug: "ai-search-optimization-glasgow",
+    title: "AI Search Optimization Glasgow | Get Found on ChatGPT & AI Overviews | MunroStudio",
+    metaDescription: "AI search optimization for Glasgow businesses — appear in ChatGPT answers, Google AI Overviews and Perplexity results. Built into every MunroStudio website.",
+    h1: "AI search optimization",
+    h1Accent: "for Glasgow businesses.",
+    intro: "Google's AI Overviews now sit above the normal results for most searches, and millions of people ask ChatGPT and Perplexity for recommendations directly. If your site isn't built for AI search, you're invisible to a growing slice of your customers before they even reach a traditional results page.",
+    keyword: "AI search optimization Glasgow",
+    audienceLabel: "Glasgow businesses",
+    heroStats: [{ n: "AI Overviews", l: "Now above search results" }, { n: "£55", l: "Per month, included" }, { n: "2–3wk", l: "To launch" }],
+    benefits: [
+      { title: "Built for AI Overviews, not just page one", desc: "Google's AI Overviews pull from clearly structured, high-trust content. I write and structure your pages so they're a strong candidate for those AI-generated summaries, not just the classic 10 blue links." },
+      { title: "Answers written the way people ask AI tools", desc: "People ask ChatGPT and Perplexity full questions in plain language — 'who's a good plumber in Paisley' — not keyword fragments. Your FAQ content is written to match that conversational style." },
+      { title: "Technical SEO an AI crawler can actually parse", desc: "Fast load times, semantic HTML, and no walls of unindexable JavaScript. AI crawlers need clean markup to extract facts about your business reliably." },
+      { title: "Works alongside your normal Google rankings", desc: "AI search optimization isn't a replacement for local SEO — it's layered on top. You still get sitemap submission, Google Business Profile setup, and standard local SEO as part of every build." },
+    ],
+    comparisonTitle: "Ignoring AI search vs optimizing for it",
+    comparisonRows: [
+      { them: "Site only targets classic Google rankings", us: "Site targets Google, AI Overviews and chat-based search" },
+      { them: "No structured data — AI tools skip past it", us: "FAQ and LocalBusiness schema on every page" },
+      { them: "Answers buried in long paragraphs", us: "Clear, direct answers AI models can lift and quote" },
+      { them: "Paying a specialist agency separately for 'AI SEO'", us: "Included as standard in every MunroStudio build" },
+    ],
+    faqs: [
+      { q: "What's the difference between AI search optimization and GEO?", a: "They're the same idea, different names — Generative Engine Optimization (GEO) is the more formal term for optimizing content so AI answer engines like ChatGPT, Perplexity and Google AI Overviews can find and cite it." },
+      { q: "Do AI Overviews actually send traffic?", a: "Being featured in an AI Overview or cited by ChatGPT often builds trust and brand recall even without a click — and when there is a click-through, it tends to be a highly qualified visitor who already trusts the recommendation." },
+      { q: "Will this replace my need for normal SEO?", a: "No — AI search optimization works alongside standard local SEO, not instead of it. Every site still gets sitemap submission, Google Business Profile setup, and keyword-optimised pages as standard." },
+      { q: "How do I know if my current site is AI-search ready?", a: "Ask ChatGPT or Perplexity a question your ideal customer might ask — 'best plumber in Glasgow Southside', for example — and see if your business comes up. If it doesn't, message me and I'll take a look at what's missing." },
+    ],
+  },
+
+  "chatgpt-seo-glasgow": {
+    slug: "chatgpt-seo-glasgow",
+    title: "Get Found on ChatGPT | ChatGPT SEO for Glasgow Businesses | MunroStudio",
+    metaDescription: "Want your Glasgow business recommended by ChatGPT? I structure your website and online presence so AI chat tools can find, trust and cite you.",
+    h1: "Get found on ChatGPT",
+    h1Accent: "not just Google.",
+    intro: "When someone asks ChatGPT 'who's a good electrician in Glasgow', the answer comes from somewhere. I build and structure Glasgow business websites so they're a credible, citable source for that answer — clear facts, consistent details, and content AI tools can actually trust.",
+    keyword: "ChatGPT SEO Glasgow",
+    audienceLabel: "Glasgow businesses",
+    heroStats: [{ n: "1", l: "Consistent business profile everywhere" }, { n: "£55", l: "Per month, included" }, { n: "AI-ready", l: "Content structure" }],
+    benefits: [
+      { title: "Clear facts, not vague marketing", desc: "ChatGPT and similar tools favour concrete, specific facts — your services, area covered, pricing model, contact details — over generic marketing language it can't verify." },
+      { title: "Consistent details across the web", desc: "Your business name, address, phone number and services need to match across your website, Google Business Profile, and directories. Inconsistency makes AI tools less confident recommending you." },
+      { title: "FAQ content written the way people actually ask", desc: "ChatGPT users type full, conversational questions. Your site's FAQ section is written to directly answer the kind of questions real customers ask an AI assistant." },
+      { title: "A real Google Business Profile behind it", desc: "AI tools lean heavily on Google's own data. I set up and optimise your Google Business Profile as part of every build, reinforcing what your website already says." },
+    ],
+    comparisonTitle: "Invisible to AI chat tools vs built to be found",
+    comparisonRows: [
+      { them: "No structured facts — AI has nothing solid to cite", us: "Clear services, area and pricing facts throughout" },
+      { them: "Inconsistent business details across the web", us: "Consistent name, address, phone and services everywhere" },
+      { them: "Marketing fluff instead of direct answers", us: "FAQ content written to directly answer real questions" },
+      { them: "No Google Business Profile, or a half-finished one", us: "Google Business Profile set up and optimised as standard" },
+    ],
+    faqs: [
+      { q: "Can you guarantee ChatGPT recommends my business?", a: "No — no one controls what ChatGPT says, and it changes over time. What I can do is remove the reasons it wouldn't recommend you: unclear facts, inconsistent details, and thin content — and build in the reasons it would." },
+      { q: "Does ChatGPT use my website directly?", a: "It depends on the version and whether browsing is enabled, but AI tools are increasingly trained on and reference live web content, alongside data sources like Google's own index and Business Profiles. A well-structured, up-to-date site helps on every front." },
+      { q: "Is this different from normal SEO work?", a: "It builds on the same foundation — a fast, well-structured, keyword-relevant site — but adds a layer focused specifically on clarity and consistency, which is what AI tools weigh most heavily." },
+      { q: "Is this included in my monthly plan?", a: "Yes — every site I build follows this approach as standard, at no extra cost on top of your £55/month plan." },
+    ],
+  },
 };
 
 // ─── Generate Glasgow area pages automatically ──────────────────────────────
-// Each area gets TWO URLs that serve the same page:
-// 1. /web-design-{area}  (long, SEO-optimised for "web design {area}" searches)
-// 2. /{area}             (short, for ad copy like "munrostudio.co.uk/lenzie")
+// Each area gets ONE canonical URL: /web-design-{area} (SEO-optimised for
+// "web design {area}" searches). The short /{area} form (e.g. for ad copy
+// like "munrostudio.co.uk/lenzie") 301-redirects here — see next.config.js.
+// Serving both as separate pages created duplicate content that Google
+// flagged in Search Console ("Duplicate, Google chose different canonical
+// than user") and left the short URLs unindexed.
 
 glasgowAreas.forEach((area) => {
   const pageData = {
@@ -511,14 +656,14 @@ glasgowAreas.forEach((area) => {
       { title: `Ranks for '${area.name}' searches`, desc: `Your site will be optimised for high-intent local terms — 'plumber ${area.name}', 'electrician ${area.name}', 'cafe ${area.name}'. Where real customers search.` },
       { title: "Glasgow-based — I know the area", desc: `${area.blurb} I understand local customers, nearby areas (${area.nearby.join(", ")}), and what works for ${area.name} businesses specifically.` },
       { title: "Custom design, no templates", desc: `Every site is hand-built in Next.js — the same tech used by the biggest tech companies. You won't look like every other ${area.name} small business.` },
-      { title: "First month free, then £55/mo", desc: "Launch for £0. Use it for a month risk-free. If it's not bringing in enquiries, cancel — no fee. Otherwise £55/month, or £499 one-off to own it outright." },
+      { title: "First month free, then £55/mo", desc: "Launch for £0. Use it for a month risk-free. If it's not bringing in enquiries, cancel — no fee. Otherwise £55/month, or £499 one-off, hosted by us." },
     ],
     comparisonTitle: `Why MunroStudio vs a template builder for ${area.name}`,
     comparisonRows: [
       { them: `Template builders: same site as every other ${area.name} business`, us: `MunroStudio: fully custom, made for your brand` },
       { them: "Squarespace/Wix: you spend 40+ hours, it still looks generic", us: "I build everything, you review and approve" },
       { them: "No proper local SEO out of the box", us: `Optimised for '${area.name}' and local searches from day one` },
-      { them: "Pay forever with no ownership", us: "£499 one-off = yours forever" },
+      { them: "Pay forever with no ownership", us: "£499 one-off, hosted by us — no monthly fee" },
     ],
     faqs: [
       { q: `Do you work with ${area.name} businesses?`, a: `Yes — I'm based in Glasgow but work with businesses and tradespeople across ${area.name} and nearby areas like ${area.nearby.join(", ")}. Most communication happens over WhatsApp or phone, and I'm happy to meet in person if you prefer.` },
@@ -528,9 +673,308 @@ glasgowAreas.forEach((area) => {
     ],
   };
 
-  // Add BOTH URL versions — same page, different slugs
   seoPages[`web-design-${area.slug}`] = { ...pageData, slug: `web-design-${area.slug}` };
-  seoPages[area.slug] = { ...pageData, slug: area.slug };
 });
+
+// ─── Generate trade × area pages automatically ──────────────────────────────
+// One page per (trade, area) pair — e.g. /plumber-website-paisley,
+// /electrician-website-hamilton. Each combination targets a genuinely
+// distinct search query ("plumber Paisley" vs "electrician Hamilton" are
+// different intents, unlike the old /{area} vs /web-design-{area} pair which
+// was literally the same content at two URLs). Content varies by BOTH trade
+// (benefits/comparisons/FAQs are trade-specific) and area (name/blurb/nearby
+// towns), so no two pages are near-duplicates of each other.
+export const trades = [
+  {
+    slug: "plumber",
+    name: "Plumber",
+    namePlural: "plumbers",
+    h1Accent: "that ring your phone.",
+    heroStat: { n: "24/7", l: "Website works" },
+    intro: (area) => `Every ${area.name} plumber needs a website that ranks for 'plumber near me' and 'emergency plumber ${area.name}'. I build fast, mobile-first sites that turn searches into phone calls.`,
+    benefits: (area) => [
+      { title: `Ranks for 'emergency plumber ${area.name}'`, desc: `Emergency plumbing searches are the most valuable jobs you can win. I optimise every site specifically for urgent, local ${area.name} terms so you're the first call when a pipe bursts.` },
+      { title: "Click-to-call everywhere", desc: "Every page has your phone number one tap away. People searching for a plumber at 11pm aren't filling in forms — they're calling. Your site needs to make that easy." },
+      { title: "Shows your accreditations", desc: "Gas Safe, WaterSafe, SNIPEF, insurance docs — I design sections that highlight your credentials so customers trust you before they even pick up the phone." },
+      { title: "Gallery of your work", desc: "Before/after photos of boilers, bathrooms, leaks fixed — visual proof of your work is the single biggest trust factor for local plumbing jobs." },
+    ],
+    comparisonRows: (area) => [
+      { them: `Checkatrade: £100+/month shared with other ${area.name} plumbers`, us: "Your site: every call is yours, exclusively" },
+      { them: "No control over your profile's design", us: "Fully branded site that looks trustworthy" },
+      { them: "Stop paying, you disappear", us: "Site stays live, hosted by us — no monthly fee on the one-off plan" },
+      { them: "No way to rank in Google Maps", us: "Google Business Profile optimised day one" },
+    ],
+    faqs: (area) => [
+      { q: `How long does it take to rank for 'plumber ${area.name}'?`, a: `Honest answer: 2–6 months for a new site to rank on page 1 for competitive local terms. BUT — Google Maps is different. With a properly set-up Google Business Profile, you can appear in the 3-pack on Maps within weeks for ${area.name} searches, which is where most actual calls come from.` },
+      { q: "Do I need an emergency call-out page?", a: "100%. Emergency jobs are the highest-paying plumbing work, and people searching for 'emergency plumber' at 10pm are ready to pay — they just want someone to pick up. I'll build you a dedicated emergency page optimised for those high-intent searches." },
+      { q: "Can you integrate a booking system?", a: "Yes — I can add a simple enquiry form, a 'request a quote' flow, or a proper booking calendar if you need one. Most plumbers prefer just a clear phone number and a form, because urgent jobs are phone calls." },
+      { q: `Do you work with plumbers outside ${area.name} too?`, a: `Yes — I'm Glasgow-based and build sites for plumbers right across the region, including ${area.nearby.join(", ")}.` },
+    ],
+  },
+  {
+    slug: "electrician",
+    name: "Electrician",
+    namePlural: "electricians",
+    h1Accent: "that build trust fast.",
+    heroStat: { n: "100%", l: "Mobile-first" },
+    intro: (area) => `A domestic or commercial electrician in ${area.name} needs a website that signals qualification and trust instantly. I build sites that show off your NICEIC, SELECT or NAPIT accreditation and turn local searches into bookings.`,
+    benefits: (area) => [
+      { title: "NICEIC / SELECT / NAPIT badges front and centre", desc: "Qualifications are the #1 trust signal for electrical work. I make sure your accreditations are impossible to miss — on the header, near every CTA, and on a dedicated credentials page." },
+      { title: `Ranks for local electrical searches in ${area.name}`, desc: `'EICR ${area.name}', 'electrician ${area.name}', 'rewire quote ${area.name}' — these are the searches that turn into actual jobs. Every page is built to target them.` },
+      { title: "Service pages that convert", desc: "Separate optimised pages for EICRs, rewires, consumer unit upgrades, EV charger installation, commercial work — each targeting the right keyword." },
+      { title: "Free month to see results", desc: "Launch for £0, use it for a month, see the enquiries come in. Then stay on £55/month, or go one-off for £499, hosted by us. No card up front." },
+    ],
+    comparisonRows: (area) => [
+      { them: `Checkatrade: £1,200+/year, shared leads across ${area.name}`, us: "Your site: £499 once or £55/mo, exclusive leads" },
+      { them: "Generic profile, no way to stand out", us: "Custom branded site with your accreditations" },
+      { them: "No control over reviews visibility", us: "Your best reviews displayed prominently" },
+      { them: `Can't rank for 'EV charger installation ${area.name}'`, us: "Dedicated service pages for every keyword" },
+    ],
+    faqs: (area) => [
+      { q: "What pages should an electrician's website have?", a: "At minimum: Home, Services (with separate pages for EICRs, rewires, consumer units, EV chargers, commercial), About (with your accreditations), Gallery, Reviews, and Contact. Separate service pages massively help local SEO — each one can rank individually." },
+      { q: "Can you add an EV charger installation page?", a: "Absolutely — EV charger installation is one of the fastest-growing electrical services, with OZEV grant changes driving demand. A dedicated page optimised for your local search is a brilliant way to win those premium jobs." },
+      { q: "Do I need to show my public liability insurance?", a: "It helps. Alongside your NICEIC/SELECT number, displaying proof of insurance (a simple badge or a line like 'Fully insured, £5m PLI') significantly improves conversions on electrical enquiries — especially for bigger jobs like rewires." },
+      { q: `Do you work with electricians outside ${area.name}?`, a: `Yes — I'm Glasgow-based and build sites for electricians right across the region, including ${area.nearby.join(", ")}.` },
+    ],
+  },
+  {
+    slug: "builder",
+    name: "Builder",
+    namePlural: "builders",
+    h1Accent: "that showcase your work.",
+    heroStat: { n: "∞", l: "Project photos" },
+    intro: (area) => `Builders in ${area.name} win jobs on their portfolio. I build image-heavy, fast-loading sites that show off your extensions, renovations and new builds in full visual glory — and turn browsers into signed contracts.`,
+    benefits: (area) => [
+      { title: "Portfolio built for serious browsing", desc: "Custom galleries with before/after shots, full project case studies, and filter-by-type (extension, renovation, new build, loft conversion). Buyers spend minutes on your site, not seconds." },
+      { title: `Ranks for high-value ${area.name} keywords`, desc: `'Extension builder ${area.name}', 'loft conversion ${area.name}', 'renovation contractor ${area.name}' — these bring in £10k–£100k+ jobs. Every service page targets one of them.` },
+      { title: "Case study pages that sell", desc: "For each major project, a dedicated page with story, photos, scope, and outcome. Case studies are the single most effective sales tool for a builder." },
+      { title: "Works for solo builders and construction firms", desc: "Whether you're a solo builder doing domestic extensions or a 15-person outfit doing commercial fit-outs, I scale the design to match your scope." },
+    ],
+    comparisonRows: (area) => [
+      { them: "Checkatrade: generic profile, no portfolio depth", us: "Custom site with unlimited project showcases" },
+      { them: "Can't tell the story of a project", us: "Full case study pages for each major build" },
+      { them: `Competing with other ${area.name} builders on every lead`, us: "Direct enquiries, yours exclusively" },
+      { them: "£1,200+/year forever", us: "£499 once or £55/mo (first month free)" },
+    ],
+    faqs: (area) => [
+      { q: "How many project photos can I include?", a: "As many as you like. Image optimisation and lazy-loading mean your site stays fast even with 100+ photos. I'd recommend starting with 15–20 of your best across 5–8 projects, then adding case studies over time." },
+      { q: "Can you add a quote calculator?", a: "Yes — for things like extensions or loft conversions where pricing follows a rough formula (square footage + spec level), a calculator is a brilliant lead-qualifier. It also filters out tyre-kickers before they eat your time." },
+      { q: `Will my site show up on 'extension builder ${area.name}' searches?`, a: `With proper local SEO and a Google Business Profile, yes — typically within 2–6 months for competitive terms. Longer-tail terms specific to ${area.name} tend to rank faster than broad city-wide terms.` },
+      { q: `Do you work with builders outside ${area.name}?`, a: `Yes — I'm Glasgow-based and build sites for builders right across the region, including ${area.nearby.join(", ")}.` },
+    ],
+  },
+  {
+    slug: "roofer",
+    name: "Roofer",
+    namePlural: "roofers",
+    h1Accent: "that win the next roof job.",
+    heroStat: { n: "100%", l: "Guarantees showcased" },
+    intro: (area) => `Roofing jobs in ${area.name} go to whoever looks most trustworthy in the first ten seconds. I build sites that lead with your guarantees, insurance and finished work — and rank for 'roofer near me' and 'emergency roof repair ${area.name}'.`,
+    benefits: (area) => [
+      { title: `Ranks for 'emergency roof repair ${area.name}'`, desc: `Storm damage and leaks are urgent, high-value jobs. Every site is optimised for the local, high-intent searches ${area.name} homeowners make when a roof needs fixing now.` },
+      { title: "Guarantees and accreditations front and centre", desc: "NFRC membership, insurance-backed guarantees, public liability cover — these are the details that turn a nervous homeowner into a booked job. I design sections that put them front and centre." },
+      { title: "Before/after roof photos that sell the job", desc: "A gallery of finished roofs — reslates, flat roof replacements, guttering — is the single biggest trust factor for a job most people can't inspect themselves." },
+      { title: "Free month to see results", desc: "Launch for £0, use it for a month, see the enquiries come in. Then stay on £55/month, or go one-off for £499, hosted by us. No card up front." },
+    ],
+    comparisonRows: (area) => [
+      { them: `Checkatrade: shared leads with other ${area.name} roofers`, us: "Your site: exclusive leads, yours only" },
+      { them: "No way to show guarantee-backed work", us: "Guarantees and accreditations front and centre" },
+      { them: "Generic profile, no photos of your actual roofs", us: "Full photo gallery of finished jobs" },
+      { them: "Stop paying, you disappear", us: "Site stays live, hosted by us — no monthly fee on the one-off plan" },
+    ],
+    faqs: (area) => [
+      { q: `How long does it take to rank for 'roofer ${area.name}'?`, a: "2–6 months for a new site to rank on page 1 for competitive local terms is realistic. Google Maps, via a properly set-up Google Business Profile, is faster and is where most emergency call-outs actually come from." },
+      { q: "Do I need an emergency repair page?", a: "Yes — storm damage and sudden leaks are some of the highest-value, most urgent roofing jobs. A dedicated emergency page optimised for that intent is one of the best-converting pages I can build for a roofer." },
+      { q: "Can you show my guarantees and insurance?", a: "Absolutely — insurance-backed guarantees, NFRC or Competent Roofer accreditation, and public liability cover are exactly the kind of trust signals I design prominently into every roofer site." },
+      { q: `Do you work with roofers outside ${area.name}?`, a: `Yes — I'm Glasgow-based and build sites for roofers right across the region, including ${area.nearby.join(", ")}.` },
+    ],
+  },
+  {
+    slug: "joiner",
+    name: "Joiner",
+    namePlural: "joiners",
+    h1Accent: "that show off your craft.",
+    heroStat: { n: "100%", l: "Bespoke work showcased" },
+    intro: (area) => `Joinery is a craft trade — customers in ${area.name} want to see the work before they trust you with a bespoke kitchen, staircase or fitted furniture job. I build portfolio-led sites that make that decision easy.`,
+    benefits: (area) => [
+      { title: `Ranks for 'joiner ${area.name}' and bespoke carpentry searches`, desc: `From fitted wardrobes to staircases to full kitchen fit-outs, I optimise your site for the specific ${area.name} searches that lead to real bespoke work.` },
+      { title: "Portfolio of bespoke work", desc: "A proper gallery — fitted kitchens, staircases, custom furniture, doors and skirting — does more to win joinery work than any amount of text ever could." },
+      { title: "Quote request forms built for custom jobs", desc: "Bespoke joinery doesn't fit a fixed price list. I build a simple quote request flow that captures the details you need without scaring off a genuine enquiry." },
+      { title: "Free month to see results", desc: "Launch for £0, use it for a month, see the enquiries come in. Then stay on £55/month, or go one-off for £499, hosted by us. No card up front." },
+    ],
+    comparisonRows: (area) => [
+      { them: `Checkatrade: generic profile, shared with other ${area.name} joiners`, us: "Custom site built around your own portfolio" },
+      { them: "No way to show craftsmanship in detail", us: "Full gallery of bespoke, finished work" },
+      { them: "Fixed-price directory listing", us: "Custom quote flow built for bespoke jobs" },
+      { them: "£1,200+/year forever", us: "£499 once or £55/mo (first month free)" },
+    ],
+    faqs: (area) => [
+      { q: "How many photos of my work can you include?", a: "As many as you like — fitted kitchens, staircases, custom furniture, doors. I'd recommend 15–20 strong photos across your best projects to start, with room to add more as you finish new jobs." },
+      { q: "Can you build a quote request form for bespoke jobs?", a: "Yes — since joinery pricing depends heavily on the specific job, I build a request form that captures room dimensions, material preferences and photos upfront, so you can quote properly first time." },
+      { q: `Will my site rank for 'joiner ${area.name}' searches?`, a: "With proper local SEO and a Google Business Profile, yes — typically within 2–6 months for competitive terms, faster for more specific searches like fitted wardrobes or staircases." },
+      { q: `Do you work with joiners outside ${area.name}?`, a: `Yes — I'm Glasgow-based and build sites for joiners right across the region, including ${area.nearby.join(", ")}.` },
+    ],
+  },
+  {
+    slug: "painter-decorator",
+    name: "Painter & Decorator",
+    namePlural: "painters and decorators",
+    h1Accent: "that win the next job.",
+    heroStat: { n: "100%", l: "Before/after photos" },
+    intro: (area) => `A painter and decorator in ${area.name} sells on finish quality and reliability. I build sites led by before/after photography that make the decision to book easy — and rank for 'painter and decorator near me' searches.`,
+    benefits: (area) => [
+      { title: `Ranks for 'painter and decorator ${area.name}'`, desc: `Interior repaints, exterior work, wallpapering — every service page is optimised for the specific searches ${area.name} homeowners actually make.` },
+      { title: "Before/after gallery that sells the job", desc: "Nothing convinces a homeowner faster than seeing a room transformed. A clean before/after gallery is the single most effective trust builder for decorating work." },
+      { title: "Interior & exterior service pages", desc: "Separate pages for interior repaints, exterior painting, wallpapering and commercial decorating — each targeting its own keyword and its own customer." },
+      { title: "Free month to see results", desc: "Launch for £0, use it for a month, see the enquiries come in. Then stay on £55/month, or go one-off for £499, hosted by us. No card up front." },
+    ],
+    comparisonRows: (area) => [
+      { them: `Checkatrade: shared leads with other ${area.name} decorators`, us: "Your site: exclusive leads, yours only" },
+      { them: "No before/after gallery", us: "Clean gallery that sells the transformation" },
+      { them: "One generic services blurb", us: "Separate pages for interior, exterior and commercial work" },
+      { them: "Stop paying, you disappear", us: "Site stays live, hosted by us — no monthly fee on the one-off plan" },
+    ],
+    faqs: (area) => [
+      { q: "How many before/after photos should I include?", a: "As many strong ones as you have — 15–20 to start is plenty. Consistent lighting and the same angle before and after makes the biggest difference to how convincing they look." },
+      { q: "Do you build separate pages for interior and exterior work?", a: "Yes — interior repaints, exterior painting, wallpapering and commercial decorating are different searches with different customers, so I build each as its own optimised page where it makes sense." },
+      { q: `Will my site rank for 'painter and decorator ${area.name}'?`, a: "With proper local SEO and a Google Business Profile, yes — typically within 2–6 months for competitive terms. Google Maps tends to move faster and is where most local bookings come from." },
+      { q: `Do you work with decorators outside ${area.name}?`, a: `Yes — I'm Glasgow-based and build sites for painters and decorators right across the region, including ${area.nearby.join(", ")}.` },
+    ],
+  },
+];
+
+trades.forEach((trade) => {
+  glasgowAreas.forEach((area) => {
+    const slug = `${trade.slug}-website-${area.slug}`;
+    seoPages[slug] = {
+      slug,
+      title: `${trade.name} Website ${area.name} | Rank On Google | MunroStudio`,
+      metaDescription: `Custom website for ${area.name} ${trade.namePlural}. Local SEO, first month free, then £55/mo or £499 one-off. Call 07485 218 091.`,
+      h1: `${trade.name} websites, ${area.name}`,
+      h1Accent: trade.h1Accent,
+      intro: trade.intro(area),
+      keyword: `${trade.name.toLowerCase()} website ${area.name}`,
+      audienceLabel: `${area.name} ${trade.namePlural}`,
+      heroStats: [
+        { n: "£0", l: "First month" },
+        trade.heroStat,
+        { n: "2–3wk", l: "To go live" },
+      ],
+      benefits: trade.benefits(area),
+      comparisonTitle: `Trade directories vs your own ${trade.name.toLowerCase()} website in ${area.name}`,
+      comparisonRows: trade.comparisonRows(area),
+      faqs: trade.faqs(area),
+    };
+  });
+});
+
+// ─── Generate trade-specific GEO pages ──────────────────────────────────────
+// One AI-search-optimization angle page per trade (Glasgow-wide, not per
+// area — a 6×37 GEO combinatorial would be excessive and thin). Pairs with
+// the general GEO hub pages above (generative-engine-optimization-glasgow,
+// ai-search-optimization-glasgow, chatgpt-seo-glasgow).
+const tradeSlugPlural = {
+  plumber: "plumbers",
+  electrician: "electricians",
+  builder: "builders",
+  roofer: "roofers",
+  joiner: "joiners",
+  "painter-decorator": "painters-decorators",
+};
+
+trades.forEach((trade) => {
+  const slug = `get-found-on-chatgpt-${tradeSlugPlural[trade.slug]}-glasgow`;
+  seoPages[slug] = {
+    slug,
+    title: `Get Found on ChatGPT | AI Search for Glasgow ${trade.namePlural} | MunroStudio`,
+    metaDescription: `When someone asks ChatGPT for a good ${trade.name.toLowerCase()} in Glasgow, will your name come up? I structure ${trade.namePlural}' websites so AI tools can find and recommend them.`,
+    h1: `Get found on ChatGPT`,
+    h1Accent: `if you're a Glasgow ${trade.name.toLowerCase()}.`,
+    intro: `More people are asking ChatGPT and Perplexity for a "good ${trade.name.toLowerCase()} in Glasgow" instead of scrolling Google. I build ${trade.namePlural}' websites with the clear facts, consistent details and structured content that make AI tools confident recommending you.`,
+    keyword: `chatgpt seo ${trade.name.toLowerCase()} Glasgow`,
+    audienceLabel: `Glasgow ${trade.namePlural}`,
+    heroStats: [{ n: "AI-ready", l: "Content structure" }, { n: "£55", l: "GEO included, per month" }, { n: "1", l: "Consistent profile everywhere" }],
+    benefits: [
+      { title: `Structured for 'best ${trade.name.toLowerCase()} in Glasgow' questions`, desc: `AI tools favour clear, specific facts over vague marketing copy. Your services, coverage area and pricing model are written so an AI model can confidently lift and cite them.` },
+      { title: "FAQ schema on every page", desc: "Every site ships with FAQPage structured data — the same markup AI answer engines and Google's AI Overviews use to pull direct Q&A content straight from your site." },
+      { title: "Consistent facts across the web", desc: "Your name, address, phone number and services need to match across your website, Google Business Profile and directories. Inconsistency makes AI tools less confident recommending you." },
+      { title: "Included at no extra cost", desc: "GEO and AI search structure is built into every site as standard — no separate 'AI SEO' package, no extra charge on top of your £55/month plan." },
+    ],
+    comparisonTitle: `Invisible to AI tools vs built to be recommended`,
+    comparisonRows: [
+      { them: "No structured facts — AI has nothing solid to cite", us: "Clear services, area and pricing facts throughout" },
+      { them: `Inconsistent details across directories`, us: "Consistent name, address, phone and services everywhere" },
+      { them: "Marketing fluff instead of direct answers", us: "FAQ content written to directly answer real questions" },
+      { them: `Competing ${trade.namePlural} all look the same to an AI model`, us: "Clear, specific facts make you the easy citation" },
+    ],
+    faqs: [
+      { q: `Can you guarantee ChatGPT recommends my ${trade.name.toLowerCase()} business?`, a: "No — no one controls what ChatGPT says, and it changes over time. What I can do is remove the reasons it wouldn't recommend you (unclear facts, inconsistent details, thin content) and build in the reasons it would." },
+      { q: "Is this different from normal local SEO?", a: "It builds on the same foundation — a fast, well-structured, keyword-relevant site — but adds a layer focused specifically on clarity and consistency, which is what AI tools weigh most heavily." },
+      { q: "Is this included in my monthly plan?", a: "Yes — every site I build follows this approach as standard, at no extra cost on top of your £55/month plan." },
+      { q: `Do you build sites for ${trade.namePlural} outside Glasgow too?`, a: `Yes — I work with ${trade.namePlural} across Greater Glasgow and the wider Central Belt, all built the same way.` },
+    ],
+  };
+});
+
+// ─── Additional standalone GEO topic pages ──────────────────────────────────
+seoPages["perplexity-seo-glasgow"] = {
+  slug: "perplexity-seo-glasgow",
+  title: "Perplexity SEO Glasgow | Get Cited by AI Search | MunroStudio",
+  metaDescription: "Optimise your Glasgow business website to be found and cited by Perplexity and other AI search tools. Built into every MunroStudio site at £55/mo.",
+  h1: "Perplexity SEO",
+  h1Accent: "for Glasgow businesses.",
+  intro: "Perplexity answers questions by citing real web sources directly in its results — which means a well-structured business website can be quoted by name, with a link, in response to a customer's question. I build sites that are strong candidates for exactly that.",
+  keyword: "Perplexity SEO Glasgow",
+  audienceLabel: "Glasgow businesses",
+  heroStats: [{ n: "Cited", l: "Not just ranked" }, { n: "£55", l: "Per month, included" }, { n: "100%", l: "Sites structured for AI" }],
+  benefits: [
+    { title: "Written to be quoted, not just read", desc: "Perplexity pulls short, factual snippets to cite. I write your key pages — services, pricing, coverage area — in clear, quotable statements rather than long marketing paragraphs." },
+    { title: "Fast, crawlable pages", desc: "AI search tools crawl and re-crawl pages to keep answers current. A fast, simple, well-structured site gets picked up and refreshed more reliably than a bloated template site." },
+    { title: "FAQ content matched to real questions", desc: "Perplexity users type full questions. Your FAQ sections are written to directly answer the kind of questions a real customer would type, in the same conversational phrasing." },
+    { title: "Consistent facts Perplexity can trust", desc: "Citations lean on confidence in the source. Consistent name, address, phone number and service details across your site and Google Business Profile build that confidence." },
+  ],
+  comparisonTitle: "Ignored by AI search vs built to be cited",
+  comparisonRows: [
+    { them: "Long marketing paragraphs, nothing quotable", us: "Clear, factual statements AI tools can lift directly" },
+    { them: "Slow, template-heavy site rarely re-crawled", us: "Fast, simple site that stays current" },
+    { them: "No FAQ content matched to real questions", us: "FAQ sections written in the way people actually ask" },
+    { them: "Inconsistent details undermine trust", us: "Consistent facts across your site and Google profile" },
+  ],
+  faqs: [
+    { q: "What is Perplexity, and why does it matter?", a: "Perplexity is an AI answer engine that responds to questions with a summary and direct source citations — unlike a traditional search engine, it shows its sources inline, so being one of them puts your business directly in front of the searcher." },
+    { q: "Can you guarantee Perplexity cites my site?", a: "No one can guarantee a specific citation — it's an algorithm outside my control. What I can guarantee is a site structured, written and technically built to be a strong candidate, rather than one that's invisible to AI crawlers by default." },
+    { q: "Is this the same as normal SEO?", a: "It's built on the same foundation of a fast, well-structured, keyword-relevant site, with an added layer of clear, quotable writing and consistent facts — which is what AI citation tools weigh most heavily." },
+  ],
+};
+
+seoPages["voice-search-optimization-glasgow"] = {
+  slug: "voice-search-optimization-glasgow",
+  title: "Voice Search Optimization Glasgow | Siri, Alexa & Google Assistant | MunroStudio",
+  metaDescription: "Optimise your Glasgow business for voice search — Siri, Alexa and Google Assistant answer 'near me' questions from structured, local business data.",
+  h1: "Voice search optimization",
+  h1Accent: "for Glasgow businesses.",
+  intro: "When someone asks Siri or Google Assistant to find a plumber or a cafe nearby, the answer comes from structured local business data — not a page of blue links. I set your site and Google Business Profile up to be that answer.",
+  keyword: "voice search optimization Glasgow",
+  audienceLabel: "Glasgow businesses",
+  heroStats: [{ n: "1", l: "Answer read aloud" }, { n: "£55", l: "Per month, included" }, { n: "3-pack", l: "Google Maps target" }],
+  benefits: [
+    { title: "Built on the same data voice assistants use", desc: "Siri, Alexa and Google Assistant lean heavily on Google Business Profile and structured LocalBusiness data to answer 'near me' voice queries — both of which I set up and optimise as standard." },
+    { title: "Conversational FAQ content", desc: "Voice queries are longer and more conversational than typed searches — 'who's a good electrician near me' rather than 'electrician Glasgow'. FAQ content is written to match that natural phrasing." },
+    { title: "Structured data (schema) on every page", desc: "LocalBusiness and FAQPage schema markup gives voice assistants clean, structured facts to read from — name, services, hours, area covered — rather than having to guess." },
+    { title: "Fast-loading, mobile-first pages", desc: "Voice search results often lead to a quick mobile visit to confirm details or call. A fast, mobile-first site keeps that visitor rather than losing them to a slow load." },
+  ],
+  comparisonTitle: "No voice search presence vs optimised for it",
+  comparisonRows: [
+    { them: "Incomplete or missing Google Business Profile", us: "Fully optimised GBP — the main data source voice assistants use" },
+    { them: "No structured data on the website", us: "LocalBusiness and FAQPage schema on every page" },
+    { them: "Content written for typed keywords only", us: "FAQ content matched to natural, spoken questions" },
+    { them: "Slow site loses the follow-up visit", us: "Fast, mobile-first pages built to convert on the spot" },
+  ],
+  faqs: [
+    { q: "How is voice search different from typing a search?", a: "Voice queries tend to be longer, more conversational, and more likely to have local intent — 'find a plumber near me' rather than 'plumber Glasgow'. Content and structured data need to match that natural phrasing to be picked up." },
+    { q: "Do I need a Google Business Profile for voice search?", a: "Yes — it's one of the primary data sources voice assistants pull from for local business queries, alongside your website's own structured data. I set one up and optimise it as part of every build." },
+    { q: "Is voice search optimization included in my plan?", a: "Yes — structured data, a properly optimised Google Business Profile, and conversational FAQ content are all built into every site as standard, at no extra cost." },
+  ],
+};
 
 export const seoPageSlugs = Object.keys(seoPages);
