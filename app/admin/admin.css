@@ -1,23 +1,24 @@
 .admin-root {
   color-scheme: light;
-  --page: #f9f9f7;
-  --surface: #fcfcfb;
-  --text-primary: #0b0b0b;
-  --text-secondary: #52514e;
-  --text-muted: #898781;
-  --gridline: #e1e0d9;
-  --baseline: #c3c2b7;
-  --border: rgba(11, 11, 11, 0.1);
-  --series-1: #2a78d6;
-  --good: #006300;
-  --warning: #fab219;
-  --serious: #ec835a;
-  --critical: #d03b3b;
+  /* Matches the MunroStudio homepage brand: ink/surface/border/highlight from tailwind.config.js */
+  --page: #f7f7f5;
+  --surface: #ffffff;
+  --text-primary: #111111;
+  --text-secondary: #444444;
+  --text-muted: #888888;
+  --gridline: #e2e2de;
+  --baseline: #cfcfca;
+  --border: #e2e2de;
+  --series-1: #0057ff;
+  --good: #067a06;
+  --warning: #b3790a;
+  --serious: #c95a2e;
+  --critical: #c93030;
 
   background: var(--page);
   color: var(--text-primary);
   min-height: 100vh;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -31,7 +32,7 @@
     --gridline: #2c2c2a;
     --baseline: #383835;
     --border: rgba(255, 255, 255, 0.1);
-    --series-1: #3987e5;
+    --series-1: #4d8cff;
     --good: #0ca30c;
     --warning: #fab219;
     --serious: #ec835a;
@@ -48,18 +49,112 @@
   --gridline: #2c2c2a;
   --baseline: #383835;
   --border: rgba(255, 255, 255, 0.1);
-  --series-1: #3987e5;
+  --series-1: #4d8cff;
   --good: #0ca30c;
   --warning: #fab219;
   --serious: #ec835a;
   --critical: #e66767;
 }
 
+* { -webkit-tap-highlight-color: transparent; }
+
 .admin-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
 }
+
+/* ---------- Shell / nav ---------- */
+
+.admin-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.admin-topbar {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.admin-mobile-nav {
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 16px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.admin-mobile-nav.open { display: flex; }
+
+.admin-main {
+  flex: 1;
+  min-width: 0;
+  padding: 28px 32px;
+  max-width: 1200px;
+}
+
+.admin-nav-link {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.admin-nav-link:hover { background: var(--page); }
+
+@media (max-width: 860px) {
+  .admin-sidebar { display: none; }
+  .admin-topbar { display: flex; }
+  .admin-main { padding: 18px; }
+}
+
+/* ---------- Responsive form grids ---------- */
+/* Use instead of ad-hoc inline gridTemplateColumns so columns collapse on narrow screens. */
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+
+.insight-row { display: flex; justify-content: space-between; gap: 12px; }
+@media (max-width: 480px) {
+  .insight-row { flex-direction: column; }
+}
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+
+.detail-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: start; }
+@media (max-width: 860px) {
+  .detail-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Table -> stacked cards on small screens ---------- */
 
 .admin-table {
   width: 100%;
@@ -84,6 +179,40 @@
 }
 .admin-table tr:last-child td {
   border-bottom: none;
+}
+
+@media (max-width: 720px) {
+  .admin-table thead { display: none; }
+  .admin-table, .admin-table tbody, .admin-table tr, .admin-table td { display: block; width: 100%; }
+  .admin-table { border: none; }
+  .admin-table tr {
+    padding: 14px;
+    margin-bottom: 10px;
+    border: 1px solid var(--gridline);
+    border-radius: 10px;
+  }
+  .admin-table tr:last-child { margin-bottom: 0; }
+  .admin-table td { padding: 5px 0; border-bottom: none; }
+  .admin-table td.cell-title {
+    padding-bottom: 10px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--gridline);
+  }
+  .admin-table td[data-label] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .admin-table td[data-label]::before {
+    content: attr(data-label);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    flex-shrink: 0;
+  }
 }
 
 .badge {
@@ -111,6 +240,7 @@
   gap: 6px;
   font-size: 14px;
   font-weight: 600;
+  min-height: 38px;
   padding: 8px 14px;
   border-radius: 8px;
   border: 1px solid var(--border);
@@ -131,6 +261,7 @@
   width: 100%;
   font-size: 14px;
   padding: 8px 10px;
+  min-height: 38px;
   border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--page);
@@ -138,6 +269,12 @@
   font-family: inherit;
 }
 .textarea { resize: vertical; min-height: 70px; }
+
+/* Real touch targets, and >=16px inputs so iOS Safari doesn't zoom in on focus. */
+@media (max-width: 720px) {
+  .btn { min-height: 44px; padding: 10px 16px; font-size: 15px; }
+  .input, .select, .textarea { font-size: 16px; min-height: 44px; }
+}
 
 .label {
   font-size: 12px;

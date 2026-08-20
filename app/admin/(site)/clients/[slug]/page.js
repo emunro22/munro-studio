@@ -7,6 +7,7 @@ import InsightActions from "@/components/admin/InsightActions";
 import PriorityBadge from "@/components/admin/PriorityBadge";
 import ScanButton from "@/components/admin/ScanButton";
 import ClientSettingsForm from "@/components/admin/ClientSettingsForm";
+import { buildGrowthIdeas } from "@/lib/growth";
 
 export const dynamic = "force-dynamic";
 
@@ -39,13 +40,14 @@ export default async function ClientDetailPage({ params }) {
 
   const latestScan = scanHistory[0] || null;
   const latestReview = reviewHistory[0] || null;
+  const growthIdeas = buildGrowthIdeas(metricsHistory);
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 24 }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 16, justifyContent: "space-between", alignItems: "flex-start", marginBottom: 24 }}>
         <div>
-          <h1 style={{ fontSize: 24, fontWeight: 700 }}>{client.name}</h1>
-          <div style={{ fontSize: 14, color: "var(--text-secondary)", marginTop: 4, display: "flex", gap: 10, alignItems: "center" }}>
+          <h1 style={{ fontSize: 24, fontWeight: 700, fontFamily: "var(--font-display), serif" }}>{client.name}</h1>
+          <div style={{ fontSize: 14, color: "var(--text-secondary)", marginTop: 4, display: "flex", flexWrap: "wrap", gap: 10, alignItems: "center" }}>
             {client.domain && (
               <a href={`https://${client.domain}`} target="_blank" rel="noreferrer">
                 {client.domain}
@@ -58,17 +60,29 @@ export default async function ClientDetailPage({ params }) {
         <ScanButton clientId={client.id} label="Scan this site now" />
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 20, alignItems: "start" }}>
+      <div className="detail-grid">
         <div style={{ display: "grid", gap: 20 }}>
           <div className="admin-card" style={{ padding: 20 }}>
             <div style={{ fontWeight: 700, marginBottom: 12 }}>Weekly page views</div>
             <MetricsChart points={chartPoints} />
           </div>
 
-          <WeeklyMetricForm clientId={client.id} />
+          <WeeklyMetricForm clientId={client.id} hasPriorData={metricsHistory.length > 0} />
+
+          <div className="admin-card" style={{ padding: 20 }}>
+            <div style={{ fontWeight: 700, marginBottom: 12 }}>Ideas to get more views</div>
+            <div style={{ display: "grid", gap: 12 }}>
+              {growthIdeas.map((idea, idx) => (
+                <div key={idx} style={{ paddingBottom: 12, borderBottom: idx < growthIdeas.length - 1 ? "1px solid var(--gridline)" : "none" }}>
+                  <div style={{ fontWeight: 600, fontSize: 14 }}>{idea.title}</div>
+                  <div style={{ fontSize: 13, color: "var(--text-secondary)", marginTop: 3 }}>{idea.description}</div>
+                </div>
+              ))}
+            </div>
+          </div>
 
           <div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
               <div style={{ fontWeight: 700 }}>SEO / GEO ideas</div>
               <AddInsightForm clientId={client.id} />
             </div>
@@ -80,7 +94,7 @@ export default async function ClientDetailPage({ params }) {
               )}
               {openInsights.map((i) => (
                 <div key={i.id} className="admin-card" style={{ padding: 16 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
+                  <div className="insight-row">
                     <div>
                       <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 4 }}>
                         <PriorityBadge priority={i.priority} />
@@ -109,7 +123,7 @@ export default async function ClientDetailPage({ params }) {
                 <div style={{ display: "grid", gap: 8, marginTop: 8 }}>
                   {closedInsights.map((i) => (
                     <div key={i.id} className="admin-card" style={{ padding: 12, opacity: 0.6 }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
+                      <div className="insight-row">
                         <div>
                           <div style={{ fontSize: 13, fontWeight: 600, textDecoration: "line-through" }}>{i.title}</div>
                         </div>

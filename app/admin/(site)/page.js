@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getClientsWithStats } from "@/lib/queries";
-import TrendBadge from "@/components/admin/TrendBadge";
 import ScanButton from "@/components/admin/ScanButton";
+import ClientOverviewTable from "@/components/admin/ClientOverviewTable";
 
 export const dynamic = "force-dynamic";
 
@@ -15,82 +15,13 @@ function StatTile({ label, value, sub }) {
   );
 }
 
-function insightSummary(counts) {
-  const critical = counts.critical || 0;
-  const high = counts.high || 0;
-  if (critical === 0 && high === 0) return null;
-  return (
-    <span style={{ display: "flex", gap: 6 }}>
-      {critical > 0 && <span className="badge badge-critical">{critical} critical</span>}
-      {high > 0 && <span className="badge badge-high">{high} high</span>}
-    </span>
-  );
-}
-
-function ClientRow({ c }) {
-  const pv = c.latestMetric?.page_views ?? null;
-  const prevPv = c.latestMetric?.prev_page_views ?? null;
-  return (
-    <tr>
-      <td>
-        <Link href={`/admin/clients/${c.slug}`} style={{ fontWeight: 600, color: "var(--text-primary)" }}>
-          {c.name}
-        </Link>
-        <div style={{ fontSize: 12, color: "var(--text-muted)" }}>{c.domain}</div>
-      </td>
-      <td>{pv != null ? pv.toLocaleString() : <span style={{ color: "var(--text-muted)" }}>—</span>}</td>
-      <td>
-        <TrendBadge current={pv} previous={prevPv} />
-      </td>
-      <td>
-        {c.latestReview?.rating ? (
-          <span>
-            ★ {Number(c.latestReview.rating).toFixed(1)}{" "}
-            <span style={{ color: "var(--text-muted)" }}>({c.latestReview.review_count})</span>
-          </span>
-        ) : (
-          <span style={{ color: "var(--text-muted)" }}>—</span>
-        )}
-      </td>
-      <td>{insightSummary(c.openInsightCounts) || <span style={{ color: "var(--text-muted)" }}>clear</span>}</td>
-      <td>
-        {c.latestScan ? (
-          c.latestScan.error || (c.latestScan.status_code && c.latestScan.status_code >= 400) ? (
-            <span className="badge badge-critical">issue</span>
-          ) : (
-            <span className="badge badge-good">ok</span>
-          )
-        ) : (
-          <span style={{ color: "var(--text-muted)" }}>never scanned</span>
-        )}
-      </td>
-    </tr>
-  );
-}
-
 function ClientGroup({ title, clients }) {
   if (clients.length === 0) return null;
   return (
     <div style={{ marginBottom: 28 }}>
       <h2 style={{ fontSize: 15, fontWeight: 700, marginBottom: 10 }}>{title}</h2>
       <div className="admin-card" style={{ overflowX: "auto" }}>
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Client</th>
-              <th>Page views (last week)</th>
-              <th>vs prior week</th>
-              <th>Google reviews</th>
-              <th>Open ideas</th>
-              <th>Scan</th>
-            </tr>
-          </thead>
-          <tbody>
-            {clients.map((c) => (
-              <ClientRow key={c.id} c={c} />
-            ))}
-          </tbody>
-        </table>
+        <ClientOverviewTable clients={clients} />
       </div>
     </div>
   );
@@ -121,9 +52,9 @@ export default async function AdminOverviewPage() {
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 24 }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 16, justifyContent: "space-between", alignItems: "flex-start", marginBottom: 24 }}>
         <div>
-          <h1 style={{ fontSize: 24, fontWeight: 700 }}>Overview</h1>
+          <h1 style={{ fontSize: 24, fontWeight: 700, fontFamily: "var(--font-display), serif" }}>Overview</h1>
           <p style={{ fontSize: 14, color: "var(--text-secondary)", marginTop: 4 }}>
             SEO/GEO recommendations refresh automatically every Monday. Traffic numbers are entered by hand from
             Vercel Analytics.
@@ -132,14 +63,7 @@ export default async function AdminOverviewPage() {
         <ScanButton label="Scan all sites now" />
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-          gap: 12,
-          marginBottom: 28,
-        }}
-      >
+      <div className="grid-3" style={{ marginBottom: 28 }}>
         <StatTile label="Monthly SEO clients" value={monthlySeo.length} />
         <StatTile label="Fully paid clients" value={fullyPaid.length} sub="Upsell targets" />
         <StatTile label="Not live yet" value={notLive.length} />
@@ -151,7 +75,7 @@ export default async function AdminOverviewPage() {
       </div>
 
       {(topUp.length > 0 || topDown.length > 0) && (
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 28 }}>
+        <div className="grid-2" style={{ marginBottom: 28 }}>
           <div className="admin-card" style={{ padding: 16 }}>
             <div className="label" style={{ marginBottom: 8 }}>
               Biggest gains this week

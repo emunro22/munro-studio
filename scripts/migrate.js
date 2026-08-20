@@ -85,6 +85,30 @@ async function main() {
   `;
   console.log("OK: review_snapshots");
 
+  await sql`
+    CREATE TABLE IF NOT EXISTS payments (
+      id SERIAL PRIMARY KEY,
+      client_id INTEGER REFERENCES clients(id) ON DELETE SET NULL,
+      amount NUMERIC NOT NULL,
+      paid_at DATE NOT NULL,
+      notes TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+  console.log("OK: payments");
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS app_settings (
+      id SMALLINT PRIMARY KEY DEFAULT 1,
+      stripe_fee_percent NUMERIC NOT NULL DEFAULT 1.5,
+      stripe_fee_fixed NUMERIC NOT NULL DEFAULT 0.20,
+      CONSTRAINT single_row CHECK (id = 1)
+    )
+  `;
+  await sql`INSERT INTO app_settings (id) VALUES (1) ON CONFLICT (id) DO NOTHING`;
+  console.log("OK: app_settings");
+
+  await sql`CREATE INDEX IF NOT EXISTS idx_payments_client ON payments(client_id, paid_at DESC)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_weekly_metrics_client ON weekly_metrics(client_id, week_start DESC)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_insights_client ON insights(client_id, created_at DESC)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_site_scans_client ON site_scans(client_id, scanned_at DESC)`;

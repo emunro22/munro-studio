@@ -34,7 +34,9 @@ function LoginForm() {
       }}
     >
       <div>
-        <div style={{ fontSize: 18, fontWeight: 700 }}>MunroStudio Admin</div>
+        <div style={{ fontSize: 18, fontWeight: 700, fontFamily: "var(--font-display), serif" }}>
+          Munro<em style={{ color: "var(--series-1)", fontStyle: "italic" }}>Studio</em> Admin
+        </div>
         <div style={{ fontSize: 13, color: "var(--text-secondary)", marginTop: 2 }}>
           Client analytics &amp; SEO dashboard
         </div>

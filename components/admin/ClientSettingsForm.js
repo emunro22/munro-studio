@@ -41,7 +41,7 @@ export default function ClientSettingsForm({ client }) {
         router.refresh();
       }}
     >
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+      <div className="grid-2">
         <div>
           <label className="label">Domain</label>
           <input

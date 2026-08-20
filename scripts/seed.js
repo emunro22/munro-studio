@@ -9,13 +9,13 @@ const sql = neon(process.env.DATABASE_URL);
 
 const clients = [
   // Monthly SEO clients — these are the primary focus of the weekly comparison dashboard.
-  { slug: "garage-clydebank", name: "The Garage Clydebank", domain: "thegarageclydebank.co.uk", plan_type: "monthly_seo", status: "active" },
-  { slug: "enviro-cycle-glasgow", name: "Envirocycle Glasgow", domain: "envirocycleglasgow.com", plan_type: "monthly_seo", status: "active" },
-  { slug: "spotless-detailing", name: "SL Detailing", domain: "sl-detailing.co.uk", plan_type: "monthly_seo", status: "active" },
-  { slug: "gallachers-car-garage", name: "Gallachers Car Garage", domain: "gallacherscargarage.co.uk", plan_type: "monthly_seo", status: "active" },
-  { slug: "horsepower-competitions", name: "Horse Power Competitions", domain: "horsepowercomps.co.uk", plan_type: "monthly_seo", status: "active" },
-  { slug: "garys-butchers", name: "Gary's Butchers & Fishmongers", domain: "garysbutchersandfishmongers.co.uk", plan_type: "monthly_seo", status: "active" },
-  { slug: "elite-autocare", name: "Elite Autocare", domain: "eliteauto-care.co.uk", plan_type: "monthly_seo", status: "active" },
+  { slug: "garage-clydebank", name: "The Garage Clydebank", domain: "thegarageclydebank.co.uk", plan_type: "monthly_seo", status: "active", monthly_fee: 55 },
+  { slug: "enviro-cycle-glasgow", name: "Envirocycle Glasgow", domain: "envirocycleglasgow.com", plan_type: "monthly_seo", status: "active", monthly_fee: 55 },
+  { slug: "spotless-detailing", name: "SL Detailing", domain: "sl-detailing.co.uk", plan_type: "monthly_seo", status: "active", monthly_fee: 55 },
+  { slug: "gallachers-car-garage", name: "Gallachers Car Garage", domain: "gallacherscargarage.co.uk", plan_type: "monthly_seo", status: "active", monthly_fee: 55 },
+  { slug: "horsepower-competitions", name: "Horse Power Competitions", domain: "horsepowercomps.co.uk", plan_type: "monthly_seo", status: "active", monthly_fee: 55 },
+  { slug: "garys-butchers", name: "Gary's Butchers & Fishmongers", domain: "garysbutchersandfishmongers.co.uk", plan_type: "monthly_seo", status: "active", monthly_fee: 55 },
+  { slug: "elite-autocare", name: "Elite Autocare", domain: "eliteauto-care.co.uk", plan_type: "monthly_seo", status: "active", monthly_fee: 55 },
 
   // Fully paid (one-off build, no SEO retainer yet) — upsell targets.
   { slug: "cg-groundcare", name: "CG Groundcare", domain: "cg-groundcare.co.uk", plan_type: "fully_paid", status: "active" },
@@ -104,13 +104,14 @@ async function main() {
 
   for (const c of clients) {
     const rows = await sql`
-      INSERT INTO clients (name, slug, domain, plan_type, status)
-      VALUES (${c.name}, ${c.slug}, ${c.domain}, ${c.plan_type}, ${c.status})
+      INSERT INTO clients (name, slug, domain, plan_type, status, monthly_fee)
+      VALUES (${c.name}, ${c.slug}, ${c.domain}, ${c.plan_type}, ${c.status}, ${c.monthly_fee ?? null})
       ON CONFLICT (slug) DO UPDATE SET
         name = EXCLUDED.name,
         domain = EXCLUDED.domain,
         plan_type = EXCLUDED.plan_type,
-        status = EXCLUDED.status
+        status = EXCLUDED.status,
+        monthly_fee = COALESCE(clients.monthly_fee, EXCLUDED.monthly_fee)
       RETURNING id, slug
     `;
     clientIdBySlug[rows[0].slug] = rows[0].id;

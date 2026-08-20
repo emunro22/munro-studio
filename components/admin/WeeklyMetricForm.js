@@ -11,15 +11,39 @@ function mostRecentMonday() {
   return d.toISOString().slice(0, 10);
 }
 
-export default function WeeklyMetricForm({ clientId }) {
+function weekBefore(dateStr) {
+  const d = new Date(dateStr);
+  d.setDate(d.getDate() - 7);
+  return d.toISOString().slice(0, 10);
+}
+
+async function saveWeek(clientId, weekStart, pageViews, visitors, topPage, notes) {
+  return fetch("/api/admin/metrics", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      clientId,
+      weekStart,
+      pageViews: pageViews ? Number(pageViews) : null,
+      visitors: visitors ? Number(visitors) : null,
+      topPage: topPage || null,
+      notes: notes || null,
+    }),
+  });
+}
+
+export default function WeeklyMetricForm({ clientId, hasPriorData = true }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
+  const [showBackfill, setShowBackfill] = useState(!hasPriorData);
   const [form, setForm] = useState({
     weekStart: mostRecentMonday(),
     pageViews: "",
     visitors: "",
     topPage: "",
     notes: "",
+    lastWeekPageViews: "",
+    lastWeekVisitors: "",
   });
 
   return (
@@ -29,27 +53,20 @@ export default function WeeklyMetricForm({ clientId }) {
       onSubmit={async (e) => {
         e.preventDefault();
         setBusy(true);
-        await fetch("/api/admin/metrics", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({
-            clientId,
-            weekStart: form.weekStart,
-            pageViews: form.pageViews ? Number(form.pageViews) : null,
-            visitors: form.visitors ? Number(form.visitors) : null,
-            topPage: form.topPage || null,
-            notes: form.notes || null,
-          }),
-        });
+        if (showBackfill && (form.lastWeekPageViews || form.lastWeekVisitors)) {
+          await saveWeek(clientId, weekBefore(form.weekStart), form.lastWeekPageViews, form.lastWeekVisitors, "", "");
+        }
+        await saveWeek(clientId, form.weekStart, form.pageViews, form.visitors, form.topPage, form.notes);
         setBusy(false);
-        setForm((f) => ({ ...f, pageViews: "", visitors: "", topPage: "", notes: "" }));
+        setForm((f) => ({ ...f, pageViews: "", visitors: "", topPage: "", notes: "", lastWeekPageViews: "", lastWeekVisitors: "" }));
+        setShowBackfill(false);
         router.refresh();
       }}
     >
       <div style={{ fontSize: 13, color: "var(--text-secondary)" }}>
         Copy this week's numbers from your Vercel Analytics dashboard for this project.
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
+      <div className="grid-3">
         <div>
           <label className="label">Week starting</label>
           <input
@@ -82,7 +99,7 @@ export default function WeeklyMetricForm({ clientId }) {
           />
         </div>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+      <div className="grid-2">
         <div>
           <label className="label">Top page (optional)</label>
           <input
@@ -102,6 +119,41 @@ export default function WeeklyMetricForm({ clientId }) {
           />
         </div>
       </div>
+
+      {!showBackfill && (
+        <button type="button" className="btn" style={{ justifySelf: "start" }} onClick={() => setShowBackfill(true)}>
+          + Also log last week (to see a comparison immediately)
+        </button>
+      )}
+
+      {showBackfill && (
+        <div style={{ borderTop: "1px solid var(--gridline)", paddingTop: 10 }}>
+          <div className="label">Last week's numbers (optional, for an immediate comparison)</div>
+          <div className="grid-2">
+            <div>
+              <label className="label">Page views</label>
+              <input
+                type="number"
+                min="0"
+                className="input"
+                value={form.lastWeekPageViews}
+                onChange={(e) => setForm({ ...form, lastWeekPageViews: e.target.value })}
+              />
+            </div>
+            <div>
+              <label className="label">Visitors</label>
+              <input
+                type="number"
+                min="0"
+                className="input"
+                value={form.lastWeekVisitors}
+                onChange={(e) => setForm({ ...form, lastWeekVisitors: e.target.value })}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
       <div>
         <button type="submit" className="btn btn-primary" disabled={busy}>
           {busy ? "Saving…" : "Save week"}

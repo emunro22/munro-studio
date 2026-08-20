@@ -60,7 +60,7 @@ export default function AddClientForm() {
           placeholder="example.co.uk"
         />
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+      <div className="grid-2">
         <div>
           <label className="label">Plan</label>
           <select
