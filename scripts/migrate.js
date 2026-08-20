@@ -92,9 +92,11 @@ async function main() {
       amount NUMERIC NOT NULL,
       paid_at DATE NOT NULL,
       notes TEXT,
+      type TEXT NOT NULL DEFAULT 'one_off',
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     )
   `;
+  await sql`ALTER TABLE payments ADD COLUMN IF NOT EXISTS type TEXT NOT NULL DEFAULT 'one_off'`;
   console.log("OK: payments");
 
   await sql`
