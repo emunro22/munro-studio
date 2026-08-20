@@ -34,35 +34,30 @@ export default function ClientOverviewTable({ clients }) {
       ),
     },
     {
-      key: "page_views",
-      label: "Page views (last week)",
-      accessor: (c) => c.latestMetric?.page_views ?? -1,
-      render: (c) => <InlinePageViewsCell clientId={c.id} value={c.latestMetric?.page_views ?? null} />,
-    },
-    {
-      key: "trend",
-      label: "vs prior week",
-      accessor: (c) => {
-        const pv = c.latestMetric?.page_views;
-        const prev = c.latestMetric?.prev_page_views;
-        if (pv == null || !prev) return -Infinity;
-        return (pv - prev) / prev;
-      },
-      render: (c) => <TrendBadge current={c.latestMetric?.page_views} previous={c.latestMetric?.prev_page_views} />,
-    },
-    {
-      key: "reviews",
-      label: "Google reviews",
-      accessor: (c) => c.latestReview?.rating ?? -1,
+      key: "last_week",
+      label: "Page views last week",
+      accessor: (c) => c.lastWeekViews ?? -1,
       render: (c) =>
-        c.latestReview?.rating ? (
-          <span>
-            ★ {Number(c.latestReview.rating).toFixed(1)}{" "}
-            <span style={{ color: "var(--text-muted)" }}>({c.latestReview.review_count})</span>
-          </span>
+        c.lastWeekViews != null ? (
+          c.lastWeekViews.toLocaleString()
         ) : (
           <span style={{ color: "var(--text-muted)" }}>—</span>
         ),
+    },
+    {
+      key: "this_week",
+      label: "Page views this week",
+      accessor: (c) => c.thisWeekViews ?? -1,
+      render: (c) => <InlinePageViewsCell clientId={c.id} value={c.thisWeekViews} />,
+    },
+    {
+      key: "trend",
+      label: "vs last week",
+      accessor: (c) => {
+        if (c.thisWeekViews == null || !c.lastWeekViews) return -Infinity;
+        return (c.thisWeekViews - c.lastWeekViews) / c.lastWeekViews;
+      },
+      render: (c) => <TrendBadge current={c.thisWeekViews} previous={c.lastWeekViews} />,
     },
     {
       key: "insights",
@@ -87,5 +82,5 @@ export default function ClientOverviewTable({ clients }) {
     },
   ];
 
-  return <DataTable columns={columns} rows={clients} rowKey={(c) => c.id} initialSortKey="page_views" />;
+  return <DataTable columns={columns} rows={clients} rowKey={(c) => c.id} initialSortKey="this_week" />;
 }

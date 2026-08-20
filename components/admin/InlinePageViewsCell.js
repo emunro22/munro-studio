@@ -2,14 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-function mostRecentMonday() {
-  const d = new Date();
-  const day = d.getDay();
-  const diff = day === 0 ? 6 : day - 1;
-  d.setDate(d.getDate() - diff);
-  return d.toISOString().slice(0, 10);
-}
+import { mostRecentMonday } from "@/lib/dates";
 
 export default function InlinePageViewsCell({ clientId, value }) {
   const router = useRouter();

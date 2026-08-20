@@ -38,12 +38,10 @@ export default async function AdminOverviewPage() {
   const totalHigh = clients.reduce((sum, c) => sum + (c.openInsightCounts.high || 0), 0);
 
   const movers = clients
-    .filter((c) => c.latestMetric?.page_views != null && c.latestMetric?.prev_page_views)
+    .filter((c) => c.thisWeekViews != null && c.lastWeekViews)
     .map((c) => ({
       c,
-      pct: Math.round(
-        ((c.latestMetric.page_views - c.latestMetric.prev_page_views) / c.latestMetric.prev_page_views) * 100
-      ),
+      pct: Math.round(((c.thisWeekViews - c.lastWeekViews) / c.lastWeekViews) * 100),
     }))
     .sort((a, b) => b.pct - a.pct);
 

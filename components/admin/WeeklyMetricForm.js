@@ -2,20 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-function mostRecentMonday() {
-  const d = new Date();
-  const day = d.getDay();
-  const diff = day === 0 ? 6 : day - 1;
-  d.setDate(d.getDate() - diff);
-  return d.toISOString().slice(0, 10);
-}
-
-function weekBefore(dateStr) {
-  const d = new Date(dateStr);
-  d.setDate(d.getDate() - 7);
-  return d.toISOString().slice(0, 10);
-}
+import { mostRecentMonday, weekBefore } from "@/lib/dates";
 
 async function saveWeek(clientId, weekStart, pageViews, visitors, topPage, notes) {
   return fetch("/api/admin/metrics", {
