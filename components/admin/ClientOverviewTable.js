@@ -4,6 +4,7 @@ import Link from "next/link";
 import DataTable from "./DataTable";
 import TrendBadge from "./TrendBadge";
 import InlinePageViewsCell from "./InlinePageViewsCell";
+import { mostRecentMonday, weekBefore } from "@/lib/dates";
 
 function insightSummary(counts) {
   const critical = counts.critical || 0;
@@ -18,6 +19,9 @@ function insightSummary(counts) {
 }
 
 export default function ClientOverviewTable({ clients }) {
+  const thisWeek = mostRecentMonday();
+  const lastWeek = weekBefore(thisWeek);
+
   const columns = [
     {
       key: "name",
@@ -37,18 +41,17 @@ export default function ClientOverviewTable({ clients }) {
       key: "last_week",
       label: "Page views last week",
       accessor: (c) => c.lastWeekViews ?? -1,
-      render: (c) =>
-        c.lastWeekViews != null ? (
-          c.lastWeekViews.toLocaleString()
-        ) : (
-          <span style={{ color: "var(--text-muted)" }}>—</span>
-        ),
+      render: (c) => (
+        <InlinePageViewsCell clientId={c.id} weekStart={lastWeek} value={c.lastWeekViews} label="last week's" />
+      ),
     },
     {
       key: "this_week",
       label: "Page views this week",
       accessor: (c) => c.thisWeekViews ?? -1,
-      render: (c) => <InlinePageViewsCell clientId={c.id} value={c.thisWeekViews} />,
+      render: (c) => (
+        <InlinePageViewsCell clientId={c.id} weekStart={thisWeek} value={c.thisWeekViews} label="this week's" />
+      ),
     },
     {
       key: "trend",

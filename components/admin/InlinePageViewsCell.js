@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { mostRecentMonday } from "@/lib/dates";
 
-export default function InlinePageViewsCell({ clientId, value }) {
+export default function InlinePageViewsCell({ clientId, weekStart, value, label = "this week's" }) {
   const router = useRouter();
   const [editing, setEditing] = useState(false);
   const [val, setVal] = useState(value ?? "");
@@ -17,7 +16,7 @@ export default function InlinePageViewsCell({ clientId, value }) {
     await fetch("/api/admin/metrics", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ clientId, weekStart: mostRecentMonday(), pageViews: Number(val) }),
+      body: JSON.stringify({ clientId, weekStart, pageViews: Number(val) }),
     });
     setBusy(false);
     router.refresh();
@@ -62,7 +61,7 @@ export default function InlinePageViewsCell({ clientId, value }) {
         textDecoration: "underline dotted",
         textUnderlineOffset: 3,
       }}
-      title="Click to log this week's page views"
+      title={`Click to log ${label} page views`}
     >
       {busy ? "Saving…" : value != null ? value.toLocaleString() : "+ add"}
     </button>
