@@ -9,11 +9,14 @@ import { mostRecentMonday, weekBefore } from "@/lib/dates";
 function insightSummary(counts) {
   const critical = counts.critical || 0;
   const high = counts.high || 0;
-  if (critical === 0 && high === 0) return null;
+  const total = Object.values(counts).reduce((a, b) => a + b, 0);
+  if (total === 0) return null;
+  const other = total - critical - high;
   return (
     <span style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
       {critical > 0 && <span className="badge badge-critical">{critical} critical</span>}
       {high > 0 && <span className="badge badge-high">{high} high</span>}
+      {other > 0 && <span className="badge badge-neutral">{other} more</span>}
     </span>
   );
 }
@@ -65,7 +68,11 @@ export default function ClientOverviewTable({ clients }) {
     {
       key: "insights",
       label: "Open ideas",
-      accessor: (c) => (c.openInsightCounts.critical || 0) * 100 + (c.openInsightCounts.high || 0),
+      accessor: (c) => {
+        const counts = c.openInsightCounts;
+        const total = Object.values(counts).reduce((a, b) => a + b, 0);
+        return (counts.critical || 0) * 100000 + (counts.high || 0) * 1000 + total;
+      },
       render: (c) => insightSummary(c.openInsightCounts) || <span style={{ color: "var(--text-muted)" }}>clear</span>,
     },
     {
