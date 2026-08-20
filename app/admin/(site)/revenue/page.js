@@ -1,5 +1,5 @@
 import { getRevenueData, getClientOptions } from "@/lib/queries";
-import { estimateStripeFee, netOfStripeFee } from "@/lib/revenue";
+import { estimateStripeFee } from "@/lib/revenue";
 import AddPaymentForm from "@/components/admin/AddPaymentForm";
 import StripeFeeSettingsForm from "@/components/admin/StripeFeeSettingsForm";
 import DeletePaymentButton from "@/components/admin/DeletePaymentButton";
@@ -57,9 +57,18 @@ export default async function RevenuePage() {
       </div>
 
       <div className="grid-3" style={{ marginBottom: 20 }}>
+        <StatTile
+          label="Total revenue this month"
+          value={gbp(thisMonthTotalGross)}
+          sub={`${gbp(thisMonthTotalNet)} est. net — retainers + one-offs`}
+        />
+        <StatTile
+          label="Total one-off revenue (all time)"
+          value={gbp(oneOffGrossAllTime)}
+          sub={`${gbp(oneOffGrossAllTime - oneOffFeeAllTime)} est. net, ${payments.length} payment${payments.length === 1 ? "" : "s"}`}
+        />
         <StatTile label="Monthly recurring revenue (gross)" value={gbp(mrrGross)} sub={`${monthlyClients.length} active retainers`} />
         <StatTile label="MRR after Stripe fees (est.)" value={gbp(mrrNet)} sub={`-${gbp(mrrFee)} est. fees`} />
-        <StatTile label="This month, total (est. net)" value={gbp(thisMonthTotalNet)} sub={`${gbp(thisMonthTotalGross)} gross`} />
       </div>
 
       <div className="admin-card" style={{ padding: 16, marginBottom: 24 }}>
@@ -109,14 +118,6 @@ export default async function RevenuePage() {
                 })}
               </tbody>
             </table>
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 16, marginTop: 10, fontSize: 13, color: "var(--text-secondary)" }}>
-            <span>
-              This month: {gbp(oneOffGrossThisMonth)} gross, {gbp(oneOffGrossThisMonth - oneOffFeeThisMonth)} est. net
-            </span>
-            <span>
-              All time: {gbp(oneOffGrossAllTime)} gross, {gbp(oneOffGrossAllTime - oneOffFeeAllTime)} est. net
-            </span>
           </div>
         </div>
 
