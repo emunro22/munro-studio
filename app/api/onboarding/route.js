@@ -1,7 +1,5 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req) {
   const {
     businessName, contactName, phone, email, industry,
@@ -24,6 +22,7 @@ export async function POST(req) {
       : "";
 
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
     await resend.emails.send({
       from: "MunroStudio <onboarding@resend.dev>",
       to: "euanmunroo@gmail.com",
