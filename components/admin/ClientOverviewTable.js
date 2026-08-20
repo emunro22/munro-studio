@@ -3,6 +3,7 @@
 import Link from "next/link";
 import DataTable from "./DataTable";
 import TrendBadge from "./TrendBadge";
+import InlinePageViewsCell from "./InlinePageViewsCell";
 
 function insightSummary(counts) {
   const critical = counts.critical || 0;
@@ -36,10 +37,7 @@ export default function ClientOverviewTable({ clients }) {
       key: "page_views",
       label: "Page views (last week)",
       accessor: (c) => c.latestMetric?.page_views ?? -1,
-      render: (c) => {
-        const pv = c.latestMetric?.page_views ?? null;
-        return pv != null ? pv.toLocaleString() : <span style={{ color: "var(--text-muted)" }}>—</span>;
-      },
+      render: (c) => <InlinePageViewsCell clientId={c.id} value={c.latestMetric?.page_views ?? null} />,
     },
     {
       key: "trend",
