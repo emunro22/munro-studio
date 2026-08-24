@@ -83,7 +83,11 @@ export default function CompetitorsPanel({ clientId, trade, location, competitor
       if (action === "discover") {
         setMessage(`Found ${data.competitors.length} competitor(s).`);
       } else if (action === "scan") {
-        setMessage(`Scanned ${data.scanned} competitor(s), ${data.insightsInserted} new idea(s) added.`);
+        setMessage(
+          `Scanned ${data.scanned} competitor(s), ${data.insightsInserted} new idea(s) added${
+            data.failed ? `, ${data.failed} failed` : ""
+          }.`
+        );
       }
       router.refresh();
     } catch (err) {

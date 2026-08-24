@@ -79,6 +79,7 @@ async function main() {
   await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_faq_schema BOOLEAN`;
   await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_llms_txt BOOLEAN`;
   await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS sitemap_url_count INTEGER`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS sitemap_urls JSONB`;
   console.log("OK: site_scans");
 
   await sql`
@@ -166,6 +167,7 @@ async function main() {
       error TEXT
     )
   `;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS sitemap_urls JSONB`;
   console.log("OK: competitor_scans");
 
   await sql`CREATE INDEX IF NOT EXISTS idx_payments_client ON payments(client_id, paid_at DESC)`;
