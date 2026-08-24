@@ -57,5 +57,14 @@ export default function ClientsListTable({ clients }) {
     },
   ];
 
-  return <DataTable columns={columns} rows={clients} rowKey={(c) => c.id} initialSortKey="name" initialSortDir="asc" />;
+  return (
+    <DataTable
+      columns={columns}
+      rows={clients}
+      rowKey={(c) => c.id}
+      initialSortKey="name"
+      initialSortDir="asc"
+      storageKey="clients-list"
+    />
+  );
 }

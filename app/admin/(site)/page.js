@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getClientsWithStats } from "@/lib/queries";
 import ScanButton from "@/components/admin/ScanButton";
+import RunAllCompetitorsButton from "@/components/admin/RunAllCompetitorsButton";
 import ClientOverviewTable from "@/components/admin/ClientOverviewTable";
 
 export const dynamic = "force-dynamic";
@@ -58,7 +59,10 @@ export default async function AdminOverviewPage() {
             Vercel Analytics.
           </p>
         </div>
-        <ScanButton label="Scan all sites now" />
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+          <ScanButton label="Scan all sites now" />
+          <RunAllCompetitorsButton />
+        </div>
       </div>
 
       <div className="grid-3" style={{ marginBottom: 28 }}>

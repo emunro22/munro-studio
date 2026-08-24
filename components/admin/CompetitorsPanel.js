@@ -196,7 +196,13 @@ export default function CompetitorsPanel({ clientId, trade, location, competitor
           No competitors tracked yet — click "Find competitors" or add one manually.
         </div>
       ) : (
-        <DataTable columns={columns} rows={competitors} rowKey={(r) => r.id} initialSortKey="review_count" />
+        <DataTable
+          columns={columns}
+          rows={competitors}
+          rowKey={(r) => r.id}
+          initialSortKey="review_count"
+          storageKey="competitors"
+        />
       )}
     </div>
   );

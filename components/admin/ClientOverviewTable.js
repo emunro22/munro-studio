@@ -92,5 +92,7 @@ export default function ClientOverviewTable({ clients }) {
     },
   ];
 
-  return <DataTable columns={columns} rows={clients} rowKey={(c) => c.id} initialSortKey="this_week" />;
+  return (
+    <DataTable columns={columns} rows={clients} rowKey={(c) => c.id} initialSortKey="this_week" storageKey="clients-overview" />
+  );
 }
