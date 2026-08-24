@@ -13,6 +13,8 @@ export default function ClientSettingsForm({ client }) {
     status: client.status,
     monthly_fee: client.monthly_fee || "",
     google_place_id: client.google_place_id || "",
+    trade: client.trade || "",
+    location: client.location || "Glasgow",
     notes: client.notes || "",
   });
 
@@ -33,6 +35,8 @@ export default function ClientSettingsForm({ client }) {
             status: form.status,
             monthly_fee: form.monthly_fee ? Number(form.monthly_fee) : null,
             google_place_id: form.google_place_id || null,
+            trade: form.trade || null,
+            location: form.location || "Glasgow",
             notes: form.notes || null,
           }),
         });
@@ -93,6 +97,26 @@ export default function ClientSettingsForm({ client }) {
           onChange={(e) => setForm({ ...form, google_place_id: e.target.value })}
           placeholder="ChIJ..."
         />
+      </div>
+      <div className="grid-2">
+        <div>
+          <label className="label">Trade / service (for finding competitors)</label>
+          <input
+            className="input"
+            value={form.trade}
+            onChange={(e) => setForm({ ...form, trade: e.target.value })}
+            placeholder="e.g. car detailing"
+          />
+        </div>
+        <div>
+          <label className="label">Location (for finding competitors)</label>
+          <input
+            className="input"
+            value={form.location}
+            onChange={(e) => setForm({ ...form, location: e.target.value })}
+            placeholder="e.g. Glasgow"
+          />
+        </div>
       </div>
       <div>
         <label className="label">Notes</label>

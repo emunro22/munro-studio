@@ -4,7 +4,7 @@ import { sql } from "@/lib/db";
 export async function PATCH(request, { params }) {
   const id = Number(params.id);
   const body = await request.json().catch(() => ({}));
-  const allowed = ["name", "domain", "plan_type", "status", "monthly_fee", "notes", "google_place_id"];
+  const allowed = ["name", "domain", "plan_type", "status", "monthly_fee", "notes", "google_place_id", "trade", "location"];
   const updates = Object.fromEntries(Object.entries(body).filter(([k]) => allowed.includes(k)));
 
   if (Object.keys(updates).length === 0) {
@@ -19,7 +19,9 @@ export async function PATCH(request, { params }) {
       status = COALESCE(${updates.status ?? null}, status),
       monthly_fee = CASE WHEN ${"monthly_fee" in updates} THEN ${updates.monthly_fee ?? null} ELSE monthly_fee END,
       notes = CASE WHEN ${"notes" in updates} THEN ${updates.notes ?? null} ELSE notes END,
-      google_place_id = CASE WHEN ${"google_place_id" in updates} THEN ${updates.google_place_id ?? null} ELSE google_place_id END
+      google_place_id = CASE WHEN ${"google_place_id" in updates} THEN ${updates.google_place_id ?? null} ELSE google_place_id END,
+      trade = CASE WHEN ${"trade" in updates} THEN ${updates.trade ?? null} ELSE trade END,
+      location = COALESCE(${updates.location ?? null}, location)
     WHERE id = ${id}
     RETURNING *
   `;

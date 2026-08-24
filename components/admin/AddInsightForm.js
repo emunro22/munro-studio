@@ -45,6 +45,8 @@ export default function AddInsightForm({ clientId }) {
           >
             <option value="seo">SEO</option>
             <option value="geo">Local / GEO</option>
+            <option value="aeo">AEO (AI answer engines)</option>
+            <option value="competitor">Competitor</option>
             <option value="content">Content</option>
             <option value="technical">Technical</option>
             <option value="conversion">Conversion</option>

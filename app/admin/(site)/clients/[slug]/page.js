@@ -7,6 +7,7 @@ import InsightActions from "@/components/admin/InsightActions";
 import PriorityBadge from "@/components/admin/PriorityBadge";
 import ScanButton from "@/components/admin/ScanButton";
 import ClientSettingsForm from "@/components/admin/ClientSettingsForm";
+import CompetitorsPanel from "@/components/admin/CompetitorsPanel";
 import { buildGrowthIdeas } from "@/lib/growth";
 
 export const dynamic = "force-dynamic";
@@ -25,7 +26,7 @@ function ScanSignal({ ok, label }) {
 export default async function ClientDetailPage({ params }) {
   const detail = await getClientDetail(params.slug);
   if (!detail) notFound();
-  const { client, metricsHistory, insights, scanHistory, reviewHistory } = detail;
+  const { client, metricsHistory, insights, scanHistory, reviewHistory, competitors } = detail;
 
   const chartPoints = [...metricsHistory]
     .reverse()
@@ -60,6 +61,10 @@ export default async function ClientDetailPage({ params }) {
         <ScanButton clientId={client.id} label="Scan this site now" />
       </div>
 
+      <div style={{ marginBottom: 20 }}>
+        <CompetitorsPanel clientId={client.id} trade={client.trade} location={client.location} competitors={competitors} />
+      </div>
+
       <div className="detail-grid">
         <div style={{ display: "grid", gap: 20 }}>
           <div className="admin-card" style={{ padding: 20 }}>
@@ -83,7 +88,7 @@ export default async function ClientDetailPage({ params }) {
 
           <div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-              <div style={{ fontWeight: 700 }}>SEO / GEO ideas</div>
+              <div style={{ fontWeight: 700 }}>SEO / GEO / AEO ideas</div>
               <AddInsightForm clientId={client.id} />
             </div>
             <div style={{ display: "grid", gap: 10 }}>

@@ -17,6 +17,8 @@ async function main() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     )
   `;
+  await sql`ALTER TABLE clients ADD COLUMN IF NOT EXISTS trade TEXT`;
+  await sql`ALTER TABLE clients ADD COLUMN IF NOT EXISTS location TEXT NOT NULL DEFAULT 'Glasgow'`;
   console.log("OK: clients");
 
   await sql`
@@ -71,6 +73,12 @@ async function main() {
       error TEXT
     )
   `;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_noindex BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_canonical BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_open_graph BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_faq_schema BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_llms_txt BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS sitemap_url_count INTEGER`;
   console.log("OK: site_scans");
 
   await sql`
@@ -110,11 +118,63 @@ async function main() {
   await sql`INSERT INTO app_settings (id) VALUES (1) ON CONFLICT (id) DO NOTHING`;
   console.log("OK: app_settings");
 
+  await sql`
+    CREATE TABLE IF NOT EXISTS competitors (
+      id SERIAL PRIMARY KEY,
+      client_id INTEGER NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+      place_id TEXT,
+      name TEXT NOT NULL,
+      domain TEXT,
+      address TEXT,
+      rating NUMERIC,
+      review_count INTEGER,
+      source TEXT NOT NULL DEFAULT 'auto',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+  await sql`
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_competitors_client_place
+    ON competitors(client_id, place_id) WHERE place_id IS NOT NULL
+  `;
+  console.log("OK: competitors");
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS competitor_scans (
+      id SERIAL PRIMARY KEY,
+      competitor_id INTEGER NOT NULL REFERENCES competitors(id) ON DELETE CASCADE,
+      scanned_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      status_code INTEGER,
+      response_ms INTEGER,
+      title TEXT,
+      meta_description TEXT,
+      word_count INTEGER,
+      has_viewport_meta BOOLEAN,
+      has_schema_ld BOOLEAN,
+      has_noindex BOOLEAN,
+      has_canonical BOOLEAN,
+      has_open_graph BOOLEAN,
+      has_faq_schema BOOLEAN,
+      has_llms_txt BOOLEAN,
+      sitemap_url_count INTEGER,
+      image_count INTEGER,
+      images_missing_alt INTEGER,
+      internal_link_count INTEGER,
+      has_robots_txt BOOLEAN,
+      has_sitemap BOOLEAN,
+      rating NUMERIC,
+      review_count INTEGER,
+      error TEXT
+    )
+  `;
+  console.log("OK: competitor_scans");
+
   await sql`CREATE INDEX IF NOT EXISTS idx_payments_client ON payments(client_id, paid_at DESC)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_weekly_metrics_client ON weekly_metrics(client_id, week_start DESC)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_insights_client ON insights(client_id, created_at DESC)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_site_scans_client ON site_scans(client_id, scanned_at DESC)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_review_snapshots_client ON review_snapshots(client_id, fetched_at DESC)`;
+  await sql`CREATE INDEX IF NOT EXISTS idx_competitors_client ON competitors(client_id)`;
+  await sql`CREATE INDEX IF NOT EXISTS idx_competitor_scans_competitor ON competitor_scans(competitor_id, scanned_at DESC)`;
   console.log("OK: indexes");
 
   console.log("Migration complete.");
