@@ -8,6 +8,7 @@ import PriorityBadge from "@/components/admin/PriorityBadge";
 import ScanButton from "@/components/admin/ScanButton";
 import ClientSettingsForm from "@/components/admin/ClientSettingsForm";
 import CompetitorsPanel from "@/components/admin/CompetitorsPanel";
+import LinkCheckPanel from "@/components/admin/LinkCheckPanel";
 import { buildGrowthIdeas } from "@/lib/growth";
 
 export const dynamic = "force-dynamic";
@@ -26,7 +27,7 @@ function ScanSignal({ ok, label }) {
 export default async function ClientDetailPage({ params }) {
   const detail = await getClientDetail(params.slug);
   if (!detail) notFound();
-  const { client, metricsHistory, insights, scanHistory, reviewHistory, competitors } = detail;
+  const { client, metricsHistory, insights, scanHistory, reviewHistory, competitors, latestLinkCheck } = detail;
 
   const chartPoints = [...metricsHistory]
     .reverse()
@@ -196,6 +197,15 @@ export default async function ClientDetailPage({ params }) {
                   <ScanSignal ok={latestScan.has_schema_ld} label="Schema.org structured data" />
                   <ScanSignal ok={latestScan.has_sitemap} label="sitemap.xml found" />
                   <ScanSignal ok={latestScan.images_missing_alt === 0} label="All images have alt text" />
+                  <ScanSignal ok={latestScan.has_clear_cta} label="Clear call-to-action" />
+                  <ScanSignal ok={latestScan.has_analytics} label="Analytics installed" />
+                  <ScanSignal ok={latestScan.has_privacy_policy} label="Privacy policy linked" />
+                  <ScanSignal ok={latestScan.has_terms_page} label="Terms page linked" />
+                  <ScanSignal ok={latestScan.has_cookie_consent} label="Cookie consent banner" />
+                  <ScanSignal ok={latestScan.has_favicon} label="Favicon present" />
+                  <ScanSignal ok={latestScan.has_custom_not_found} label="Custom 404 page" />
+                  <ScanSignal ok={latestScan.has_html_lang} label="<html lang> attribute" />
+                  <ScanSignal ok={latestScan.has_contact_form} label="Contact form (structural)" />
                   <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", fontSize: 13 }}>
                     <span style={{ color: "var(--text-secondary)" }}>Word count</span>
                     <span>{latestScan.word_count}</span>
@@ -208,6 +218,8 @@ export default async function ClientDetailPage({ params }) {
               )}
             </div>
           )}
+
+          <LinkCheckPanel clientId={client.id} latestLinkCheck={latestLinkCheck} />
 
           <details className="admin-card" style={{ padding: 16 }}>
             <summary style={{ cursor: "pointer", fontWeight: 700 }}>Client settings</summary>

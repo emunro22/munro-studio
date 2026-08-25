@@ -80,6 +80,15 @@ async function main() {
   await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_llms_txt BOOLEAN`;
   await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS sitemap_url_count INTEGER`;
   await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS sitemap_urls JSONB`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_custom_not_found BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_privacy_policy BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_terms_page BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_clear_cta BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_analytics BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_favicon BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_cookie_consent BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_html_lang BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_contact_form BOOLEAN`;
   console.log("OK: site_scans");
 
   await sql`
@@ -168,7 +177,32 @@ async function main() {
     )
   `;
   await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS sitemap_urls JSONB`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_custom_not_found BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_privacy_policy BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_terms_page BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_clear_cta BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_analytics BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_favicon BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_cookie_consent BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_html_lang BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_contact_form BOOLEAN`;
   console.log("OK: competitor_scans");
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS link_checks (
+      id SERIAL PRIMARY KEY,
+      client_id INTEGER NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+      checked_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      pages_checked INTEGER,
+      pages_total INTEGER,
+      links_checked INTEGER,
+      links_total INTEGER,
+      broken_links JSONB,
+      partial BOOLEAN,
+      duration_ms INTEGER
+    )
+  `;
+  console.log("OK: link_checks");
 
   await sql`CREATE INDEX IF NOT EXISTS idx_payments_client ON payments(client_id, paid_at DESC)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_weekly_metrics_client ON weekly_metrics(client_id, week_start DESC)`;
@@ -177,6 +211,7 @@ async function main() {
   await sql`CREATE INDEX IF NOT EXISTS idx_review_snapshots_client ON review_snapshots(client_id, fetched_at DESC)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_competitors_client ON competitors(client_id)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_competitor_scans_competitor ON competitor_scans(competitor_id, scanned_at DESC)`;
+  await sql`CREATE INDEX IF NOT EXISTS idx_link_checks_client ON link_checks(client_id, checked_at DESC)`;
   console.log("OK: indexes");
 
   console.log("Migration complete.");
