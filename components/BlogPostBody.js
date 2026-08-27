@@ -1,6 +1,9 @@
+import BlogChart from "./BlogChart";
+
 // Renders a post's `body` array — each item is a plain string (paragraph),
 // { h: "..." } for a subheading, { list: ["...", ...] } for a bullet list,
-// or { quote: "..." } for a pull-quote.
+// { quote: "..." } for a pull-quote, or { chart: { title, bars, note } }
+// for a real-numbers bar chart (see components/BlogChart.js).
 export default function BlogPostBody({ body }) {
   return (
     <div className="prose-blog">
@@ -30,6 +33,9 @@ export default function BlogPostBody({ body }) {
               ))}
             </ul>
           );
+        }
+        if (block.chart) {
+          return <BlogChart key={i} {...block.chart} />;
         }
         if (block.quote) {
           return (
