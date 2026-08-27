@@ -179,11 +179,10 @@ export default function PricingPage() {
             </p>
             <div className="reveal grid sm:grid-cols-2 gap-8 md:gap-12 bg-white rounded-2xl border border-border p-8 md:p-14">
               <AnimatedStat
-                value={7000}
+                value={7298}
                 prefix="£"
-                suffix="+"
-                label="Made online in month one"
-                sub="A local butcher with zero online presence before we built their store — over £7,000 in online sales in the first month."
+                label="Made online in the first month"
+                sub="143 paid orders through a store we built for a local butcher who had zero online presence before — in under 4 weeks."
               />
               <AnimatedStat
                 value={40}
