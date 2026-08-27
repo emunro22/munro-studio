@@ -89,6 +89,15 @@ async function main() {
   await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_cookie_consent BOOLEAN`;
   await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_html_lang BOOLEAN`;
   await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_contact_form BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_about_page BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_product_schema BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_organization_schema BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_ecommerce_signals BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_video_content BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_lazy_video BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_modern_image_format BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_descriptive_image_names BOOLEAN`;
+  await sql`ALTER TABLE site_scans ADD COLUMN IF NOT EXISTS has_large_uncompressed_images BOOLEAN`;
   console.log("OK: site_scans");
 
   await sql`
@@ -186,6 +195,15 @@ async function main() {
   await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_cookie_consent BOOLEAN`;
   await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_html_lang BOOLEAN`;
   await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_contact_form BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_about_page BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_product_schema BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_organization_schema BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_ecommerce_signals BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_video_content BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_lazy_video BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_modern_image_format BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_descriptive_image_names BOOLEAN`;
+  await sql`ALTER TABLE competitor_scans ADD COLUMN IF NOT EXISTS has_large_uncompressed_images BOOLEAN`;
   console.log("OK: competitor_scans");
 
   await sql`

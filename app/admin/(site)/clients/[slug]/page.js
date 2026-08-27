@@ -206,6 +206,11 @@ export default async function ClientDetailPage({ params }) {
                   <ScanSignal ok={latestScan.has_custom_not_found} label="Custom 404 page" />
                   <ScanSignal ok={latestScan.has_html_lang} label="<html lang> attribute" />
                   <ScanSignal ok={latestScan.has_contact_form} label="Contact form (structural)" />
+                  <ScanSignal ok={latestScan.has_about_page} label="About page linked" />
+                  <ScanSignal ok={latestScan.has_organization_schema} label="Organization/LocalBusiness schema" />
+                  <ScanSignal ok={latestScan.has_modern_image_format} label="Modern image formats (WebP/AVIF)" />
+                  <ScanSignal ok={latestScan.has_descriptive_image_names} label="Descriptive image filenames" />
+                  <ScanSignal ok={!latestScan.has_large_uncompressed_images} label="No oversized images" />
                   <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", fontSize: 13 }}>
                     <span style={{ color: "var(--text-secondary)" }}>Word count</span>
                     <span>{latestScan.word_count}</span>
