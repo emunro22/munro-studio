@@ -222,6 +222,28 @@ async function main() {
   `;
   console.log("OK: link_checks");
 
+  // Single-row table: OAuth tokens for Munro Studio's own Google Business
+  // Profile, used to pull real reviews onto the marketing site. Separate from
+  // app_settings since these are meaningfully more sensitive (live credentials).
+  await sql`
+    CREATE TABLE IF NOT EXISTS google_business_auth (
+      id SMALLINT PRIMARY KEY DEFAULT 1,
+      refresh_token TEXT,
+      access_token TEXT,
+      access_token_expires_at TIMESTAMPTZ,
+      account_id TEXT,
+      location_id TEXT,
+      location_name TEXT,
+      connected_at TIMESTAMPTZ,
+      reviews JSONB,
+      rating NUMERIC,
+      review_count INTEGER,
+      reviews_fetched_at TIMESTAMPTZ,
+      CONSTRAINT single_row CHECK (id = 1)
+    )
+  `;
+  console.log("OK: google_business_auth");
+
   await sql`CREATE INDEX IF NOT EXISTS idx_payments_client ON payments(client_id, paid_at DESC)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_weekly_metrics_client ON weekly_metrics(client_id, week_start DESC)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_insights_client ON insights(client_id, created_at DESC)`;

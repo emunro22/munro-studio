@@ -1,8 +1,10 @@
 import { getRevenueData, getClientOptions } from "@/lib/queries";
 import { estimateStripeFee } from "@/lib/revenue";
+import { getStoredReviews } from "@/lib/googleBusinessAuth";
 import AddPaymentForm from "@/components/admin/AddPaymentForm";
 import StripeFeeSettingsForm from "@/components/admin/StripeFeeSettingsForm";
 import DeletePaymentButton from "@/components/admin/DeletePaymentButton";
+import GoogleReviewsConnect from "@/components/admin/GoogleReviewsConnect";
 
 export const dynamic = "force-dynamic";
 
@@ -21,9 +23,10 @@ function gbp(n) {
 }
 
 export default async function RevenuePage() {
-  const [{ settings, payments, monthlyClients }, clientOptions] = await Promise.all([
+  const [{ settings, payments, monthlyClients }, clientOptions, googleAuth] = await Promise.all([
     getRevenueData(),
     getClientOptions(),
+    getStoredReviews(),
   ]);
 
   const feePercent = Number(settings.stripe_fee_percent);
@@ -89,11 +92,20 @@ export default async function RevenuePage() {
         />
       </div>
 
-      <div className="admin-card" style={{ padding: 16, marginBottom: 24 }}>
-        <div className="label" style={{ marginBottom: 10 }}>
-          Stripe fee rate
+      <div className="grid-2" style={{ marginBottom: 24, alignItems: "start" }}>
+        <div className="admin-card" style={{ padding: 16 }}>
+          <div className="label" style={{ marginBottom: 10 }}>
+            Stripe fee rate
+          </div>
+          <StripeFeeSettingsForm settings={settings} />
         </div>
-        <StripeFeeSettingsForm settings={settings} />
+        <GoogleReviewsConnect
+          connected={!!googleAuth?.connected_at}
+          connectedAt={googleAuth?.connected_at}
+          reviewCount={googleAuth?.review_count}
+          rating={googleAuth?.rating}
+          fetchedAt={googleAuth?.reviews_fetched_at}
+        />
       </div>
 
       <div className="detail-grid" style={{ marginBottom: 24 }}>

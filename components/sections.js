@@ -15,7 +15,7 @@ export function Pricing() {
           <em className="italic text-white/50">Everything included.</em>
         </h2>
         <p className="reveal text-sm md:text-base text-white/50 font-light leading-relaxed mb-10 md:mb-14 max-w-lg">
-          £55/month covers the whole lot — website, hosting, SEO, booking systems, admin portal, Google reviews, the works. First month completely free.
+          £55/month covers the whole lot — website, hosting, weekly updates on how your site's doing, and ongoing SEO/GEO/AEO upgrades to keep it climbing. First month completely free.
         </p>
 
         <div className="reveal grid md:grid-cols-2 gap-5">
@@ -40,14 +40,11 @@ export function Pricing() {
               {[
                 "Fully custom website design & build",
                 "Hosting, managed & always updated",
-                "Local SEO & sitemap XML submitted",
-                "Google Business Profile setup",
-                "Google reviews on your site",
-                "Booking system integration (Google Calendar etc.)",
-                "Admin portal — update content yourself",
+                "Local SEO, GEO & AEO — weekly updates on how your site's doing, plus ongoing upgrades",
+                "Google Business Profile setup + real reviews on your site",
+                "Booking system integration & an admin portal to update it yourself",
                 "Contact, quote & order forms",
-                "Unlimited content changes",
-                "Priority support",
+                "Unlimited changes & priority support",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2.5 text-sm text-white">
                   <span className="text-highlight flex-shrink-0 mt-0.5">✓</span>

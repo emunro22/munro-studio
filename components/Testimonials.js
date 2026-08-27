@@ -1,8 +1,21 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 const GOOGLE_PROFILE_URL = "https://www.google.com/search?q=Munro+Studio+Glasgow";
 
-const reviews = [
+function timeAgo(iso) {
+  if (!iso) return "";
+  const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+  if (days < 1) return "today";
+  if (days < 14) return `${days} day${days === 1 ? "" : "s"} ago`;
+  const weeks = Math.floor(days / 7);
+  if (weeks < 8) return `${weeks} week${weeks === 1 ? "" : "s"} ago`;
+  const months = Math.floor(days / 30);
+  return `${months} month${months === 1 ? "" : "s"} ago`;
+}
+
+const fallbackReviews = [
   {
     name: "Nathan McInulty",
     timeAgo: "2 weeks ago",
@@ -91,6 +104,26 @@ function ReviewCard({ name, timeAgo, text }) {
 }
 
 export default function Testimonials() {
+  const [reviews, setReviews] = useState(fallbackReviews);
+  const [rating, setRating] = useState(5.0);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/reviews")
+      .then((res) => res.json())
+      .then((data) => {
+        if (cancelled || !data.connected || !data.reviews?.length) return;
+        setReviews(
+          data.reviews.map((r) => ({ name: r.name, timeAgo: timeAgo(r.time), text: r.text, rating: r.rating || 5 }))
+        );
+        if (data.rating) setRating(data.rating);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <section id="reviews" className="py-16 md:py-28 px-5 md:px-10 bg-surface overflow-hidden">
       <div className="max-w-7xl mx-auto">
@@ -110,7 +143,7 @@ export default function Testimonials() {
           <div className="flex items-center gap-4 sm:flex-col sm:items-end sm:gap-2">
             <div className="flex items-center gap-2">
               <Stars />
-              <span className="text-sm font-bold text-ink">5.0</span>
+              <span className="text-sm font-bold text-ink">{Number(rating).toFixed(1)}</span>
               <span className="text-xs text-ink-faint">({reviews.length} reviews)</span>
             </div>
             <a
