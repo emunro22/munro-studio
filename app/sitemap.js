@@ -1,10 +1,14 @@
 import { seoPageSlugs } from "@/app/seo-pages/seoPages";
+import { posts } from "@/app/blog/posts";
 
 export default function sitemap() {
   const baseUrl = "https://munrostudio.co.uk";
 
   const staticRoutes = [
     { url: `${baseUrl}/`, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
+    { url: `${baseUrl}/pricing`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/faq`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${baseUrl}/onboarding`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/thank-you`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
   ];
@@ -17,5 +21,12 @@ export default function sitemap() {
     priority: slug.startsWith("web-design-") || slug === "glasgow-web-design" ? 0.95 : 0.85,
   }));
 
-  return [...staticRoutes, ...seoRoutes];
+  const blogRoutes = posts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.publishDate),
+    changeFrequency: "yearly",
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...seoRoutes, ...blogRoutes];
 }
