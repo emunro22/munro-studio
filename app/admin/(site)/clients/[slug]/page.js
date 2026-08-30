@@ -198,17 +198,14 @@ export default async function ClientDetailPage({ params }) {
                   <ScanSignal ok={latestScan.has_sitemap} label="sitemap.xml found" />
                   <ScanSignal ok={latestScan.images_missing_alt === 0} label="All images have alt text" />
                   <ScanSignal ok={latestScan.has_clear_cta} label="Clear call-to-action" />
-                  <ScanSignal ok={latestScan.has_analytics} label="Analytics installed" />
                   <ScanSignal ok={latestScan.has_privacy_policy} label="Privacy policy linked" />
                   <ScanSignal ok={latestScan.has_terms_page} label="Terms page linked" />
-                  <ScanSignal ok={latestScan.has_cookie_consent} label="Cookie consent banner" />
                   <ScanSignal ok={latestScan.has_favicon} label="Favicon present" />
                   <ScanSignal ok={latestScan.has_custom_not_found} label="Custom 404 page" />
                   <ScanSignal ok={latestScan.has_html_lang} label="<html lang> attribute" />
                   <ScanSignal ok={latestScan.has_contact_form} label="Contact form (structural)" />
                   <ScanSignal ok={latestScan.has_about_page} label="About page linked" />
                   <ScanSignal ok={latestScan.has_organization_schema} label="Organization/LocalBusiness schema" />
-                  <ScanSignal ok={latestScan.has_modern_image_format} label="Modern image formats (WebP/AVIF)" />
                   <ScanSignal ok={latestScan.has_descriptive_image_names} label="Descriptive image filenames" />
                   <ScanSignal ok={!latestScan.has_large_uncompressed_images} label="No oversized images" />
                   <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", fontSize: 13 }}>
