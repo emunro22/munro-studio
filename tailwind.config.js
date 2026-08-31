@@ -23,6 +23,7 @@ module.exports = {
       animation: {
         "fade-up": "fadeUp 0.6s ease forwards",
         "ticker": "ticker 35s linear infinite",
+        "ticker-ltr": "tickerReverse 90s linear infinite",
       },
       keyframes: {
         fadeUp: {
@@ -32,6 +33,10 @@ module.exports = {
         ticker: {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
+        },
+        tickerReverse: {
+          "0%": { transform: "translateX(-50%)" },
+          "100%": { transform: "translateX(0)" },
         },
       },
     },

@@ -4,6 +4,7 @@
   "outputDirectory": ".next",
   "installCommand": "npm install",
   "crons": [
-    { "path": "/api/cron/weekly-scan", "schedule": "0 6 * * 1" }
+    { "path": "/api/cron/weekly-scan", "schedule": "0 6 * * 1" },
+    { "path": "/api/cron/google-reviews", "schedule": "0 7 * * *" }
   ]
 }

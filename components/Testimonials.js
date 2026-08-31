@@ -17,43 +17,68 @@ function timeAgo(iso) {
 
 const fallbackReviews = [
   {
+    name: "Claire Drain",
+    timeAgo: "3 days ago",
+    text: "Euan was great from start to finish. Took a plain web site and turned it into something so much more than we could have asked.",
+  },
+  {
+    name: "Gary",
+    timeAgo: "6 weeks ago",
+    text: "Euan done a great job on our custom built butchers website, highly recommend very skilled developer!",
+  },
+  {
+    name: "Clyde Drift Wol",
+    timeAgo: "7 weeks ago",
+    text: "5 Stars from me this boy helped me massive build my competition page, very very patient guy and that helped massive he was never more that 10-15 mins away on a text and straight back to me sortng things out\u{1FAE1}",
+  },
+  {
+    name: "Darren Gallacher",
+    timeAgo: "7 weeks ago",
+    text: "GREAT DEALING WITH MUNRO STUDIO, MADE EVERY STEP OF GETTING ME SET UP REALLY EASY AND THE END PRODUCT WAS FANTASTIC \u{1F44D}",
+  },
+  {
+    name: "Ryan Campbell",
+    timeAgo: "8 weeks ago",
+    text: "Recently reached out to munro studio to help set up my business page and logo for my new company. it's been nothing short of first class going over and beyond to help me achieve what I've set out todo highly recommend from a buisness and personal point of view as I couldn't be happier with results",
+  },
+  {
+    name: "Michael McCourt",
+    timeAgo: "13 weeks ago",
+    text: "Had my website hosted and revamped by Euan and he was great to deal with and swift to react to any changes, very reasonable pricing highly recommend esp for small businesses.",
+  },
+  {
     name: "Nathan McInulty",
-    timeAgo: "2 weeks ago",
+    timeAgo: "15 weeks ago",
     text: "Great service from Munro Studio, they have built my business an amazing website. From start to finish the process has been simple and any request has been catered to with ease. I would definitely be recommending this service.",
   },
   {
     name: "Rhys Duncan",
-    timeAgo: "4 weeks ago",
+    timeAgo: "18 weeks ago",
     text: "Euan created my business website and got it exactly how I want it and been helpful with any updates I've had.",
   },
   {
     name: "Envirocycle Glasgow",
-    timeAgo: "6 weeks ago",
+    timeAgo: "20 weeks ago",
     text: "Ewan was great from start to finish - efforts were next to none, I'll be staying with him for the foreseeable and passing anyone else I know in business onto him! Thanks again",
   },
   {
     name: "Lewis Weir",
-    timeAgo: "9 weeks ago",
+    timeAgo: "23 weeks ago",
     text: "Euan created a professional logo and brand assets for my business, and played a key role in driving new client acquisition.",
   },
   {
     name: "Gav",
-    timeAgo: "9 weeks ago",
+    timeAgo: "23 weeks ago",
     text: "Euan contacted me about not having a website for my business and was very selling about why it's important. Charged me a fair price too! Would recommended to anyone who's in need of one.",
   },
   {
-    name: "Michael McCourt",
-    timeAgo: "9 weeks ago",
-    text: "Had my website hosted and revamped by Euan and he was great to deal with and swift to react to any changes, very reasonable pricing highly recommend esp for small businesses.",
-  },
-  {
     name: "Samantha Hamilton",
-    timeAgo: "9 weeks ago",
+    timeAgo: "23 weeks ago",
     text: "Euan helped us create our website and we couldn't be happier with the process. He was understanding of our time constraints, didn't need much information from us to create a mockup and made the process quick and easy. Highly recommend.",
   },
   {
     name: "William Cassidy",
-    timeAgo: "9 weeks ago",
+    timeAgo: "23 weeks ago",
     text: "Excellent service and great communication highly recommend! Very happy with my business website.",
   },
 ];
@@ -81,10 +106,14 @@ function GoogleIcon() {
   );
 }
 
-function ReviewCard({ name, timeAgo, text }) {
+function ReviewCard({ name, timeAgo, text, fixedWidth }) {
   const initials = name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase();
   return (
-    <div className="bg-white rounded-2xl p-5 border border-border flex flex-col gap-3 flex-shrink-0 w-72 sm:w-auto snap-start">
+    <div
+      className={`bg-white rounded-2xl p-5 border border-border flex flex-col gap-3 flex-shrink-0 snap-start ${
+        fixedWidth ? "w-72 md:w-80" : "w-72 sm:w-auto"
+      }`}
+    >
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2.5">
           <div className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 bg-ink">
@@ -158,11 +187,11 @@ export default function Testimonials() {
           </div>
         </div>
 
-        {/* Mobile: horizontal scroll — Desktop: grid */}
-        <div className="reveal -mx-5 md:mx-0">
-          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-x-auto md:overflow-visible px-5 md:px-0 pb-4 md:pb-0 snap-x snap-mandatory scroll-smooth" style={{ scrollbarWidth: "none" }}>
-            {reviews.map((r) => (
-              <ReviewCard key={r.name} {...r} />
+        {/* Auto-scrolling review marquee, left to right, pauses on hover */}
+        <div className="reveal overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
+          <div className="flex gap-4 w-max animate-ticker-ltr hover:[animation-play-state:paused] motion-reduce:animate-none">
+            {[...reviews, ...reviews].map((r, i) => (
+              <ReviewCard key={`${r.name}-${i}`} {...r} fixedWidth />
             ))}
           </div>
         </div>

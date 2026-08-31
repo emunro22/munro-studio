@@ -15,7 +15,8 @@ export const metadata = {
 const monthlyFeatures = [
   "Fully custom website design & build",
   "Hosting, managed & always updated",
-  "Local SEO, GEO & AEO — weekly reports on how your site's doing plus ongoing upgrades",
+  "SEO, GEO & AEO — optimised for Google, AI answer engines & local search",
+  "Weekly reports on how your site's doing plus ongoing upgrades",
   "Google Business Profile setup + reviews shown on your site",
   "Booking system integration (Google Calendar etc.)",
   "Admin portal — update your own content",
