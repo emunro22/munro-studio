@@ -24,7 +24,7 @@ export default function ClientsListTable({ clients }) {
       label: "Domain",
       accessor: (c) => c.domain || "",
       defaultDir: "asc",
-      render: (c) => <span style={{ color: "var(--text-secondary)" }}>{c.domain || "—"}</span>,
+      render: (c) => <span style={{ color: "var(--text-secondary)" }}>{c.domain || "-"}</span>,
     },
     {
       key: "plan",
@@ -44,7 +44,7 @@ export default function ClientsListTable({ clients }) {
       key: "fee",
       label: "Monthly fee",
       accessor: (c) => Number(c.monthly_fee) || 0,
-      render: (c) => (c.monthly_fee ? `£${c.monthly_fee}` : "—"),
+      render: (c) => (c.monthly_fee ? `£${c.monthly_fee}` : "-"),
     },
     {
       key: "ideas",

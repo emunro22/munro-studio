@@ -53,7 +53,7 @@ export default function AdDesign() {
               Running Facebook ads with <span className="text-ink font-medium">DIY graphics</span>, or paying Fiverr for AI slop?
             </p>
             <p>
-              I design scroll-stopping ads that look like they came from a proper brand — static ads, stories, display banners, flyers, van graphics. No ad management, no retainer — just <span className="text-ink font-medium">clean design, delivered fast</span>.
+              I design scroll-stopping ads that look like they came from a proper brand: static ads, stories, display banners, flyers, van graphics. No ad management, no retainer, just <span className="text-ink font-medium">clean design, delivered fast</span>.
             </p>
           </div>
         </div>
@@ -133,7 +133,7 @@ export default function AdDesign() {
 
           {/* Tiny note for existing clients — no big callout needed */}
           <p className="mt-6 text-xs text-ink-faint font-light">
-            Already a MunroStudio website client? <span className="text-ink font-medium">20% off</span> any standalone ad design — just mention it when you message.
+            Already a MunroStudio website client? <span className="text-ink font-medium">20% off</span> any standalone ad design, just mention it when you message.
           </p>
         </div>
       </div>

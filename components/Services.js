@@ -14,7 +14,7 @@ export default function Services() {
           <div className="flex flex-col justify-center gap-3 md:gap-4 text-ink-soft text-sm md:text-base leading-relaxed font-light">
             <p>
               Most web designers hand you a site and disappear. I build{" "}
-              <span className="text-ink font-medium">the full picture</span> — your site, your SEO, your booking system, your Google reviews, your admin access, and your online ordering if you need it.
+              <span className="text-ink font-medium">the full picture</span>: your site, your SEO, your booking system, your Google reviews, your admin access, and your online ordering if you need it.
             </p>
             <p>
               Every site gets a sitemap submitted to Google, a Google Business Profile set up, and booking systems like{" "}
@@ -33,7 +33,7 @@ export default function Services() {
             { before: "Generic template, looks like everyone else", after: "Fully custom design built around your brand" },
             { before: "No Google visibility when you launch", after: "Sitemap submitted, SEO-ready from day one" },
             { before: "Customers have to call to book", after: "Booking system live on your site from day one" },
-            { before: "Can't update your own site", after: "Admin portal — you're in control" },
+            { before: "Can't update your own site", after: "Admin portal, and you're in control" },
           ].map(({ before, after }, i) => (
             <div key={i} className="bg-white p-5 md:p-8 group hover:bg-surface transition-colors duration-200">
               <p className="text-xs text-ink-faint line-through mb-2 md:mb-3 font-light leading-snug">{before}</p>

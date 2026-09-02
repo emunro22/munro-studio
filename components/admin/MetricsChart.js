@@ -50,7 +50,7 @@ export default function MetricsChart({ points, label = "Page views" }) {
   if (!points || points.length === 0) {
     return (
       <div ref={containerRef} style={{ color: "var(--text-muted)", fontSize: 14, padding: "32px 0", textAlign: "center" }}>
-        No weekly numbers logged yet — add this week's figures below to start the chart.
+        No weekly numbers logged yet. Add this week's figures below to start the chart.
       </div>
     );
   }

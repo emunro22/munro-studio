@@ -1,9 +1,14 @@
 import BlogChart from "./BlogChart";
+import BlogFlow from "./BlogFlow";
+import BlogCompare from "./BlogCompare";
 
 // Renders a post's `body` array — each item is a plain string (paragraph),
 // { h: "..." } for a subheading, { list: ["...", ...] } for a bullet list,
-// { quote: "..." } for a pull-quote, or { chart: { title, bars, note } }
-// for a real-numbers bar chart (see components/BlogChart.js).
+// { quote: "..." } for a pull-quote, { chart: { title, bars, note } } for a
+// real-numbers bar chart (see components/BlogChart.js), { flow: { title,
+// steps } } for an animated step sequence (see components/BlogFlow.js), or
+// { compare: { title, before, after } } for a before/after comparison card
+// (see components/BlogCompare.js).
 export default function BlogPostBody({ body }) {
   return (
     <div className="prose-blog">
@@ -36,6 +41,12 @@ export default function BlogPostBody({ body }) {
         }
         if (block.chart) {
           return <BlogChart key={i} {...block.chart} />;
+        }
+        if (block.flow) {
+          return <BlogFlow key={i} {...block.flow} />;
+        }
+        if (block.compare) {
+          return <BlogCompare key={i} {...block.compare} />;
         }
         if (block.quote) {
           return (

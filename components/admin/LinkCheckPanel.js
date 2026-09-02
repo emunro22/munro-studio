@@ -47,9 +47,9 @@ export default function LinkCheckPanel({ clientId, latestLinkCheck }) {
       {latestLinkCheck && (
         <div style={{ marginTop: 10 }}>
           <div style={{ fontSize: 12, color: "var(--text-muted)" }}>
-            {new Date(latestLinkCheck.checked_at).toLocaleString("en-GB")} — checked {latestLinkCheck.pages_checked} of{" "}
+            {new Date(latestLinkCheck.checked_at).toLocaleString("en-GB")}: checked {latestLinkCheck.pages_checked} of{" "}
             {latestLinkCheck.pages_total} pages, {latestLinkCheck.links_checked} of {latestLinkCheck.links_total} unique
-            links{latestLinkCheck.partial ? " (stopped early — re-run to cover more)" : ""}
+            links{latestLinkCheck.partial ? " (stopped early, re-run to cover more)" : ""}
           </div>
           {broken.length === 0 ? (
             <div style={{ fontSize: 13, color: "var(--good)", marginTop: 6 }}>No broken links found.</div>

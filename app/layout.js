@@ -17,7 +17,7 @@ const body = DM_Sans({
 });
 
 export const metadata = {
-  title: "MunroStudio — Glasgow Web Design | First Month Free | Websites From £55/mo",
+  title: "MunroStudio: Glasgow Web Design | First Month Free | Websites From £55/mo",
   description:
     "Glasgow-based web design for tradespeople and small businesses. Custom websites, local SEO, first month free, then £55/month or £499 one-off. Call 07485 218 091.",
   keywords: [
@@ -36,7 +36,7 @@ export const metadata = {
   ],
   authors: [{ name: "MunroStudio", url: "https://munrostudio.co.uk" }],
   openGraph: {
-    title: "MunroStudio — Glasgow Web Design | First Month Free",
+    title: "MunroStudio: Glasgow Web Design | First Month Free",
     description:
       "Custom websites for Glasgow tradespeople and small businesses. First month on me, then £55/month or £499 one-off. Call 07485 218 091.",
     url: "https://munrostudio.co.uk",
@@ -46,7 +46,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "MunroStudio — Glasgow Web Design | First Month Free",
+    title: "MunroStudio: Glasgow Web Design | First Month Free",
     description:
       "Custom websites for Glasgow businesses. First month free, then £55/month or £499 one-off.",
   },

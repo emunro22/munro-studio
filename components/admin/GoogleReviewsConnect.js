@@ -6,8 +6,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 const STATUS_MESSAGES = {
   success: { text: "Connected to Google Business Profile.", ok: true },
   denied: { text: "Google sign-in was cancelled or denied.", ok: false },
-  invalid: { text: "That connection attempt looked invalid — try again.", ok: false },
-  error: { text: "Something went wrong connecting to Google — try again.", ok: false },
+  invalid: { text: "That connection attempt looked invalid, try again.", ok: false },
+  error: { text: "Something went wrong connecting to Google. Try again.", ok: false },
 };
 
 export default function GoogleReviewsConnect({ connected, connectedAt, reviewCount, rating, fetchedAt }) {
@@ -41,7 +41,7 @@ export default function GoogleReviewsConnect({ connected, connectedAt, reviewCou
                 {fetchedAt ? ` (${new Date(fetchedAt).toLocaleString("en-GB")})` : ""}.
               </>
             ) : (
-              "No reviews pulled yet — click refresh below."
+              "No reviews pulled yet, click refresh below."
             )}
           </div>
           <div style={{ display: "flex", gap: 8 }}>

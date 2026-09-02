@@ -342,7 +342,7 @@ export default function SeoLandingPage({ page }) {
                   <div className="text-5xl mb-5">✅</div>
                   <h3 className="font-display text-2xl font-black text-white mb-3">Message sent!</h3>
                   <p className="text-sm text-white/50 font-light leading-relaxed">
-                    Thanks — I'll be in touch within 24 hours.
+                    Thanks. I'll be in touch within 24 hours.
                   </p>
                 </div>
               ) : (

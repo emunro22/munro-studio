@@ -50,7 +50,7 @@ export default function Contact() {
               <em className="italic text-white/50">found online?</em>
             </h2>
             <p className="text-white/50 text-sm md:text-base leading-relaxed mb-8 font-light max-w-sm">
-              Fill in the form and I&apos;ll get back to you within 24 hours — no obligation, no hard sell.
+              Fill in the form and I&apos;ll get back to you within 24 hours, no obligation, no hard sell.
             </p>
 
             {/* Quick-contact buttons on mobile */}
@@ -125,7 +125,7 @@ export default function Contact() {
                 <div className="text-5xl mb-4">✅</div>
                 <h3 className="font-display text-2xl font-black text-white mb-3">Message sent!</h3>
                 <p className="text-sm text-white/50 font-light leading-relaxed">
-                  Thanks — I&apos;ll be in touch within 24 hours.
+                  Thanks. I&apos;ll be in touch within 24 hours.
                 </p>
               </div>
             ) : (
@@ -147,7 +147,7 @@ export default function Contact() {
                   disabled={formState === "loading"}
                   className="w-full bg-white text-ink font-semibold py-4 rounded-full text-sm hover:bg-surface active:scale-95 transition-all duration-200 tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {formState === "loading" ? "Sending..." : "Send Message — It's Free"}
+                  {formState === "loading" ? "Sending..." : "Send Message (It's Free)"}
                 </button>
                 {formState === "error" && (
                   <p className="text-xs text-red-400 text-center pt-1">

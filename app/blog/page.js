@@ -6,9 +6,9 @@ import RevealWrapper from "@/components/RevealWrapper";
 import { posts } from "@/app/blog/posts";
 
 export const metadata = {
-  title: "Blog | Munro Studio — Websites, SEO, GEO & AEO for Glasgow Businesses",
+  title: "Blog | Munro Studio: Websites, SEO, GEO & AEO for Glasgow Businesses",
   description:
-    "Practical advice on websites, local SEO, GEO and AEO for Glasgow trades and small businesses — from picking a web designer to getting found on Google and AI search.",
+    "Practical advice on websites, local SEO, GEO and AEO for Glasgow trades and small businesses, from picking a web designer to getting found on Google and AI search.",
 };
 
 function fmtDate(iso) {
@@ -31,7 +31,7 @@ export default function BlogIndexPage() {
               <em className="italic">& what actually works.</em>
             </h1>
             <p className="reveal text-sm md:text-base text-ink-soft font-light max-w-lg mx-auto leading-relaxed">
-              Practical, no-fluff advice for Glasgow trades and small businesses — from picking a web designer to
+              Practical, no-fluff advice for Glasgow trades and small businesses, from picking a web designer to
               ranking on Google and getting cited by AI search.
             </p>
           </div>

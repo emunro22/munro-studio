@@ -123,13 +123,13 @@ export default function CompetitorsPanel({ clientId, trade, location, competitor
       key: "rating",
       label: "Rating",
       accessor: (r) => r.rating,
-      render: (r) => (r.rating ? `★ ${Number(r.rating).toFixed(1)}` : "—"),
+      render: (r) => (r.rating ? `★ ${Number(r.rating).toFixed(1)}` : "-"),
     },
     {
       key: "review_count",
       label: "Reviews",
       accessor: (r) => r.review_count,
-      render: (r) => r.review_count ?? "—",
+      render: (r) => r.review_count ?? "-",
     },
     {
       key: "faq",
@@ -141,14 +141,14 @@ export default function CompetitorsPanel({ clientId, trade, location, competitor
             {r.latestScan.has_faq_schema ? "yes" : "no"}
           </span>
         ) : (
-          "—"
+          "-"
         ),
     },
     {
       key: "sitemap",
       label: "Sitemap pages",
       accessor: (r) => r.latestScan?.sitemap_url_count,
-      render: (r) => r.latestScan?.sitemap_url_count ?? "—",
+      render: (r) => r.latestScan?.sitemap_url_count ?? "-",
     },
     {
       key: "scanned_at",
@@ -197,7 +197,7 @@ export default function CompetitorsPanel({ clientId, trade, location, competitor
 
       {competitors.length === 0 ? (
         <div style={{ fontSize: 14, color: "var(--text-muted)" }}>
-          No competitors tracked yet — click "Find competitors" or add one manually.
+          No competitors tracked yet: click "Find competitors" or add one manually.
         </div>
       ) : (
         <DataTable

@@ -69,7 +69,7 @@ export default async function RevenuePage() {
       <div style={{ marginBottom: 24 }}>
         <h1 style={{ fontSize: 24, fontWeight: 700, fontFamily: "var(--font-display), serif" }}>Revenue</h1>
         <p style={{ fontSize: 14, color: "var(--text-secondary)", marginTop: 4 }}>
-          Stripe fee is an estimate based on the rate below — your actual per-charge fee depends on the card type and
+          Stripe fee is an estimate based on the rate below. Your actual per-charge fee depends on the card type and
           your Stripe plan, so treat net figures as approximate.
         </p>
       </div>
@@ -78,12 +78,12 @@ export default async function RevenuePage() {
         <StatTile
           label="Total revenue (all time)"
           value={gbp(totalAllTimeGross)}
-          sub={`${gbp(totalAllTimeNet)} est. net — ${monthlyLogged.length} month${monthlyLogged.length === 1 ? "" : "s"} logged + ${oneOff.length} one-off${oneOff.length === 1 ? "" : "s"}`}
+          sub={`${gbp(totalAllTimeNet)} est. net, ${monthlyLogged.length} month${monthlyLogged.length === 1 ? "" : "s"} logged + ${oneOff.length} one-off${oneOff.length === 1 ? "" : "s"}`}
         />
         <StatTile
           label="Total revenue this month"
           value={gbp(thisMonthTotalGross)}
-          sub={`${gbp(thisMonthTotalNet)} est. net${monthlyPortionIsProjected ? " — retainers projected, not yet logged" : ""}`}
+          sub={`${gbp(thisMonthTotalNet)} est. net${monthlyPortionIsProjected ? " (retainers projected, not yet logged)" : ""}`}
         />
         <StatTile
           label="Monthly recurring revenue (gross)"
@@ -149,7 +149,7 @@ export default async function RevenuePage() {
                           {p.type === "monthly" ? "Monthly total" : "One-off"}
                         </span>
                       </td>
-                      <td data-label="Client">{p.client_name || <span style={{ color: "var(--text-muted)" }}>—</span>}</td>
+                      <td data-label="Client">{p.client_name || <span style={{ color: "var(--text-muted)" }}>-</span>}</td>
                       <td data-label="Gross">{gbp(p.amount)}</td>
                       <td data-label="Stripe fee">-{gbp(fee)}</td>
                       <td data-label="Net">{gbp(Number(p.amount) - fee)}</td>

@@ -105,8 +105,8 @@ export default async function AdminOverviewPage() {
         </div>
       )}
 
-      <ClientGroup title="Monthly SEO clients — primary focus" clients={monthlySeo} />
-      <ClientGroup title="Fully paid clients — upsell review" clients={fullyPaid} />
+      <ClientGroup title="Monthly SEO clients (primary focus)" clients={monthlySeo} />
+      <ClientGroup title="Fully paid clients (upsell review)" clients={fullyPaid} />
       <ClientGroup title="Not live yet" clients={notLive} />
     </div>
   );

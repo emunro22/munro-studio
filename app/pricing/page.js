@@ -7,7 +7,7 @@ import AnimatedStat from "@/components/AnimatedStat";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Pricing | Munro Studio — Websites From £55/mo, Glasgow",
+  title: "Pricing | Munro Studio: Websites From £55/mo, Glasgow",
   description:
     "One plan, everything included: custom website, hosting, local SEO, Google Business Profile, admin portal and more from £55/month, first month free. See exactly what's included and real client results.",
 };
@@ -15,11 +15,11 @@ export const metadata = {
 const monthlyFeatures = [
   "Fully custom website design & build",
   "Hosting, managed & always updated",
-  "SEO, GEO & AEO — optimised for Google, AI answer engines & local search",
+  "SEO, GEO & AEO, optimised for Google, AI answer engines & local search",
   "Weekly reports on how your site's doing plus ongoing upgrades",
   "Google Business Profile setup + reviews shown on your site",
   "Booking system integration (Google Calendar etc.)",
-  "Admin portal — update your own content",
+  "Admin portal: update your own content",
   "Contact, quote & order forms",
   "Unlimited content changes + priority support",
 ];
@@ -36,7 +36,7 @@ const oneOffFeatures = [
 function Check({ ok }) {
   return (
     <span className={ok ? "text-highlight" : "text-ink-faint/40"} style={{ flexShrink: 0, marginTop: 2 }}>
-      {ok ? "✓" : "—"}
+      {ok ? "✓" : "-"}
     </span>
   );
 }
@@ -57,7 +57,7 @@ export default function PricingPage() {
             </h1>
             <p className="reveal text-sm md:text-base text-ink-soft font-light max-w-xl mx-auto leading-relaxed">
               No upsells, no hidden extras, no surprise invoices. Website, hosting, local SEO/GEO/AEO, an admin
-              portal and weekly updates on how your site's actually performing — all in one plan.
+              portal and weekly updates on how your site's actually performing, all in one plan.
             </p>
           </div>
         </section>
@@ -92,7 +92,7 @@ export default function PricingPage() {
                 href="/#contact"
                 className="block w-full bg-highlight text-white text-center font-semibold py-3.5 rounded-full text-sm hover:opacity-90 active:scale-95 transition-all duration-200"
               >
-                Start free — no card needed
+                Start free, no card needed
               </Link>
             </div>
 
@@ -173,17 +173,17 @@ export default function PricingPage() {
               Real results
             </p>
             <h2 className="reveal font-display text-2xl sm:text-3xl md:text-4xl font-black text-ink text-center mb-3 max-w-2xl mx-auto leading-tight">
-              Not projections — actual client outcomes.
+              Not projections: actual client outcomes.
             </h2>
             <p className="reveal text-sm text-ink-faint text-center font-light mb-12 md:mb-16 max-w-xl mx-auto">
-              Two real, specific results from Munro Studio clients — not industry averages or invented case studies.
+              Two real, specific results from Munro Studio clients, not industry averages or invented case studies.
             </p>
             <div className="reveal grid sm:grid-cols-2 gap-8 md:gap-12 bg-white rounded-2xl border border-border p-8 md:p-14">
               <AnimatedStat
                 value={7298}
                 prefix="£"
                 label="Made online in the first month"
-                sub="143 paid orders through a store we built for a local butcher who had zero online presence before — in under 4 weeks."
+                sub="143 paid orders through a store we built for a local butcher who had zero online presence before, in under 4 weeks."
               />
               <AnimatedStat
                 value={40}

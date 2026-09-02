@@ -35,10 +35,10 @@ export async function POST(request) {
     const title = `${result.brokenLinks.length} broken link(s) found in a full-site check`;
     const examples = result.brokenLinks
       .slice(0, 8)
-      .map((b) => `${b.url} (${b.status || b.error})${b.foundOn?.length ? ` — found on ${b.foundOn[0]}` : ""}`)
+      .map((b) => `${b.url} (${b.status || b.error})${b.foundOn?.length ? `, found on ${b.foundOn[0]}` : ""}`)
       .join("\n");
     const description = `Checked ${result.pagesChecked} of ${result.pagesTotal} pages and ${result.linksChecked} of ${result.linksTotal} unique links${
-      result.partial ? " (stopped early to stay within the time budget — re-run to cover more)" : ""
+      result.partial ? " (stopped early to stay within the time budget; re-run to cover more)" : ""
     }.\n\n${examples}`;
 
     const existingOpenRows = await sql`

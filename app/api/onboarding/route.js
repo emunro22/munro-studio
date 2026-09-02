@@ -26,7 +26,7 @@ export async function POST(req) {
     await resend.emails.send({
       from: "MunroStudio <onboarding@resend.dev>",
       to: ["euanmunroo@gmail.com", "euan@munrostudio.co.uk"],
-      subject: `New onboarding: ${businessName} — ${contactName}`,
+      subject: `New onboarding: ${businessName} (${contactName})`,
       html: `<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8" /></head>

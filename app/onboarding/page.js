@@ -70,7 +70,7 @@ export default function OnboardingPage() {
             <em className="italic text-white/50">project started.</em>
           </h1>
           <p className="text-white/50 text-base font-light leading-relaxed max-w-lg">
-            Fill in as much detail as you can — the more I know, the faster we can get your site live. I&apos;ll be in touch within 24 hours.
+            Fill in as much detail as you can: the more I know, the faster we can get your site live. I&apos;ll be in touch within 24 hours.
           </p>
         </div>
       </div>
@@ -84,7 +84,7 @@ export default function OnboardingPage() {
               <div className="text-6xl mb-6">✅</div>
               <h2 className="font-display text-3xl font-black text-ink mb-4">Form received!</h2>
               <p className="text-ink-soft text-base font-light leading-relaxed mb-8 max-w-md mx-auto">
-                Thanks — I&apos;ll review your details and be in touch within 24 hours to discuss your project.
+                Thanks. I&apos;ll review your details and be in touch within 24 hours to discuss your project.
               </p>
               <Link
                 href="/"
@@ -177,18 +177,18 @@ export default function OnboardingPage() {
                     <label className={labelClass}>Do you have a logo?</label>
                     <select name="hasLogo" className={selectClass}>
                       <option value="">Select...</option>
-                      <option value="Yes — I'll send it over">Yes — I&apos;ll send it over</option>
+                      <option value="Yes, I'll send it over">Yes, I&apos;ll send it over</option>
                       <option value="Yes but needs updating">Yes but needs updating</option>
-                      <option value="No — I need one designed">No — I need one designed</option>
+                      <option value="No, I need one designed">No, I need one designed</option>
                     </select>
                   </div>
                   <div>
                     <label className={labelClass}>Do you have photos?</label>
                     <select name="hasPhotos" className={selectClass}>
                       <option value="">Select...</option>
-                      <option value="Yes — plenty of photos">Yes — plenty of photos</option>
+                      <option value="Yes, plenty of photos">Yes, plenty of photos</option>
                       <option value="A few but need more">A few but need more</option>
-                      <option value="No — need stock photos">No — need stock photos</option>
+                      <option value="No, need stock photos">No, need stock photos</option>
                     </select>
                   </div>
                   <div className="sm:col-span-2">

@@ -54,7 +54,7 @@ export default function Hero() {
       {/* Subtext */}
       <div data-reveal className="mt-5 md:mt-7 max-w-lg">
         <p className="text-base md:text-xl font-medium text-ink leading-snug">
-          Everything your Glasgow business needs online — custom site, SEO, booking systems, admin portal, Google reviews. All for{" "}
+          Everything your Glasgow business needs online: custom site, SEO, booking systems, admin portal, Google reviews. All for{" "}
           <span className="text-highlight font-bold">£55/month</span>.
         </p>
       </div>

@@ -2,7 +2,7 @@ const services = [
   {
     icon: "◈",
     title: "Custom Website Design",
-    desc: "Mobile-first, fully custom — built around your business, not a template.",
+    desc: "Mobile-first, fully custom: built around your business, not a template.",
   },
   {
     icon: "◎",
@@ -12,7 +12,7 @@ const services = [
   {
     icon: "◉",
     title: "Booking Systems",
-    desc: "Google Calendar, Calendly & more — customers book directly from your site.",
+    desc: "Google Calendar, Calendly & more, so customers book directly from your site.",
   },
   {
     icon: "⬢",
@@ -27,7 +27,7 @@ const services = [
   {
     icon: "▣",
     title: "Admin Portal",
-    desc: "Update your own photos, services & content — no developer needed.",
+    desc: "Update your own photos, services & content, no developer needed.",
   },
   {
     icon: "◇",
@@ -54,7 +54,7 @@ export default function About() {
           <em className="italic text-highlight">needs online.</em>
         </h2>
         <p className="reveal text-sm md:text-base text-ink-soft font-light leading-relaxed mb-10 md:mb-14 max-w-xl">
-          From a simple brochure site to a full ordering system with booking and admin portal — all for £55/month.
+          From a simple brochure site to a full ordering system with booking and admin portal, all for £55/month.
         </p>
 
         <div className="reveal grid grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden">

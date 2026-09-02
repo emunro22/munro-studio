@@ -15,7 +15,7 @@ export function Pricing() {
           <em className="italic text-white/50">Everything included.</em>
         </h2>
         <p className="reveal text-sm md:text-base text-white/50 font-light leading-relaxed mb-10 md:mb-14 max-w-lg">
-          £55/month covers the whole lot — website, hosting, weekly updates on how your site's doing, and ongoing SEO/GEO/AEO upgrades to keep it climbing. First month completely free.
+          £55/month covers the whole lot: website, hosting, weekly updates on how your site's doing, and ongoing SEO/GEO/AEO upgrades to keep it climbing. First month completely free.
         </p>
 
         <div className="reveal grid md:grid-cols-2 gap-5">
@@ -40,7 +40,7 @@ export function Pricing() {
               {[
                 "Fully custom website design & build",
                 "Hosting, managed & always updated",
-                "Local SEO, GEO & AEO — weekly updates on how your site's doing, plus ongoing upgrades",
+                "Local SEO, GEO & AEO, with weekly updates on how your site's doing plus ongoing upgrades",
                 "Google Business Profile setup + real reviews on your site",
                 "Booking system integration & an admin portal to update it yourself",
                 "Contact, quote & order forms",
@@ -56,7 +56,7 @@ export function Pricing() {
               href="#contact"
               className="block w-full bg-highlight text-white text-center font-semibold py-3.5 rounded-full text-sm hover:opacity-90 active:scale-95 transition-all duration-200"
             >
-              Start free — no card needed
+              Start free, no card needed
             </a>
           </div>
 
@@ -125,9 +125,9 @@ export function HowItWorks() {
         <div className="reveal grid grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden">
           {[
             { n: "01", title: "Free Chat", desc: "Quick call or message to understand your business and what you need." },
-            { n: "02", title: "Design & Build", desc: "I design and build the full site — you review everything before launch." },
-            { n: "03", title: "Launch Free", desc: "Site goes live. Your first month is on me — completely risk-free." },
-            { n: "04", title: "Keep or Cancel", desc: "Stay on £55/mo if it's working. Cancel any time — no fee, no fuss." },
+            { n: "02", title: "Design & Build", desc: "I design and build the full site, and you review everything before launch." },
+            { n: "03", title: "Launch Free", desc: "Site goes live. Your first month is on me, completely risk-free." },
+            { n: "04", title: "Keep or Cancel", desc: "Stay on £55/mo if it's working. Cancel any time: no fee, no fuss." },
           ].map(({ n, title, desc }) => (
             <div key={n} className="bg-white p-6 md:p-10">
               <span className="font-display text-3xl md:text-4xl font-black text-ink/10 block mb-4 md:mb-6">{n}</span>
@@ -149,11 +149,11 @@ const faqs = [
   },
   {
     q: "Do you integrate booking systems?",
-    a: "Yes — I integrate Google Calendar, Calendly, and other booking tools directly into your site so customers can book appointments or slots without calling. Great for trades, salons, personal trainers, and any appointment-based business.",
+    a: "Yes. I integrate Google Calendar, Calendly, and other booking tools directly into your site so customers can book appointments or slots without calling. Great for trades, salons, personal trainers, and any appointment-based business.",
   },
   {
     q: "How does the first month free work?",
-    a: "I build your full site, launch it, and you use it for a month at no cost. No card details needed upfront. If you love it, continue at £55/month. If not, just say so — no fee, no fuss.",
+    a: "I build your full site, launch it, and you use it for a month at no cost. No card details needed upfront. If you love it, continue at £55/month. If not, just say so, no fee, no fuss.",
   },
   {
     q: "What is an admin portal?",

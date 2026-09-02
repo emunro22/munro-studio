@@ -85,7 +85,7 @@ export default function AddPaymentForm({ clients }) {
           <div>
             <label className="label">Client</label>
             <select className="select" value={form.clientId} onChange={(e) => setForm({ ...form, clientId: e.target.value })}>
-              <option value="">— Not tied to a client —</option>
+              <option value="">(Not tied to a client)</option>
               {clients.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name}

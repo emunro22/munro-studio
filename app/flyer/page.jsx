@@ -71,7 +71,7 @@ export default function FlyerLandingPage() {
               </svg>
             </a>
             <a
-              href="https://wa.me/447485218091?text=Hi%20Euan%2C%20I%20scanned%20the%20flyer%20%E2%80%94%20interested%20in%20a%20website"
+              href="https://wa.me/447485218091?text=Hi%20Euan%2C%20I%20scanned%20the%20flyer%2C%20interested%20in%20a%20website"
               target="_blank"
               rel="noopener noreferrer"
               className="flex w-8 h-8 items-center justify-center text-ink/40 hover:text-green-500 transition-colors duration-200"
@@ -108,7 +108,7 @@ export default function FlyerLandingPage() {
           data-reveal
           className="font-display font-black text-5xl sm:text-7xl md:text-8xl leading-[0.95] tracking-tight text-ink max-w-4xl mb-8"
         >
-          Right then —
+          Right then,
           <br />
           let's get you
           <br />
@@ -116,7 +116,7 @@ export default function FlyerLandingPage() {
         </h1>
 
         <p data-reveal className="text-lg md:text-xl text-ink-soft leading-relaxed font-light max-w-2xl mb-10">
-          Scan verified. Your <span className="text-ink font-medium">first month is on me</span> — I'll design and build you a fully custom site for your trade, live in 2–3 weeks. No card up front, no contract, cancel any time.
+          Scan verified. Your <span className="text-ink font-medium">first month is on me</span>: I'll design and build you a fully custom site for your trade, live in 2–3 weeks. No card up front, no contract, cancel any time.
         </p>
 
         <div data-reveal className="flex flex-col sm:flex-row gap-3 max-w-lg">
@@ -127,7 +127,7 @@ export default function FlyerLandingPage() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
             </svg>
-            Call Euan — 07485 218 091
+            Call Euan: 07485 218 091
           </a>
           <a
             href="#form"
@@ -182,7 +182,7 @@ export default function FlyerLandingPage() {
 
         <div data-reveal className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden">
           {[
-            { icon: "◈", title: "Custom Design", desc: "Mobile-first, built around your trade — no templates." },
+            { icon: "◈", title: "Custom Design", desc: "Mobile-first, built around your trade, no templates." },
             { icon: "◎", title: "Local SEO", desc: "Ranks for 'plumber Glasgow' and other local terms." },
             { icon: "◫", title: "Google Business", desc: "Full profile setup so you show up on Google Maps." },
             { icon: "⬢", title: "Review Capture", desc: "Simple system to collect Google reviews after jobs." },
@@ -205,12 +205,12 @@ export default function FlyerLandingPage() {
               Claim your free month
             </p>
             <h2 className="font-display text-4xl md:text-6xl font-black text-white leading-tight mb-6">
-              Fill this in —
+              Fill this in.
               <br />
               <em className="italic text-white/50">I'll do the rest.</em>
             </h2>
             <p className="text-white/60 text-base leading-relaxed mb-10 font-light max-w-sm">
-              I'll reply within 24 hours, usually much faster. No obligation, no pushy sales — just a quick chat about your trade and what you need.
+              I'll reply within 24 hours, usually much faster. No obligation, no pushy sales, just a quick chat about your trade and what you need.
             </p>
 
             <div className="space-y-5">
@@ -227,7 +227,7 @@ export default function FlyerLandingPage() {
               </a>
 
               <a
-                href="https://wa.me/447485218091?text=Hi%20Euan%2C%20I%20scanned%20the%20flyer%20%E2%80%94%20interested%20in%20a%20website"
+                href="https://wa.me/447485218091?text=Hi%20Euan%2C%20I%20scanned%20the%20flyer%2C%20interested%20in%20a%20website"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 group"
@@ -249,7 +249,7 @@ export default function FlyerLandingPage() {
             {formState === "success" ? (
               <div className="border border-white/10 rounded-2xl p-10 text-center">
                 <div className="text-5xl mb-5">✅</div>
-                <h3 className="font-display text-2xl font-black text-white mb-3">Got it — I'll be in touch.</h3>
+                <h3 className="font-display text-2xl font-black text-white mb-3">Got it. I'll be in touch.</h3>
                 <p className="text-sm text-white/50 font-light leading-relaxed">
                   Thanks for scanning. I'll reply within 24 hours, usually faster.
                 </p>
@@ -321,7 +321,7 @@ export default function FlyerLandingPage() {
                   {formState === "loading" ? "Sending…" : "Claim My Free Month"}
                 </button>
                 <p className="text-[11px] text-white/30 text-center font-light pt-1">
-                  Or call direct —{" "}
+                  Or call direct:{" "}
                   <a href="tel:07485218091" className="underline decoration-white/20 hover:text-white/50">
                     07485 218 091
                   </a>

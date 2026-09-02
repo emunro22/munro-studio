@@ -90,7 +90,7 @@ export default function ClientSettingsForm({ client }) {
         </div>
       </div>
       <div>
-        <label className="label">Google Place ID (optional — auto-detected on first scan if left blank)</label>
+        <label className="label">Google Place ID (optional, auto-detected on first scan if left blank)</label>
         <input
           className="input"
           value={form.google_place_id}
