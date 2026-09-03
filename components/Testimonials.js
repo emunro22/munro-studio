@@ -39,14 +39,10 @@ function GoogleIcon() {
   );
 }
 
-function ReviewCard({ name, timeAgo, text, fixedWidth }) {
+function ReviewCard({ name, timeAgo, text }) {
   const initials = name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase();
   return (
-    <div
-      className={`bg-white rounded-2xl p-5 border border-border flex flex-col gap-3 flex-shrink-0 snap-start ${
-        fixedWidth ? "w-72 md:w-80" : "w-72 sm:w-auto"
-      }`}
-    >
+    <div className="bg-white rounded-2xl p-5 border border-border flex flex-col gap-3 h-full">
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2.5">
           <div className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 bg-ink">
@@ -68,7 +64,6 @@ function ReviewCard({ name, timeAgo, text, fixedWidth }) {
 export default function Testimonials() {
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(5.0);
-  const [reviewCount, setReviewCount] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -85,7 +80,6 @@ export default function Testimonials() {
           }))
         );
         if (data.rating) setRating(data.rating);
-        if (data.reviewCount) setReviewCount(data.reviewCount);
       })
       .catch(() => {});
     return () => {
@@ -113,8 +107,10 @@ export default function Testimonials() {
             <div className="flex items-center gap-2">
               <Stars />
               <span className="text-sm font-bold text-ink">{Number(rating).toFixed(1)}</span>
-              {reviewCount ? (
-                <span className="text-xs text-ink-faint">({reviewCount} reviews)</span>
+              {reviews.length ? (
+                <span className="text-xs text-ink-faint">
+                  ({reviews.length} review{reviews.length === 1 ? "" : "s"})
+                </span>
               ) : null}
             </div>
             <a
@@ -129,22 +125,17 @@ export default function Testimonials() {
           </div>
         </div>
 
-        {/* Auto-scrolling review marquee, left to right, pauses on hover. The
-            ticker translates -50%, so the strip needs an even number of copies
-            to loop seamlessly — and a five-review set doubled is too narrow to
-            cover a wide viewport, hence four copies when the set is small. */}
-        {/* The .reveal container must exist on mount: the IntersectionObserver
+        {/* The five reviews Google serves, newest first, sitting still. The
+            .reveal container must exist on mount: the IntersectionObserver
             collects .reveal elements once, so anything added later never gets
-            the .visible class and stays at opacity 0. Only the track inside
-            waits for the fetch. */}
-        <div className="reveal overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
+            the .visible class and stays at opacity 0. Only the cards inside
+            wait for the fetch. */}
+        <div className="reveal">
           {reviews.length > 0 && (
-            <div className="flex gap-4 w-max animate-ticker-ltr hover:[animation-play-state:paused] motion-reduce:animate-none">
-              {Array.from({ length: reviews.length < 7 ? 4 : 2 }, () => reviews)
-                .flat()
-                .map((r, i) => (
-                  <ReviewCard key={`${r.name}-${i}`} {...r} fixedWidth />
-                ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 items-start">
+              {reviews.map((r, i) => (
+                <ReviewCard key={`${r.name}-${i}`} {...r} />
+              ))}
             </div>
           )}
         </div>

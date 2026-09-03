@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Contact from "@/components/Contact";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import RevealWrapper from "@/components/RevealWrapper";
-import { getStoredReviews } from "@/lib/googleBusinessAuth";
+import { getReviewsForDisplay } from "@/lib/ownReviews";
 
 // Rendered per-request rather than at build time, so the page reflects the most
 // recent pull rather than whatever was true at deploy. Reviews are in the served
@@ -82,7 +82,7 @@ function ReviewCard({ author, rating, text, publishedAt }) {
 export default async function ReviewsPage() {
   let meta = null;
   try {
-    meta = await getStoredReviews();
+    meta = await getReviewsForDisplay();
   } catch {
     // Reviews are social proof, not the point of the page — if the database is
     // unreachable the page still renders with the link out to Google.
@@ -97,7 +97,7 @@ export default async function ReviewsPage() {
   }));
 
   const rating = meta?.rating ? Number(meta.rating) : 5;
-  const reviewCount = meta?.review_count ?? reviews.length;
+  const reviewCount = reviews.length;
 
   // Real Review + AggregateRating markup, attached to the LocalBusiness node
   // declared in app/layout.js so Google and AI answer engines tie the two
@@ -163,7 +163,7 @@ export default async function ReviewsPage() {
 
             <p className="reveal text-sm md:text-base text-ink-soft font-light max-w-lg mx-auto leading-relaxed">
               Pulled straight from my Google Business Profile, automatically. Google publishes five reviews through
-              its API, so these are the five it is showing right now — nothing here is written by me.
+              its API, so these are the five it is serving right now — nothing here is written by me.
             </p>
           </div>
         </section>

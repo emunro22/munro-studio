@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { getStoredReviews } from "@/lib/googleBusinessAuth";
+import { getReviewsForDisplay } from "@/lib/ownReviews";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  // Whatever Google returned on the last pull, nothing else. Places gives back
-  // up to five reviews per call; those five are what the site shows.
-  const data = await getStoredReviews();
+  // Refreshes from Google itself when the stored copy is stale, so the site
+  // stays current whether or not the daily cron ever fires.
+  const data = await getReviewsForDisplay();
 
   if (!data?.reviews?.length) {
     return NextResponse.json({ connected: false, reviews: [], rating: null, reviewCount: null });

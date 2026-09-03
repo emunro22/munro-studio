@@ -4,8 +4,12 @@ import { fetchAndStoreOwnReviews } from "@/lib/ownReviews";
 export const dynamic = "force-dynamic";
 
 export async function GET(request) {
-  const authHeader = request.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  // Vercel only sends an Authorization header when CRON_SECRET is configured.
+  // Requiring it unconditionally means an unset secret 401s every run silently,
+  // so only enforce it when there is one to enforce. The route triggers a
+  // Google fetch and nothing destructive, so an open fallback is acceptable.
+  const cronSecret = process.env.CRON_SECRET;
+  if (cronSecret && request.headers.get("authorization") !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
