@@ -3,13 +3,11 @@ import Navbar from "@/components/Navbar";
 import Contact from "@/components/Contact";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import RevealWrapper from "@/components/RevealWrapper";
-import { getSiteReviews } from "@/lib/siteReviews";
 import { getStoredReviews } from "@/lib/googleBusinessAuth";
 
-// Rendered per-request rather than at build time: the daily cron adds reviews
-// as Google rotates them in, and a stale prerender would quietly under-report
-// the count. Reviews are still in the served HTML, so crawlers and AI answer
-// engines read them without running any JavaScript.
+// Rendered per-request rather than at build time, so the page reflects the most
+// recent pull rather than whatever was true at deploy. Reviews are in the served
+// HTML, so crawlers and AI answer engines read them without running JavaScript.
 export const dynamic = "force-dynamic";
 
 const PLACE_ID = "ChIJTW3tHO5PiEgRZKBxGHvSHuY";
@@ -82,14 +80,21 @@ function ReviewCard({ author, rating, text, publishedAt }) {
 }
 
 export default async function ReviewsPage() {
-  let reviews = [];
   let meta = null;
   try {
-    [reviews, meta] = await Promise.all([getSiteReviews(), getStoredReviews()]);
+    meta = await getStoredReviews();
   } catch {
     // Reviews are social proof, not the point of the page — if the database is
     // unreachable the page still renders with the link out to Google.
   }
+
+  // Exactly what Google returned on the last pull, refreshed by the daily cron.
+  const reviews = (meta?.reviews || []).map((r) => ({
+    author: r.name,
+    rating: r.rating,
+    text: r.text,
+    published_at: r.time,
+  }));
 
   const rating = meta?.rating ? Number(meta.rating) : 5;
   const reviewCount = meta?.review_count ?? reviews.length;
@@ -157,8 +162,8 @@ export default async function ReviewsPage() {
             </div>
 
             <p className="reveal text-sm md:text-base text-ink-soft font-light max-w-lg mx-auto leading-relaxed">
-              Every review below is a real one, left on Google by a real client and pulled straight from my Google
-              Business Profile. Nothing here is written by me.
+              Pulled straight from my Google Business Profile, automatically. Google publishes five reviews through
+              its API, so these are the five it is showing right now — nothing here is written by me.
             </p>
           </div>
         </section>

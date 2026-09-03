@@ -16,77 +16,6 @@ function timeAgo(iso) {
   return `${months} month${months === 1 ? "" : "s"} ago`;
 }
 
-// Offline fallback only. The live set lives in the site_reviews table and is
-// served by /api/reviews — these are the same reviews, kept here so the section
-// still renders if that request fails. Seeded into the DB by scripts/seed-reviews.js.
-const fallbackReviews = [
-  {
-    name: "Claire Drain",
-    timeAgo: "3 days ago",
-    text: "Euan was great from start to finish. Took a plain web site and turned it into something so much more than we could have asked.",
-  },
-  {
-    name: "Gary",
-    timeAgo: "6 weeks ago",
-    text: "Euan done a great job on our custom built butchers website, highly recommend very skilled developer!",
-  },
-  {
-    name: "Clyde Drift Wol",
-    timeAgo: "7 weeks ago",
-    text: "5 Stars from me this boy helped me massive build my competition page, very very patient guy and that helped massive he was never more that 10-15 mins away on a text and straight back to me sortng things out\u{1FAE1}",
-  },
-  {
-    name: "Darren Gallacher",
-    timeAgo: "7 weeks ago",
-    text: "GREAT DEALING WITH MUNRO STUDIO, MADE EVERY STEP OF GETTING ME SET UP REALLY EASY AND THE END PRODUCT WAS FANTASTIC \u{1F44D}",
-  },
-  {
-    name: "Ryan Campbell",
-    timeAgo: "8 weeks ago",
-    text: "Recently reached out to munro studio to help set up my business page and logo for my new company. it's been nothing short of first class going over and beyond to help me achieve what I've set out todo highly recommend from a buisness and personal point of view as I couldn't be happier with results",
-  },
-  {
-    name: "Michael McCourt",
-    timeAgo: "13 weeks ago",
-    text: "Had my website hosted and revamped by Euan and he was great to deal with and swift to react to any changes, very reasonable pricing highly recommend esp for small businesses.",
-  },
-  {
-    name: "Nathan McInulty",
-    timeAgo: "15 weeks ago",
-    text: "Great service from Munro Studio, they have built my business an amazing website. From start to finish the process has been simple and any request has been catered to with ease. I would definitely be recommending this service.",
-  },
-  {
-    name: "Rhys Duncan",
-    timeAgo: "18 weeks ago",
-    text: "Euan created my business website and got it exactly how I want it and been helpful with any updates I've had.",
-  },
-  {
-    name: "Envirocycle Glasgow",
-    timeAgo: "20 weeks ago",
-    text: "Ewan was great from start to finish - efforts were next to none, I'll be staying with him for the foreseeable and passing anyone else I know in business onto him! Thanks again",
-  },
-  {
-    name: "Lewis Weir",
-    timeAgo: "23 weeks ago",
-    text: "Euan created a professional logo and brand assets for my business, and played a key role in driving new client acquisition.",
-  },
-  {
-    name: "Gav",
-    timeAgo: "23 weeks ago",
-    text: "Euan contacted me about not having a website for my business and was very selling about why it's important. Charged me a fair price too! Would recommended to anyone who's in need of one.",
-  },
-  {
-    name: "Samantha Hamilton",
-    timeAgo: "23 weeks ago",
-    text: "Euan helped us create our website and we couldn't be happier with the process. He was understanding of our time constraints, didn't need much information from us to create a mockup and made the process quick and easy. Highly recommend.",
-  },
-  {
-    name: "William Cassidy",
-    timeAgo: "23 weeks ago",
-    text: "Excellent service and great communication highly recommend! Very happy with my business website.",
-  },
-];
-
 function Stars() {
   return (
     <div className="flex gap-0.5">
@@ -137,9 +66,9 @@ function ReviewCard({ name, timeAgo, text, fixedWidth }) {
 }
 
 export default function Testimonials() {
-  const [reviews, setReviews] = useState(fallbackReviews);
+  const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(5.0);
-  const [reviewCount, setReviewCount] = useState(fallbackReviews.length);
+  const [reviewCount, setReviewCount] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -147,8 +76,6 @@ export default function Testimonials() {
       .then((res) => res.json())
       .then((data) => {
         if (cancelled || !data.connected || !data.reviews?.length) return;
-        // The API returns every review we hold, not just the five Places gives
-        // back on one call, so this replaces the offline list outright.
         setReviews(
           data.reviews.map((r) => ({
             name: r.name,
@@ -186,7 +113,9 @@ export default function Testimonials() {
             <div className="flex items-center gap-2">
               <Stars />
               <span className="text-sm font-bold text-ink">{Number(rating).toFixed(1)}</span>
-              <span className="text-xs text-ink-faint">({reviewCount} reviews)</span>
+              {reviewCount ? (
+                <span className="text-xs text-ink-faint">({reviewCount} reviews)</span>
+              ) : null}
             </div>
             <a
               href={GOOGLE_PROFILE_URL}
@@ -200,14 +129,21 @@ export default function Testimonials() {
           </div>
         </div>
 
-        {/* Auto-scrolling review marquee, left to right, pauses on hover */}
-        <div className="reveal overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
-          <div className="flex gap-4 w-max animate-ticker-ltr hover:[animation-play-state:paused] motion-reduce:animate-none">
-            {[...reviews, ...reviews].map((r, i) => (
-              <ReviewCard key={`${r.name}-${i}`} {...r} fixedWidth />
-            ))}
+        {/* Auto-scrolling review marquee, left to right, pauses on hover. The
+            ticker translates -50%, so the strip needs an even number of copies
+            to loop seamlessly — and a five-review set doubled is too narrow to
+            cover a wide viewport, hence four copies when the set is small. */}
+        {reviews.length > 0 && (
+          <div className="reveal overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
+            <div className="flex gap-4 w-max animate-ticker-ltr hover:[animation-play-state:paused] motion-reduce:animate-none">
+              {Array.from({ length: reviews.length < 7 ? 4 : 2 }, () => reviews)
+                .flat()
+                .map((r, i) => (
+                  <ReviewCard key={`${r.name}-${i}`} {...r} fixedWidth />
+                ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* CTA */}
         <div className="reveal mt-8 md:mt-10 text-center">

@@ -45,8 +45,7 @@ export default function GoogleReviewsConnect({
         {placesReady ? (
           <>
             Source: Places API (New){locationName ? ` — ${locationName}` : ""}. Place ID{" "}
-            <code style={{ fontSize: 12 }}>{placeId}</code>. Google returns five reviews per call and rotates
-            which five, so each refresh unions its results into the stored set rather than replacing it.
+            <code style={{ fontSize: 12 }}>{placeId}</code>. Google publishes up to five reviews through its API; the site shows those five, refreshed daily.
           </>
         ) : oauthConnected ? (
           <>
@@ -81,10 +80,7 @@ export default function GoogleReviewsConnect({
               const res = await fetch("/api/admin/google-reviews/refresh", { method: "POST" });
               const data = await res.json();
               if (!res.ok) throw new Error(data.error || "Failed");
-              const { reviews, source, added, total } = data.result;
-              setMessage(
-                `Pulled ${reviews.length} via ${source}. ${added || "No"} new — ${total} review(s) stored.`
-              );
+              setMessage(`Pulled ${data.result.reviews.length} review(s) via ${data.result.source}.`);
               router.refresh();
             } catch (err) {
               setMessage(String(err.message || err));

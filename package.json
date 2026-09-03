@@ -8,8 +8,7 @@
     "start": "next start",
     "db:migrate": "node --env-file=.env.local scripts/migrate.js",
     "db:seed": "node --env-file=.env.local scripts/seed.js",
-    "reviews:check": "node --env-file=.env.local scripts/check-google-reviews.js",
-    "reviews:seed": "node --env-file=.env.local scripts/seed-reviews.js"
+    "reviews:check": "node --env-file=.env.local scripts/check-google-reviews.js"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",

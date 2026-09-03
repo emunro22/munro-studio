@@ -205,21 +205,13 @@ revenue page has a "Refresh reviews now" button.
 Notes:
 
 - Places returns **at most 5 reviews** per call. That is the API, not a quota —
-  requesting more quota will not change it. But *which* five it returns rotates,
-  so every refresh unions its results into the `site_reviews` table instead of
-  replacing them: the stored set only grows, and converges on the full history
-  over successive pulls. The marquee renders whatever is in that table.
-- Seed the table with the 13 reviews captured by hand on 2026-08-31, so the site
-  starts from the full set rather than five:
-
-  ```bash
-  npm run db:migrate     # creates site_reviews
-  npm run reviews:seed   # idempotent, live pulls always win over seeded rows
-  ```
-
-  Both need `DATABASE_URL` in `.env.local` (copy it from Vercel).
-- The star rating and total review count in the header are always Google's real
-  live numbers, taken from the last pull — not the count of stored bodies.
+  requesting more quota will not change it, and the Business Profile API is the
+  only way to get all of them. The site shows exactly those five: each pull
+  replaces the stored set, so what is on the page is what Google is publishing
+  right now. Nothing is hardcoded and nothing is retained after Google drops it.
+- The star rating and total review count in the header are Google's real numbers
+  (currently 5.0 from 13), so the header can legitimately say 13 while five
+  review bodies are shown — those are all the API exposes.
 - The **Business Profile API** (`/api/auth/google/start`) is the only way to get
   *every* review, and it needs an approved project via Google's Business Profile
   API application form. It stays wired up as an optional upgrade: if it is ever
