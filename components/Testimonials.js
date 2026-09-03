@@ -133,8 +133,12 @@ export default function Testimonials() {
             ticker translates -50%, so the strip needs an even number of copies
             to loop seamlessly — and a five-review set doubled is too narrow to
             cover a wide viewport, hence four copies when the set is small. */}
-        {reviews.length > 0 && (
-          <div className="reveal overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
+        {/* The .reveal container must exist on mount: the IntersectionObserver
+            collects .reveal elements once, so anything added later never gets
+            the .visible class and stays at opacity 0. Only the track inside
+            waits for the fetch. */}
+        <div className="reveal overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
+          {reviews.length > 0 && (
             <div className="flex gap-4 w-max animate-ticker-ltr hover:[animation-play-state:paused] motion-reduce:animate-none">
               {Array.from({ length: reviews.length < 7 ? 4 : 2 }, () => reviews)
                 .flat()
@@ -142,8 +146,8 @@ export default function Testimonials() {
                   <ReviewCard key={`${r.name}-${i}`} {...r} fixedWidth />
                 ))}
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* CTA */}
         <div className="reveal mt-8 md:mt-10 text-center">
