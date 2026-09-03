@@ -244,6 +244,28 @@ async function main() {
   `;
   console.log("OK: google_business_auth");
 
+  // Archive of every review we have ever had text for, shown on /reviews.
+  // Places only ever serves five at a time and rotates which five, so the
+  // homepage shows that live five while this table keeps the full history:
+  // seeded from reviews captured by hand, then grown by each pull. Keyed on the
+  // normalised author name so a captured review and the same one arriving live
+  // collapse into one row, with the live copy winning.
+  await sql`
+    CREATE TABLE IF NOT EXISTS site_reviews (
+      review_key TEXT PRIMARY KEY,
+      author TEXT NOT NULL,
+      rating SMALLINT,
+      text TEXT,
+      published_at TIMESTAMPTZ,
+      source TEXT NOT NULL DEFAULT 'places',
+      first_seen_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      last_seen_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+  console.log("OK: site_reviews");
+
+  await sql`CREATE INDEX IF NOT EXISTS idx_site_reviews_published ON site_reviews(published_at DESC NULLS LAST)`;
+
 
   await sql`CREATE INDEX IF NOT EXISTS idx_payments_client ON payments(client_id, paid_at DESC)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_weekly_metrics_client ON weekly_metrics(client_id, week_start DESC)`;

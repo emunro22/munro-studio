@@ -4,6 +4,7 @@ import Contact from "@/components/Contact";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import RevealWrapper from "@/components/RevealWrapper";
 import { getReviewsForDisplay } from "@/lib/ownReviews";
+import { getSiteReviews } from "@/lib/siteReviews";
 
 // Rendered per-request rather than at build time, so the page reflects the most
 // recent pull rather than whatever was true at deploy. Reviews are in the served
@@ -88,13 +89,21 @@ export default async function ReviewsPage() {
     // unreachable the page still renders with the link out to Google.
   }
 
-  // Exactly what Google returned on the last pull, refreshed by the daily cron.
-  const reviews = (meta?.reviews || []).map((r) => ({
-    author: r.name,
-    rating: r.rating,
-    text: r.text,
-    published_at: r.time,
-  }));
+  // The full archive, not just the five Places serves. getReviewsForDisplay
+  // above refreshes from Google when stale, and that pull unions its five into
+  // this table, so the archive grows on its own as Google rotates reviews in.
+  let reviews = [];
+  try {
+    reviews = await getSiteReviews();
+  } catch {
+    // Archive unavailable — fall back to whatever the last live pull returned.
+    reviews = (meta?.reviews || []).map((r) => ({
+      author: r.name,
+      rating: r.rating,
+      text: r.text,
+      published_at: r.time,
+    }));
+  }
 
   const rating = meta?.rating ? Number(meta.rating) : 5;
   const reviewCount = reviews.length;
@@ -162,8 +171,9 @@ export default async function ReviewsPage() {
             </div>
 
             <p className="reveal text-sm md:text-base text-ink-soft font-light max-w-lg mx-auto leading-relaxed">
-              Pulled straight from my Google Business Profile, automatically. Google publishes five reviews through
-              its API, so these are the five it is serving right now — nothing here is written by me.
+              Every review left for MunroStudio on Google. Google only serves five at a time through its API, so
+              the five on the homepage refresh themselves automatically and this page keeps the full history.
+              Nothing here is written by me.
             </p>
           </div>
         </section>
