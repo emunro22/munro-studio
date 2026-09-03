@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
-const GOOGLE_PROFILE_URL = "https://www.google.com/search?q=Munro+Studio+Glasgow";
+const GOOGLE_PROFILE_URL =
+  "https://www.google.com/maps/place/?q=place_id:ChIJTW3tHO5PiEgRZKBxGHvSHuY";
 
 function timeAgo(iso) {
   if (!iso) return "";
