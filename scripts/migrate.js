@@ -244,6 +244,27 @@ async function main() {
   `;
   console.log("OK: google_business_auth");
 
+  // Accumulated Google reviews for the marketing site. Places only ever hands
+  // back five reviews per call, but *which* five rotates, so every refresh
+  // unions its results in here rather than replacing them — the set grows
+  // toward the full history on its own and never loses a review Google stops
+  // returning. Keyed on the normalised author name so a captured review and
+  // the same review arriving live collapse into one row (live wins).
+  await sql`
+    CREATE TABLE IF NOT EXISTS site_reviews (
+      review_key TEXT PRIMARY KEY,
+      author TEXT NOT NULL,
+      rating SMALLINT,
+      text TEXT,
+      published_at TIMESTAMPTZ,
+      source TEXT NOT NULL DEFAULT 'places',
+      first_seen_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      last_seen_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+  console.log("OK: site_reviews");
+
+  await sql`CREATE INDEX IF NOT EXISTS idx_site_reviews_published ON site_reviews(published_at DESC NULLS LAST)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_payments_client ON payments(client_id, paid_at DESC)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_weekly_metrics_client ON weekly_metrics(client_id, week_start DESC)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_insights_client ON insights(client_id, created_at DESC)`;

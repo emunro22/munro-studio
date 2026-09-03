@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchAndStoreReviews } from "@/lib/googleBusinessAuth";
+import { fetchAndStoreOwnReviews } from "@/lib/ownReviews";
 
 export const dynamic = "force-dynamic";
 
@@ -10,7 +10,7 @@ export async function GET(request) {
   }
 
   try {
-    const result = await fetchAndStoreReviews();
+    const result = await fetchAndStoreOwnReviews();
     return NextResponse.json({ ranAt: new Date().toISOString(), result });
   } catch (err) {
     return NextResponse.json({ error: String(err.message || err) }, { status: 400 });

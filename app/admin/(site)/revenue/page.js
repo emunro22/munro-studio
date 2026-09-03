@@ -1,6 +1,7 @@
 import { getRevenueData, getClientOptions } from "@/lib/queries";
 import { estimateStripeFee } from "@/lib/revenue";
 import { getStoredReviews } from "@/lib/googleBusinessAuth";
+import { ownPlaceId, placesReviewsConfigured } from "@/lib/ownReviews";
 import AddPaymentForm from "@/components/admin/AddPaymentForm";
 import StripeFeeSettingsForm from "@/components/admin/StripeFeeSettingsForm";
 import DeletePaymentButton from "@/components/admin/DeletePaymentButton";
@@ -100,11 +101,14 @@ export default async function RevenuePage() {
           <StripeFeeSettingsForm settings={settings} />
         </div>
         <GoogleReviewsConnect
-          connected={!!googleAuth?.connected_at}
+          placesReady={placesReviewsConfigured()}
+          placeId={ownPlaceId()}
+          oauthConnected={!!googleAuth?.oauth_connected}
           connectedAt={googleAuth?.connected_at}
           reviewCount={googleAuth?.review_count}
           rating={googleAuth?.rating}
           fetchedAt={googleAuth?.reviews_fetched_at}
+          locationName={googleAuth?.location_name}
         />
       </div>
 

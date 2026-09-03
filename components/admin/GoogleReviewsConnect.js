@@ -10,7 +10,16 @@ const STATUS_MESSAGES = {
   error: { text: "Something went wrong connecting to Google. Try again.", ok: false },
 };
 
-export default function GoogleReviewsConnect({ connected, connectedAt, reviewCount, rating, fetchedAt }) {
+export default function GoogleReviewsConnect({
+  placesReady,
+  placeId,
+  oauthConnected,
+  connectedAt,
+  reviewCount,
+  rating,
+  fetchedAt,
+  locationName,
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [busy, setBusy] = useState(false);
@@ -18,11 +27,12 @@ export default function GoogleReviewsConnect({ connected, connectedAt, reviewCou
 
   const connectResult = searchParams.get("google_connect");
   const statusBanner = connectResult ? STATUS_MESSAGES[connectResult] : null;
+  const canRefresh = placesReady || oauthConnected;
 
   return (
     <div className="admin-card" style={{ padding: 16 }}>
       <div className="label" style={{ marginBottom: 10 }}>
-        Google Business Profile (live reviews on the marketing site)
+        Google reviews (live on the marketing site)
       </div>
 
       {statusBanner && (
@@ -31,57 +41,64 @@ export default function GoogleReviewsConnect({ connected, connectedAt, reviewCou
         </div>
       )}
 
-      {connected ? (
-        <>
-          <div style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 10 }}>
-            Connected {connectedAt ? new Date(connectedAt).toLocaleDateString("en-GB") : ""}.{" "}
-            {reviewCount != null ? (
-              <>
-                Last pulled {rating ? Number(rating).toFixed(1) : "?"}★ from {reviewCount} reviews
-                {fetchedAt ? ` (${new Date(fetchedAt).toLocaleString("en-GB")})` : ""}.
-              </>
-            ) : (
-              "No reviews pulled yet, click refresh below."
-            )}
-          </div>
-          <div style={{ display: "flex", gap: 8 }}>
-            <button
-              className="btn"
-              disabled={busy}
-              onClick={async () => {
-                setBusy(true);
-                setMessage(null);
-                try {
-                  const res = await fetch("/api/admin/google-reviews/refresh", { method: "POST" });
-                  const data = await res.json();
-                  if (!res.ok) throw new Error(data.error || "Failed");
-                  setMessage(`Pulled ${data.result.reviews.length} review(s).`);
-                  router.refresh();
-                } catch (err) {
-                  setMessage(String(err.message || err));
-                } finally {
-                  setBusy(false);
-                }
-              }}
-            >
-              {busy ? "Refreshing…" : "Refresh reviews now"}
-            </button>
-            <a className="btn" href="/api/auth/google/start">
-              Reconnect
-            </a>
-          </div>
-        </>
-      ) : (
-        <>
-          <div style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 10 }}>
-            Not connected yet. Requires Google approval for review access (see the API prerequisites form) before
-            reviews will actually come through, but the connection itself can be made anytime.
-          </div>
-          <a className="btn btn-primary" href="/api/auth/google/start">
-            Connect Google Business Profile
-          </a>
-        </>
-      )}
+      <div style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 10 }}>
+        {placesReady ? (
+          <>
+            Source: Places API (New){locationName ? ` — ${locationName}` : ""}. Place ID{" "}
+            <code style={{ fontSize: 12 }}>{placeId}</code>. Google returns five reviews per call and rotates
+            which five, so each refresh unions its results into the stored set rather than replacing it.
+          </>
+        ) : oauthConnected ? (
+          <>
+            Source: Business Profile API, connected{" "}
+            {connectedAt ? new Date(connectedAt).toLocaleDateString("en-GB") : ""}.
+          </>
+        ) : (
+          <>
+            No source configured. Set <code style={{ fontSize: 12 }}>GOOGLE_PLACES_API_KEY</code> (Places API New)
+            and <code style={{ fontSize: 12 }}>GOOGLE_PLACE_ID</code> to pull reviews without any Google approval
+            process. The site shows the curated review list until then.
+          </>
+        )}
+      </div>
+
+      <div style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 10 }}>
+        {reviewCount != null
+          ? `Last pull: ${rating ? Number(rating).toFixed(1) : "?"}★ from ${reviewCount} reviews${
+              fetchedAt ? ` (${new Date(fetchedAt).toLocaleString("en-GB")})` : ""
+            }.`
+          : "No reviews pulled yet."}
+      </div>
+
+      <div style={{ display: "flex", gap: 8 }}>
+        <button
+          className="btn"
+          disabled={busy || !canRefresh}
+          onClick={async () => {
+            setBusy(true);
+            setMessage(null);
+            try {
+              const res = await fetch("/api/admin/google-reviews/refresh", { method: "POST" });
+              const data = await res.json();
+              if (!res.ok) throw new Error(data.error || "Failed");
+              const { reviews, source, added, total } = data.result;
+              setMessage(
+                `Pulled ${reviews.length} via ${source}. ${added || "No"} new — ${total} review(s) stored.`
+              );
+              router.refresh();
+            } catch (err) {
+              setMessage(String(err.message || err));
+            } finally {
+              setBusy(false);
+            }
+          }}
+        >
+          {busy ? "Refreshing…" : "Refresh reviews now"}
+        </button>
+        <a className="btn" href="/api/auth/google/start">
+          {oauthConnected ? "Reconnect Business Profile" : "Connect Business Profile"}
+        </a>
+      </div>
 
       {message && <div style={{ fontSize: 13, color: "var(--text-secondary)", marginTop: 8 }}>{message}</div>}
     </div>

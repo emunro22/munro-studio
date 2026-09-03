@@ -15,6 +15,9 @@ function timeAgo(iso) {
   return `${months} month${months === 1 ? "" : "s"} ago`;
 }
 
+// Offline fallback only. The live set lives in the site_reviews table and is
+// served by /api/reviews — these are the same reviews, kept here so the section
+// still renders if that request fails. Seeded into the DB by scripts/seed-reviews.js.
 const fallbackReviews = [
   {
     name: "Claire Drain",
@@ -135,6 +138,7 @@ function ReviewCard({ name, timeAgo, text, fixedWidth }) {
 export default function Testimonials() {
   const [reviews, setReviews] = useState(fallbackReviews);
   const [rating, setRating] = useState(5.0);
+  const [reviewCount, setReviewCount] = useState(fallbackReviews.length);
 
   useEffect(() => {
     let cancelled = false;
@@ -142,10 +146,18 @@ export default function Testimonials() {
       .then((res) => res.json())
       .then((data) => {
         if (cancelled || !data.connected || !data.reviews?.length) return;
+        // The API returns every review we hold, not just the five Places gives
+        // back on one call, so this replaces the offline list outright.
         setReviews(
-          data.reviews.map((r) => ({ name: r.name, timeAgo: timeAgo(r.time), text: r.text, rating: r.rating || 5 }))
+          data.reviews.map((r) => ({
+            name: r.name,
+            timeAgo: timeAgo(r.time),
+            text: r.text,
+            rating: r.rating || 5,
+          }))
         );
         if (data.rating) setRating(data.rating);
+        if (data.reviewCount) setReviewCount(data.reviewCount);
       })
       .catch(() => {});
     return () => {
@@ -173,7 +185,7 @@ export default function Testimonials() {
             <div className="flex items-center gap-2">
               <Stars />
               <span className="text-sm font-bold text-ink">{Number(rating).toFixed(1)}</span>
-              <span className="text-xs text-ink-faint">({reviews.length} reviews)</span>
+              <span className="text-xs text-ink-faint">({reviewCount} reviews)</span>
             </div>
             <a
               href={GOOGLE_PROFILE_URL}

@@ -165,3 +165,64 @@ studio-site/
 **Fonts not loading** → Make sure you have an internet connection on first build (Google Fonts are fetched at build time)
 
 **Logo images not showing** → Check the file is in `public/logos/` and the path in `logoSrc` starts with `/logos/`
+
+---
+
+## ⭐ Google Reviews (live pull)
+
+The review marquee on the homepage pulls live from Google. Two env vars, no
+Google approval process:
+
+```
+GOOGLE_PLACES_API_KEY=...   # a key with "Places API (New)" enabled + billing on
+GOOGLE_PLACE_ID=ChIJ...     # Munro Studio's own Place ID
+```
+
+MunroStudio's Place ID is `ChIJTW3tHO5PiEgRZKBxGHvSHuY`. Confirm the pull works
+before deploying:
+
+```bash
+npm run reviews:check
+```
+
+To find the Place ID for a *client*, text search usually does it:
+
+```bash
+npm run reviews:check -- "Business Name Town"   # lists matches + their Place IDs
+```
+
+**Service-area businesses (no public address) do not show up in that text
+search** — MunroStudio is one, which is why its ID had to come from the Maps
+listing instead. For those, open the business on Google Maps, Share → copy link,
+and pull the feature ID out of the resolved URL (the `!1s0x…:0x…` part), then
+encode it: `base64url(0a 12 09 <hex1 LE64> 11 <hex2 LE64>)`. Verify the result
+by fetching it — the API returns the business name, so a wrong ID is obvious.
+
+Then set both in Vercel → Project → Settings → Environment Variables. The daily
+cron (`/api/cron/google-reviews`, 07:00) refreshes them, and the admin panel's
+revenue page has a "Refresh reviews now" button.
+
+Notes:
+
+- Places returns **at most 5 reviews** per call. That is the API, not a quota —
+  requesting more quota will not change it. But *which* five it returns rotates,
+  so every refresh unions its results into the `site_reviews` table instead of
+  replacing them: the stored set only grows, and converges on the full history
+  over successive pulls. The marquee renders whatever is in that table.
+- Seed the table with the 13 reviews captured by hand on 2026-08-31, so the site
+  starts from the full set rather than five:
+
+  ```bash
+  npm run db:migrate     # creates site_reviews
+  npm run reviews:seed   # idempotent, live pulls always win over seeded rows
+  ```
+
+  Both need `DATABASE_URL` in `.env.local` (copy it from Vercel).
+- The star rating and total review count in the header are always Google's real
+  live numbers, taken from the last pull — not the count of stored bodies.
+- The **Business Profile API** (`/api/auth/google/start`) is the only way to get
+  *every* review, and it needs an approved project via Google's Business Profile
+  API application form. It stays wired up as an optional upgrade: if it is ever
+  connected and no `GOOGLE_PLACE_ID` is set, the site uses it instead.
+- Do not enable the legacy Places API — Google no longer allows new Cloud
+  projects to turn it on, and all calls here use `places.googleapis.com/v1`.
