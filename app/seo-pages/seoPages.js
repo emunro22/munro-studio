@@ -1,9 +1,9 @@
 // Single source of truth for all SEO landing pages.
 //
 // URL STRUCTURES supported:
-// 1. /glasgow-web-design, /tradesmen-websites-glasgow (main hub pages — hand-written)
-// 2. /web-design-{area} (Glasgow area pages — auto-generated, SEO-optimised, canonical)
-// 3. /{area} (short URL for ad copy, e.g. "munrostudio.co.uk/lenzie") — 301s to
+// 1. /glasgow-web-design, /tradesmen-websites-glasgow (main hub pages - hand-written)
+// 2. /web-design-{area} (Glasgow area pages - auto-generated, SEO-optimised, canonical)
+// 3. /{area} (short URL for ad copy, e.g. "munrostudio.co.uk/lenzie") - 301s to
 //    /web-design-{area} via next.config.js redirects(), NOT a separate rendered page.
 //    (Previously both were separately rendered with identical content, which Search
 //    Console flagged as duplicates and left the short URLs unindexed.)
@@ -633,7 +633,7 @@ export const seoPages = {
 // ─── Generate Glasgow area pages automatically ──────────────────────────────
 // Each area gets ONE canonical URL: /web-design-{area} (SEO-optimised for
 // "web design {area}" searches). The short /{area} form (e.g. for ad copy
-// like "munrostudio.co.uk/lenzie") 301-redirects here — see next.config.js.
+// like "munrostudio.co.uk/lenzie") 301-redirects here - see next.config.js.
 // Serving both as separate pages created duplicate content that Google
 // flagged in Search Console ("Duplicate, Google chose different canonical
 // than user") and left the short URLs unindexed.
@@ -677,7 +677,7 @@ glasgowAreas.forEach((area) => {
 });
 
 // ─── Generate trade × area pages automatically ──────────────────────────────
-// One page per (trade, area) pair — e.g. /plumber-website-paisley,
+// One page per (trade, area) pair - e.g. /plumber-website-paisley,
 // /electrician-website-hamilton. Each combination targets a genuinely
 // distinct search query ("plumber Paisley" vs "electrician Hamilton" are
 // different intents, unlike the old /{area} vs /web-design-{area} pair which
@@ -870,7 +870,7 @@ trades.forEach((trade) => {
 
 // ─── Generate trade-specific GEO pages ──────────────────────────────────────
 // One AI-search-optimization angle page per trade (Glasgow-wide, not per
-// area — a 6×37 GEO combinatorial would be excessive and thin). Pairs with
+// area - a 6×37 GEO combinatorial would be excessive and thin). Pairs with
 // the general GEO hub pages above (generative-engine-optimization-glasgow,
 // ai-search-optimization-glasgow, chatgpt-seo-glasgow).
 const tradeSlugPlural = {

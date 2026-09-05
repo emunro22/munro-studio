@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-// Simple animated horizontal bar chart for real, verified numbers only — no
+// Simple animated horizontal bar chart for real, verified numbers only - no
 // fabricated time-series data. Bars for aggregate/before-after comparisons
 // where that's genuinely all the underlying data supports.
 export default function BlogChart({ title, note, bars }) {

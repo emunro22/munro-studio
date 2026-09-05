@@ -39,7 +39,7 @@ export default function Contact() {
       <div className="max-w-7xl mx-auto">
         <div className="reveal grid md:grid-cols-2 gap-10 md:gap-24 items-start">
 
-          {/* Left — info */}
+          {/* Left - info */}
           <div>
             <p className="text-xs font-medium text-white/40 tracking-widest uppercase mb-5">
               Get in touch
@@ -118,7 +118,7 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Right — form */}
+          {/* Right - form */}
           <div>
             {formState === "success" ? (
               <div className="border border-white/10 rounded-2xl p-8 text-center">

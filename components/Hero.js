@@ -90,7 +90,7 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* Stats — only desktop */}
+      {/* Stats - only desktop */}
       <div data-reveal className="hidden md:grid mt-20 grid-cols-3 gap-8 border-t border-border pt-10 max-w-xl">
         {[
           { n: "£0", l: "First month free" },

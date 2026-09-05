@@ -1,4 +1,4 @@
-# YourStudio — Web Design & Development Site
+# YourStudio - Web Design & Development Site
 
 A modern, white, fully responsive Next.js website for your web design studio.
 
@@ -13,7 +13,7 @@ A modern, white, fully responsive Next.js website for your web design studio.
 
 ---
 
-### Step 1 — Install dependencies
+### Step 1 - Install dependencies
 
 Open your terminal, navigate to this folder, and run:
 
@@ -21,7 +21,7 @@ Open your terminal, navigate to this folder, and run:
 npm install
 ```
 
-### Step 2 — Run locally
+### Step 2 - Run locally
 
 ```bash
 npm run dev
@@ -41,15 +41,15 @@ Then find `Your<em>Studio</em>` in `components/Navbar.js` and replace with your 
 In `components/Contact.js`, find `hello@yourstudio.com` and replace it.
 
 ### Edit testimonials
-Open `components/Testimonials.js` — at the top you'll find the `testimonials` array.
+Open `components/Testimonials.js` - at the top you'll find the `testimonials` array.
 Edit each entry:
-- `name` — client's name
-- `role` — their job title
-- `company` — company name
-- `quote` — their testimonial text
-- `initials` — 2-letter abbreviation shown in the avatar
-- `color` — hex colour for the avatar background
-- `logoSrc` — path to logo image (see below)
+- `name` - client's name
+- `role` - their job title
+- `company` - company name
+- `quote` - their testimonial text
+- `initials` - 2-letter abbreviation shown in the avatar
+- `color` - hex colour for the avatar background
+- `logoSrc` - path to logo image (see below)
 
 ### Adding client logos
 1. Put your logo image files (PNG or SVG, ideally square) into the `public/logos/` folder
@@ -66,7 +66,7 @@ Open `components/About.js` and update the `timeline` array and the paragraph tex
 
 ## 🌐 Deploying to Vercel
 
-### Option A — Deploy via Vercel CLI (recommended)
+### Option A - Deploy via Vercel CLI (recommended)
 
 1. Install the Vercel CLI:
 ```bash
@@ -88,7 +88,7 @@ vercel
 
 ---
 
-### Option B — Deploy via GitHub + Vercel Dashboard
+### Option B - Deploy via GitHub + Vercel Dashboard
 
 1. Push this project to a GitHub repository:
 ```bash
@@ -103,7 +103,7 @@ git push -u origin main
 
 3. Click **"Import Git Repository"** and select your repo
 
-4. Vercel will auto-detect Next.js — just click **Deploy**
+4. Vercel will auto-detect Next.js - just click **Deploy**
 
 5. Done! Every time you push to `main`, Vercel auto-redeploys.
 
@@ -113,7 +113,7 @@ git push -u origin main
 
 1. In the Vercel dashboard, go to your project → **Settings** → **Domains**
 2. Type your domain (e.g. `yourstudio.co.uk`) and click **Add**
-3. Vercel will give you DNS records — add them in your domain registrar (GoDaddy, Namecheap, etc.)
+3. Vercel will give you DNS records - add them in your domain registrar (GoDaddy, Namecheap, etc.)
 4. SSL is automatic and free
 
 ---
@@ -192,11 +192,11 @@ npm run reviews:check -- "Business Name Town"   # lists matches + their Place ID
 ```
 
 **Service-area businesses (no public address) do not show up in that text
-search** — MunroStudio is one, which is why its ID had to come from the Maps
+search** - MunroStudio is one, which is why its ID had to come from the Maps
 listing instead. For those, open the business on Google Maps, Share → copy link,
 and pull the feature ID out of the resolved URL (the `!1s0x…:0x…` part), then
 encode it: `base64url(0a 12 09 <hex1 LE64> 11 <hex2 LE64>)`. Verify the result
-by fetching it — the API returns the business name, so a wrong ID is obvious.
+by fetching it - the API returns the business name, so a wrong ID is obvious.
 
 Then set both in Vercel → Project → Settings → Environment Variables. The daily
 cron (`/api/cron/google-reviews`, 07:00) refreshes them, and the admin panel's
@@ -204,17 +204,17 @@ revenue page has a "Refresh reviews now" button.
 
 Notes:
 
-- Places returns **at most 5 reviews** per call. That is the API, not a quota —
+- Places returns **at most 5 reviews** per call. That is the API, not a quota:
   requesting more quota will not change it, and the Business Profile API is the
   only way to get all of them. The site shows exactly those five: each pull
   replaces the stored set, so what is on the page is what Google is publishing
   right now. Nothing is hardcoded and nothing is retained after Google drops it.
 - The star rating and total review count in the header are Google's real numbers
   (currently 5.0 from 13), so the header can legitimately say 13 while five
-  review bodies are shown — those are all the API exposes.
+  review bodies are shown - those are all the API exposes.
 - The **Business Profile API** (`/api/auth/google/start`) is the only way to get
   *every* review, and it needs an approved project via Google's Business Profile
   API application form. It stays wired up as an optional upgrade: if it is ever
   connected and no `GOOGLE_PLACE_ID` is set, the site uses it instead.
-- Do not enable the legacy Places API — Google no longer allows new Cloud
+- Do not enable the legacy Places API - Google no longer allows new Cloud
   projects to turn it on, and all calls here use `places.googleapis.com/v1`.

@@ -47,7 +47,7 @@ export default async function RevenuePage() {
   const totalAllTimeGross = monthlyLoggedAllTime + oneOffAllTime;
   const totalAllTimeNet = totalAllTimeGross - feeAllTime;
 
-  // Current MRR is a forward-looking projection from active retainer fees —
+  // Current MRR is a forward-looking projection from active retainer fees -
   // used as a fallback for "this month" only until an actual monthly total
   // has been logged for the month, at which point the logged figure wins.
   const mrrGross = monthlyClients.reduce((s, c) => s + Number(c.monthly_fee), 0);

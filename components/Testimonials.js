@@ -1,7 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
 const GOOGLE_PROFILE_URL =
   "https://www.google.com/maps/place/?q=place_id:ChIJTW3tHO5PiEgRZKBxGHvSHuY";
 
@@ -61,31 +57,14 @@ function ReviewCard({ name, timeAgo, text }) {
   );
 }
 
-export default function Testimonials() {
-  const [reviews, setReviews] = useState([]);
-  const [rating, setRating] = useState(5.0);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch("/api/reviews")
-      .then((res) => res.json())
-      .then((data) => {
-        if (cancelled || !data.connected || !data.reviews?.length) return;
-        setReviews(
-          data.reviews.map((r) => ({
-            name: r.name,
-            timeAgo: timeAgo(r.time),
-            text: r.text,
-            rating: r.rating || 5,
-          }))
-        );
-        if (data.rating) setRating(data.rating);
-      })
-      .catch(() => {});
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+export default function Testimonials({ initialReviews = [], initialRating = 5.0 }) {
+  const reviews = initialReviews.map((r) => ({
+    name: r.name,
+    timeAgo: timeAgo(r.time),
+    text: r.text,
+    rating: r.rating || 5,
+  }));
+  const rating = initialRating;
 
   return (
     <section id="reviews" className="py-16 md:py-28 px-5 md:px-10 bg-surface overflow-hidden">

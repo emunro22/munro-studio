@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import SeoLandingPage from "@/components/SeoLandingPage";
 import { seoPages, seoPageSlugs } from "@/app/seo-pages/seoPages";
 
-// Static generation — Next.js builds each SEO page at build time for speed + SEO
+// Static generation - Next.js builds each SEO page at build time for speed + SEO
 export async function generateStaticParams() {
   return seoPageSlugs.map((slug) => ({ slug }));
 }
@@ -40,7 +40,7 @@ export default async function Page({ params }) {
   const page = seoPages[slug];
   if (!page) notFound();
 
-  // LocalBusiness + FAQ structured data — helps with rich results in Google
+  // LocalBusiness + FAQ structured data - helps with rich results in Google
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [

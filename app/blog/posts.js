@@ -4,7 +4,7 @@
 // and { quote } are subheading/bullet-list/pull-quote blocks respectively.
 
 export const posts = [
-  // ─── 2023 — Getting started ────────────────────────────────────────────
+  // ─── 2023 - Getting started ────────────────────────────────────────────
   {
     slug: "do-you-need-a-website",
     title: "Do You Actually Need a Website?",
@@ -131,7 +131,7 @@ export const posts = [
     ],
   },
 
-  // ─── 2024 — SEO fundamentals ────────────────────────────────────────────
+  // ─── 2024 - SEO fundamentals ────────────────────────────────────────────
   {
     slug: "what-is-local-seo",
     title: "What Is Local SEO and Why Does It Matter?",
@@ -412,7 +412,7 @@ export const posts = [
     ],
   },
 
-  // ─── 2025 — Conversion & choosing a designer ───────────────────────────
+  // ─── 2025 - Conversion & choosing a designer ───────────────────────────
   {
     slug: "questions-to-ask-a-web-designer",
     title: "What Questions Should You Ask a Web Designer Before Hiring Them?",
@@ -585,7 +585,7 @@ export const posts = [
     ],
   },
 
-  // ─── 2025 (H2) — GEO & AEO ──────────────────────────────────────────────
+  // ─── 2025 (H2) - GEO & AEO ──────────────────────────────────────────────
   {
     slug: "what-is-geo-generative-engine-optimisation",
     title: "What Is GEO (Generative Engine Optimisation) and Why It's the Next Big Thing",
@@ -698,7 +698,7 @@ export const posts = [
     ],
   },
 
-  // ─── 2026 — Recent, choosing a designer, local & case studies ─────────
+  // ─── 2026 - Recent, choosing a designer, local & case studies ─────────
   {
     slug: "how-to-choose-a-web-designer-in-glasgow-2026",
     title: "How to Choose a Web Designer in Glasgow in 2026",

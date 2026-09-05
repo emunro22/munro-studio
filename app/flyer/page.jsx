@@ -30,7 +30,7 @@ export default function FlyerLandingPage() {
       email: e.target.email.value,
       timeline: e.target.timeline.value,
       message: e.target.message.value,
-      source: "flyer", // attribution tag — see flyer leads in your email
+      source: "flyer", // attribution tag - see flyer leads in your email
     };
     try {
       const res = await fetch("/api/tradesmen-contact", {
@@ -52,7 +52,7 @@ export default function FlyerLandingPage() {
   return (
     <div ref={ref} className="bg-white min-h-screen">
 
-      {/* Minimal header — brand + social + phone */}
+      {/* Minimal header - brand + social + phone */}
       <header className="border-b border-border">
         <div className="max-w-5xl mx-auto px-6 md:px-10 py-5 flex items-center justify-between">
           <Link href="/" className="font-display text-lg font-black text-ink tracking-tight">
@@ -95,7 +95,7 @@ export default function FlyerLandingPage() {
         </div>
       </header>
 
-      {/* Hero — confirmation of the flyer offer */}
+      {/* Hero - confirmation of the flyer offer */}
       <section className="max-w-5xl mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-12 md:pb-20">
         <div data-reveal className="mb-6 flex items-center gap-3 flex-wrap">
           <span className="inline-flex items-center gap-2 text-xs font-medium text-ink-soft border border-border rounded-full px-4 py-1.5">
@@ -138,7 +138,7 @@ export default function FlyerLandingPage() {
         </div>
       </section>
 
-      {/* Price reminder — dark band */}
+      {/* Price reminder - dark band */}
       <section className="bg-ink text-white px-6 md:px-10 py-16 md:py-20">
         <div data-reveal className="max-w-5xl mx-auto grid md:grid-cols-3 gap-10 md:gap-16">
           <div>
@@ -169,7 +169,7 @@ export default function FlyerLandingPage() {
         </div>
       </section>
 
-      {/* What you get — condensed */}
+      {/* What you get - condensed */}
       <section className="max-w-5xl mx-auto px-6 md:px-10 py-16 md:py-24">
         <p data-reveal className="text-xs font-medium text-ink-faint tracking-widest uppercase mb-4">
           What's included
@@ -196,7 +196,7 @@ export default function FlyerLandingPage() {
         </div>
       </section>
 
-      {/* The form — dark band, matches contact section on main site */}
+      {/* The form - dark band, matches contact section on main site */}
       <section id="form" className="bg-ink text-white px-6 md:px-10 py-16 md:py-24">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 md:gap-24 items-start">
 

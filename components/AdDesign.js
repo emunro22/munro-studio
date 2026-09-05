@@ -38,7 +38,7 @@ export default function AdDesign() {
     <section id="ads" className="py-24 md:py-36 px-6 md:px-10 bg-white">
       <div className="max-w-7xl mx-auto">
 
-        {/* Intro — trimmed */}
+        {/* Intro - trimmed */}
         <p className="reveal text-xs font-medium text-ink-faint tracking-widest uppercase mb-4">
           New service
         </p>
@@ -58,7 +58,7 @@ export default function AdDesign() {
           </div>
         </div>
 
-        {/* What I design — condensed inline strip instead of big card grid */}
+        {/* What I design - condensed inline strip instead of big card grid */}
         <div className="reveal mb-20 border-y border-border py-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
@@ -78,7 +78,7 @@ export default function AdDesign() {
           </div>
         </div>
 
-        {/* Pricing — 4-up compact grid with Pro Bundle as 4th option */}
+        {/* Pricing - 4-up compact grid with Pro Bundle as 4th option */}
         <div className="reveal">
           <p className="text-xs font-medium text-ink-faint tracking-widest uppercase mb-6">
             Pricing
@@ -131,7 +131,7 @@ export default function AdDesign() {
             ))}
           </div>
 
-          {/* Tiny note for existing clients — no big callout needed */}
+          {/* Tiny note for existing clients - no big callout needed */}
           <p className="mt-6 text-xs text-ink-faint font-light">
             Already a MunroStudio website client? <span className="text-ink font-medium">20% off</span> any standalone ad design, just mention it when you message.
           </p>

@@ -1,6 +1,3 @@
-"use client";
-import { useEffect, useRef } from "react";
-
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
@@ -10,23 +7,23 @@ import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Pricing, HowItWorks, FAQ } from "@/components/sections";
+import RevealWrapper from "@/components/RevealWrapper";
+import { getReviewsForDisplay } from "@/lib/ownReviews";
 
-export default function HomePage() {
-  const ref = useRef(null);
+// Reviews are fetched here (server-side) rather than by Testimonials on
+// mount, so the review text is present in the initial HTML for crawlers
+// instead of only appearing after client-side hydration.
+export const revalidate = 1800;
 
-  useEffect(() => {
-    const els = ref.current?.querySelectorAll(".reveal");
-    const obs = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")),
-      { threshold: 0.06 }
-    );
-    els?.forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
-  }, []);
+export default async function HomePage() {
+  const data = await getReviewsForDisplay().catch(() => null);
+  const initialReviews = data?.reviews?.length
+    ? data.reviews.map((r) => ({ name: r.author || r.name, time: r.time, text: r.text, rating: r.rating || 5 }))
+    : [];
+  const initialRating = data?.rating || 5.0;
 
   return (
-    <div ref={ref}>
+    <RevealWrapper>
       <Navbar />
       <Hero />
       <Marquee />
@@ -34,10 +31,10 @@ export default function HomePage() {
       <About />
       <Pricing />
       <HowItWorks />
-      <Testimonials />
+      <Testimonials initialReviews={initialReviews} initialRating={initialRating} />
       <FAQ />
       <Contact />
       <WhatsAppButton />
-    </div>
+    </RevealWrapper>
   );
 }

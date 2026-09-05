@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
 
 // Vercel Web Analytics has no public API for pageview data, so weekly numbers
-// are entered by hand here (copy them from the Vercel dashboard) — this
+// are entered by hand here (copy them from the Vercel dashboard) - this
 // endpoint upserts one week's numbers per client.
 export async function POST(request) {
   const body = await request.json().catch(() => ({}));

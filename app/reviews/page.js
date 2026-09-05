@@ -85,7 +85,7 @@ export default async function ReviewsPage() {
   try {
     meta = await getReviewsForDisplay();
   } catch {
-    // Reviews are social proof, not the point of the page — if the database is
+    // Reviews are social proof, not the point of the page - if the database is
     // unreachable the page still renders with the link out to Google.
   }
 
@@ -96,7 +96,7 @@ export default async function ReviewsPage() {
   try {
     reviews = await getSiteReviews();
   } catch {
-    // Archive unavailable — fall back to whatever the last live pull returned.
+    // Archive unavailable - fall back to whatever the last live pull returned.
     reviews = (meta?.reviews || []).map((r) => ({
       author: r.name,
       rating: r.rating,

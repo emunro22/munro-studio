@@ -20,7 +20,7 @@ export function Pricing() {
 
         <div className="reveal grid md:grid-cols-2 gap-5">
 
-          {/* Monthly — featured */}
+          {/* Monthly - featured */}
           <div className="border-2 border-highlight rounded-2xl p-6 md:p-8 bg-gradient-to-br from-highlight/15 to-highlight/5 flex flex-col relative">
             <span className="absolute -top-3 left-5 bg-highlight text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
               ★ Most Popular

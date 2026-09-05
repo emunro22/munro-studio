@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-// Counts up from 0 to `value` once the element scrolls into view — used for
+// Counts up from 0 to `value` once the element scrolls into view - used for
 // verified, single-number results (not a fabricated trend line: see the
 // pricing page for why this shape was chosen over a fake weekly graph).
 export default function AnimatedStat({ value, prefix = "", suffix = "", duration = 1400, label, sub }) {

@@ -44,7 +44,7 @@ export default function GoogleReviewsConnect({
       <div style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 10 }}>
         {placesReady ? (
           <>
-            Source: Places API (New){locationName ? ` — ${locationName}` : ""}. Place ID{" "}
+            Source: Places API (New){locationName ? ` - ${locationName}` : ""}. Place ID{" "}
             <code style={{ fontSize: 12 }}>{placeId}</code>. Google publishes up to five reviews through its API; the site shows those five, refreshed daily.
           </>
         ) : oauthConnected ? (

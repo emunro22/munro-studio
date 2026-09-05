@@ -3,7 +3,7 @@
 // instead of the five Places returns on any given call.
 //
 // Safe to re-run. Rows are keyed on the normalised author name, and anything
-// already pulled live from Places wins — this only fills gaps.
+// already pulled live from Places wins - this only fills gaps.
 //
 //   npm run reviews:seed
 

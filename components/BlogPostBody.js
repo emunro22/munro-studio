@@ -2,7 +2,7 @@ import BlogChart from "./BlogChart";
 import BlogFlow from "./BlogFlow";
 import BlogCompare from "./BlogCompare";
 
-// Renders a post's `body` array — each item is a plain string (paragraph),
+// Renders a post's `body` array - each item is a plain string (paragraph),
 // { h: "..." } for a subheading, { list: ["...", ...] } for a bullet list,
 // { quote: "..." } for a pull-quote, { chart: { title, bars, note } } for a
 // real-numbers bar chart (see components/BlogChart.js), { flow: { title,

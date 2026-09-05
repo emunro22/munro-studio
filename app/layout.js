@@ -75,32 +75,34 @@ export default function RootLayout({ children }) {
             gtag('config', 'AW-17955330138');
           `}
         </Script>
-        <Script id="schema-org" type="application/ld+json" strategy="afterInteractive">
-          {`
-            {
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
               "@id": "https://munrostudio.co.uk/#business",
-              "name": "MunroStudio",
-              "description": "Glasgow-based web design and ad design for tradespeople and small businesses. First month free, then £55/month or £499 one-off.",
-              "url": "https://munrostudio.co.uk",
-              "telephone": "+447485218091",
-              "email": "euanmunroo@gmail.com",
-              "priceRange": "££",
-              "address": {
+              name: "MunroStudio",
+              description:
+                "Glasgow-based web design and ad design for tradespeople and small businesses. First month free, then £55/month or £499 one-off.",
+              url: "https://munrostudio.co.uk",
+              telephone: "+447485218091",
+              email: "euanmunroo@gmail.com",
+              priceRange: "££",
+              address: {
                 "@type": "PostalAddress",
-                "addressLocality": "Glasgow",
-                "addressRegion": "Scotland",
-                "addressCountry": "GB"
+                addressLocality: "Glasgow",
+                addressRegion: "Scotland",
+                addressCountry: "GB",
               },
-              "areaServed": [
-                { "@type": "City", "name": "Glasgow" },
-                { "@type": "Country", "name": "United Kingdom" }
+              areaServed: [
+                { "@type": "City", name: "Glasgow" },
+                { "@type": "Country", name: "United Kingdom" },
               ],
-              "founder": { "@type": "Person", "name": "Euan Munro" }
-            }
-          `}
-        </Script>
+              founder: { "@type": "Person", name: "Euan Munro" },
+            }),
+          }}
+        />
         <Analytics />
       </body>
     </html>

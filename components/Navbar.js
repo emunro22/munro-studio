@@ -56,21 +56,6 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Instagram */}
-            <a
-              href="https://www.instagram.com/mnrostudio/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:inline-flex items-center justify-center w-8 h-8 text-ink-soft hover:text-ink transition-colors duration-200"
-              aria-label="Instagram"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <circle cx="12" cy="12" r="4"/>
-                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-              </svg>
-            </a>
-
             {/* WhatsApp */}
             <a
               href="https://wa.me/447485218091?text=Hi%20Euan%2C%20I%27m%20interested%20in%20a%20website"
@@ -100,6 +85,34 @@ export default function Navbar() {
               className="hidden md:inline-flex bg-ink text-white text-xs font-semibold uppercase tracking-widest px-5 py-2.5 rounded-full hover:bg-highlight transition-colors duration-200 ml-1"
             >
               Get a Quote
+            </a>
+
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/mnrostudio/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center w-8 h-8 text-ink-soft hover:text-ink transition-colors duration-200"
+              aria-label="Instagram"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+
+            {/* Facebook */}
+            <a
+              href="https://www.facebook.com/mnrostudio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center w-8 h-8 text-ink-soft hover:text-ink transition-colors duration-200"
+              aria-label="Facebook"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M13.5 21v-7.5h2.5l.5-3h-3V8.5c0-.87.24-1.5 1.53-1.5H16.5V4.32c-.26-.03-1.16-.11-2.2-.11-2.18 0-3.67 1.33-3.67 3.77V10.5h-2.5v3h2.5V21h2.87z"/>
+              </svg>
             </a>
 
             <button
@@ -161,6 +174,18 @@ export default function Navbar() {
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
             </svg>
             Instagram
+          </a>
+          <a
+            href="https://www.facebook.com/mnrostudio"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={close}
+            className="flex items-center gap-2 text-sm text-ink-soft hover:text-ink transition-colors duration-200"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M13.5 21v-7.5h2.5l.5-3h-3V8.5c0-.87.24-1.5 1.53-1.5H16.5V4.32c-.26-.03-1.16-.11-2.2-.11-2.18 0-3.67 1.33-3.67 3.77V10.5h-2.5v3h2.5V21h2.87z"/>
+            </svg>
+            Facebook
           </a>
           <a
             href="https://wa.me/447485218091?text=Hi%20Euan%2C%20I%27m%20interested%20in%20a%20website"

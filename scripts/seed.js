@@ -1,6 +1,6 @@
 // One-time seed: the 16 client sites + a first pass of real recon findings
 // (pulled from actually reviewing each live site's homepage on 2026-08-20).
-// Safe to re-run — clients are upserted by slug, insights are only inserted
+// Safe to re-run - clients are upserted by slug, insights are only inserted
 // if a client has none yet (won't duplicate on re-run).
 
 const { neon } = require("@neondatabase/serverless");
@@ -8,7 +8,7 @@ const { neon } = require("@neondatabase/serverless");
 const sql = neon(process.env.DATABASE_URL);
 
 const clients = [
-  // Monthly SEO clients — these are the primary focus of the weekly comparison dashboard.
+  // Monthly SEO clients - these are the primary focus of the weekly comparison dashboard.
   { slug: "garage-clydebank", name: "The Garage Clydebank", domain: "thegarageclydebank.co.uk", plan_type: "monthly_seo", status: "active", monthly_fee: 55 },
   { slug: "enviro-cycle-glasgow", name: "Envirocycle Glasgow", domain: "envirocycleglasgow.com", plan_type: "monthly_seo", status: "active", monthly_fee: 55 },
   { slug: "spotless-detailing", name: "SL Detailing", domain: "sl-detailing.co.uk", plan_type: "monthly_seo", status: "active", monthly_fee: 55 },
@@ -17,7 +17,7 @@ const clients = [
   { slug: "garys-butchers", name: "Gary's Butchers & Fishmongers", domain: "garysbutchersandfishmongers.co.uk", plan_type: "monthly_seo", status: "active", monthly_fee: 55 },
   { slug: "elite-autocare", name: "Elite Autocare", domain: "eliteauto-care.co.uk", plan_type: "monthly_seo", status: "active", monthly_fee: 55 },
 
-  // Fully paid (one-off build, no SEO retainer yet) — upsell targets.
+  // Fully paid (one-off build, no SEO retainer yet) - upsell targets.
   { slug: "cg-groundcare", name: "CG Groundcare", domain: "cg-groundcare.co.uk", plan_type: "fully_paid", status: "active" },
   { slug: "renovate-design", name: "Renovate Design", domain: "renovatedesign.co.uk", plan_type: "fully_paid", status: "active" },
   { slug: "clyde-valley-group", name: "Clyde Valley Group", domain: "clydevalleygroup.com", plan_type: "fully_paid", status: "active" },
@@ -124,7 +124,7 @@ async function main() {
 
     const existing = await sql`SELECT id FROM insights WHERE client_id = ${clientId} LIMIT 1`;
     if (existing.length > 0) {
-      console.log(`Skipping insights for ${slug} — already has some.`);
+      console.log(`Skipping insights for ${slug} - already has some.`);
       continue;
     }
 
